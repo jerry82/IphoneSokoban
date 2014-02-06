@@ -10,4 +10,6 @@
 
 @implementation JSprite
 
+@synthesize Row, Col;
+
 @end

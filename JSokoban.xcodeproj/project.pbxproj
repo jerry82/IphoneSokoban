@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0BEA4318A3CD6500C672FE /* JSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4218A3CD6500C672FE /* JSprite.m */; };
+		0F0BEA4718A4111300C672FE /* path40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4618A4111300C672FE /* path40.png */; };
+		0F0BEA4D18A4279B00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4C18A4279B00C672FE /* GameLogic.m */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -24,6 +27,11 @@
 		0FA5F4C11897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
 		0FA5F4C91897476E0073CF80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4C71897476E0073CF80 /* InfoPlist.strings */; };
 		0FA5F4CB1897476E0073CF80 /* JSokobanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */; };
+		0FA5F4DB18974ECF0073CF80 /* grass_block.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4DA18974ECF0073CF80 /* grass_block.png */; };
+		0FE4DAAD1899DD870058CC36 /* block40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE4DAAC1899DD870058CC36 /* block40.png */; };
+		0FE4DAB1189A03170058CC36 /* bot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE4DAAE189A03170058CC36 /* bot40.png */; };
+		0FE4DAB2189A03170058CC36 /* box40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE4DAAF189A03170058CC36 /* box40.png */; };
+		0FE4DAB3189A03170058CC36 /* spot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FE4DAB0189A03170058CC36 /* spot40.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F0BEA4118A3CD6500C672FE /* JSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSprite.h; path = ../JSprite.h; sourceTree = "<group>"; };
+		0F0BEA4218A3CD6500C672FE /* JSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSprite.m; path = ../JSprite.m; sourceTree = "<group>"; };
+		0F0BEA4618A4111300C672FE /* path40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = path40.png; path = ../../resource/path40.png; sourceTree = "<group>"; };
+		0F0BEA4B18A4279B00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = ../GameLogic.h; sourceTree = "<group>"; };
+		0F0BEA4C18A4279B00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLogic.m; path = ../GameLogic.m; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -60,6 +73,11 @@
 		0FA5F4C61897476E0073CF80 /* JSokobanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSokobanTests-Info.plist"; sourceTree = "<group>"; };
 		0FA5F4C81897476E0073CF80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSokobanTests.m; sourceTree = "<group>"; };
+		0FA5F4DA18974ECF0073CF80 /* grass_block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grass_block.png; path = ../../resource/grass_block.png; sourceTree = "<group>"; };
+		0FE4DAAC1899DD870058CC36 /* block40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = block40.png; path = ../../resource/block40.png; sourceTree = "<group>"; };
+		0FE4DAAE189A03170058CC36 /* bot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bot40.png; path = ../../resource/bot40.png; sourceTree = "<group>"; };
+		0FE4DAAF189A03170058CC36 /* box40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box40.png; path = ../../resource/box40.png; sourceTree = "<group>"; };
+		0FE4DAB0189A03170058CC36 /* spot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spot40.png; path = ../../resource/spot40.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +139,16 @@
 		0FA5F4A01897476E0073CF80 /* JSokoban */ = {
 			isa = PBXGroup;
 			children = (
+				0F0BEA4B18A4279B00C672FE /* GameLogic.h */,
+				0F0BEA4C18A4279B00C672FE /* GameLogic.m */,
+				0F0BEA4618A4111300C672FE /* path40.png */,
+				0F0BEA4118A3CD6500C672FE /* JSprite.h */,
+				0F0BEA4218A3CD6500C672FE /* JSprite.m */,
+				0FE4DAAE189A03170058CC36 /* bot40.png */,
+				0FE4DAAF189A03170058CC36 /* box40.png */,
+				0FE4DAB0189A03170058CC36 /* spot40.png */,
+				0FE4DAAC1899DD870058CC36 /* block40.png */,
+				0FA5F4DA18974ECF0073CF80 /* grass_block.png */,
 				0FA5F4A91897476E0073CF80 /* AppDelegate.h */,
 				0FA5F4AA1897476E0073CF80 /* AppDelegate.m */,
 				0FA5F4AC1897476E0073CF80 /* Main.storyboard */,
@@ -240,8 +268,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F0BEA4718A4111300C672FE /* path40.png in Resources */,
+				0FE4DAB1189A03170058CC36 /* bot40.png in Resources */,
+				0FE4DAB2189A03170058CC36 /* box40.png in Resources */,
 				0FA5F4A51897476E0073CF80 /* InfoPlist.strings in Resources */,
 				0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */,
+				0FA5F4DB18974ECF0073CF80 /* grass_block.png in Resources */,
+				0FE4DAAD1899DD870058CC36 /* block40.png in Resources */,
+				0FE4DAB3189A03170058CC36 /* spot40.png in Resources */,
 				0FA5F4B61897476E0073CF80 /* Spaceship.png in Resources */,
 				0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */,
 			);
@@ -265,7 +299,9 @@
 				0FA5F4B41897476E0073CF80 /* MyScene.m in Sources */,
 				0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */,
 				0FA5F4AB1897476E0073CF80 /* AppDelegate.m in Sources */,
+				0F0BEA4318A3CD6500C672FE /* JSprite.m in Sources */,
 				0FA5F4A71897476E0073CF80 /* main.m in Sources */,
+				0F0BEA4D18A4279B00C672FE /* GameLogic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +512,7 @@
 				0FA5F4D01897476E0073CF80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0FA5F4D11897476E0073CF80 /* Build configuration list for PBXNativeTarget "JSokobanTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +521,7 @@
 				0FA5F4D31897476E0073CF80 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

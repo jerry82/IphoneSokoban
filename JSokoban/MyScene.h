@@ -7,7 +7,18 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "GameLogic.h"
 
-@interface MyScene : SKScene
+@interface MyScene : SKScene {
+    
+}
+
+//methods
+-(void) setGameLogic: (GameLogic*) gameLogic;
+
+-(void) createMaze;
 
 @end
+
+
+

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MyScene.h"
+#import "GameLogic.h"
 
 @implementation ViewController
 
@@ -21,10 +22,19 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
+    MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFit;
     
-    // Present the scene.
+    GameLogic* gameLogic = [GameLogic alloc];
+    NSArray* mazeChars = [gameLogic getMaze:1];
+    //pass the maze to skscene
+
+    
+    scene.userData = [NSMutableDictionary dictionary];
+    [scene.userData setObject:mazeChars forKey:@"maze"];
+    [scene setGameLogic:gameLogic];
+    [scene createMaze];
+     // Present the scene.
     [skView presentScene:scene];
 }
 

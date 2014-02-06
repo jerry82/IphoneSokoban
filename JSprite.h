@@ -10,4 +10,8 @@
 
 @interface JSprite : SKSpriteNode
 
+@property (atomic, assign) int Row;
+
+@property (atomic, assign) int Col;
+
 @end
