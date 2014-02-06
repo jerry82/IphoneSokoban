@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F0BEA4318A3CD6500C672FE /* JSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4218A3CD6500C672FE /* JSprite.m */; };
 		0F0BEA4718A4111300C672FE /* path40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4618A4111300C672FE /* path40.png */; };
 		0F0BEA4D18A4279B00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4C18A4279B00C672FE /* GameLogic.m */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
@@ -45,8 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F0BEA4118A3CD6500C672FE /* JSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSprite.h; path = ../JSprite.h; sourceTree = "<group>"; };
-		0F0BEA4218A3CD6500C672FE /* JSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSprite.m; path = ../JSprite.m; sourceTree = "<group>"; };
 		0F0BEA4618A4111300C672FE /* path40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = path40.png; path = ../../resource/path40.png; sourceTree = "<group>"; };
 		0F0BEA4B18A4279B00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = ../GameLogic.h; sourceTree = "<group>"; };
 		0F0BEA4C18A4279B00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLogic.m; path = ../GameLogic.m; sourceTree = "<group>"; };
@@ -142,8 +139,6 @@
 				0F0BEA4B18A4279B00C672FE /* GameLogic.h */,
 				0F0BEA4C18A4279B00C672FE /* GameLogic.m */,
 				0F0BEA4618A4111300C672FE /* path40.png */,
-				0F0BEA4118A3CD6500C672FE /* JSprite.h */,
-				0F0BEA4218A3CD6500C672FE /* JSprite.m */,
 				0FE4DAAE189A03170058CC36 /* bot40.png */,
 				0FE4DAAF189A03170058CC36 /* box40.png */,
 				0FE4DAB0189A03170058CC36 /* spot40.png */,
@@ -299,7 +294,6 @@
 				0FA5F4B41897476E0073CF80 /* MyScene.m in Sources */,
 				0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */,
 				0FA5F4AB1897476E0073CF80 /* AppDelegate.m in Sources */,
-				0F0BEA4318A3CD6500C672FE /* JSprite.m in Sources */,
 				0FA5F4A71897476E0073CF80 /* main.m in Sources */,
 				0F0BEA4D18A4279B00C672FE /* GameLogic.m in Sources */,
 			);
