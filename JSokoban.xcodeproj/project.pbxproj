@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F0BEA4718A4111300C672FE /* path40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4618A4111300C672FE /* path40.png */; };
-		0F0BEA4D18A4279B00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4C18A4279B00C672FE /* GameLogic.m */; };
+		0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4F18A43A4C00C672FE /* GameLogic.m */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -45,8 +45,8 @@
 
 /* Begin PBXFileReference section */
 		0F0BEA4618A4111300C672FE /* path40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = path40.png; path = ../../resource/path40.png; sourceTree = "<group>"; };
-		0F0BEA4B18A4279B00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLogic.h; path = ../GameLogic.h; sourceTree = "<group>"; };
-		0F0BEA4C18A4279B00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLogic.m; path = ../GameLogic.m; sourceTree = "<group>"; };
+		0F0BEA4E18A43A4C00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
+		0F0BEA4F18A43A4C00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,8 +136,8 @@
 		0FA5F4A01897476E0073CF80 /* JSokoban */ = {
 			isa = PBXGroup;
 			children = (
-				0F0BEA4B18A4279B00C672FE /* GameLogic.h */,
-				0F0BEA4C18A4279B00C672FE /* GameLogic.m */,
+				0F0BEA4E18A43A4C00C672FE /* GameLogic.h */,
+				0F0BEA4F18A43A4C00C672FE /* GameLogic.m */,
 				0F0BEA4618A4111300C672FE /* path40.png */,
 				0FE4DAAE189A03170058CC36 /* bot40.png */,
 				0FE4DAAF189A03170058CC36 /* box40.png */,
@@ -293,9 +293,9 @@
 			files = (
 				0FA5F4B41897476E0073CF80 /* MyScene.m in Sources */,
 				0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */,
+				0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */,
 				0FA5F4AB1897476E0073CF80 /* AppDelegate.m in Sources */,
 				0FA5F4A71897476E0073CF80 /* main.m in Sources */,
-				0F0BEA4D18A4279B00C672FE /* GameLogic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
