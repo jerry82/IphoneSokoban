@@ -25,14 +25,13 @@
     MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFit;
     
-    GameLogic* gameLogic = [GameLogic alloc];
-    NSArray* mazeChars = [gameLogic getMaze:1];
+    GameLogic* sharedGameLogic = [GameLogic sharedGameLogic];
+    NSArray* mazeChars = [sharedGameLogic getMaze:1];
     //pass the maze to skscene
-
     
     scene.userData = [NSMutableDictionary dictionary];
     [scene.userData setObject:mazeChars forKey:@"maze"];
-    [scene setGameLogic:gameLogic];
+    
     [scene createMaze];
      // Present the scene.
     [skView presentScene:scene];

@@ -13,6 +13,7 @@
 		0F0BEA5818A43AE700C672FE /* box40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5318A43AE700C672FE /* box40.png */; };
 		0F0BEA5918A43AE700C672FE /* path40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5418A43AE700C672FE /* path40.png */; };
 		0F0BEA5A18A43AE700C672FE /* spot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5518A43AE700C672FE /* spot40.png */; };
+		0F0BEA5E18A53A4500C672FE /* PathFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5D18A53A4500C672FE /* PathFinder.m */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -23,7 +24,6 @@
 		0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4AC1897476E0073CF80 /* Main.storyboard */; };
 		0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B01897476E0073CF80 /* ViewController.m */; };
 		0FA5F4B41897476E0073CF80 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B31897476E0073CF80 /* MyScene.m */; };
-		0FA5F4B61897476E0073CF80 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B51897476E0073CF80 /* Spaceship.png */; };
 		0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B71897476E0073CF80 /* Images.xcassets */; };
 		0FA5F4BF1897476E0073CF80 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4BE1897476E0073CF80 /* XCTest.framework */; };
 		0FA5F4C01897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
@@ -50,6 +50,8 @@
 		0F0BEA5318A43AE700C672FE /* box40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box40.png; sourceTree = "<group>"; };
 		0F0BEA5418A43AE700C672FE /* path40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = path40.png; sourceTree = "<group>"; };
 		0F0BEA5518A43AE700C672FE /* spot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spot40.png; sourceTree = "<group>"; };
+		0F0BEA5C18A53A4500C672FE /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
+		0F0BEA5D18A53A4500C672FE /* PathFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathFinder.m; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -66,7 +68,6 @@
 		0FA5F4B01897476E0073CF80 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0FA5F4B21897476E0073CF80 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		0FA5F4B31897476E0073CF80 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		0FA5F4B51897476E0073CF80 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		0FA5F4B71897476E0073CF80 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0FA5F4BD1897476E0073CF80 /* JSokobanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSokobanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4BE1897476E0073CF80 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -156,9 +157,10 @@
 				0FA5F4B01897476E0073CF80 /* ViewController.m */,
 				0FA5F4B21897476E0073CF80 /* MyScene.h */,
 				0FA5F4B31897476E0073CF80 /* MyScene.m */,
-				0FA5F4B51897476E0073CF80 /* Spaceship.png */,
 				0FA5F4B71897476E0073CF80 /* Images.xcassets */,
 				0FA5F4A11897476E0073CF80 /* Supporting Files */,
+				0F0BEA5C18A53A4500C672FE /* PathFinder.h */,
+				0F0BEA5D18A53A4500C672FE /* PathFinder.m */,
 			);
 			path = JSokoban;
 			sourceTree = "<group>";
@@ -270,7 +272,6 @@
 			files = (
 				0FA5F4A51897476E0073CF80 /* InfoPlist.strings in Resources */,
 				0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */,
-				0FA5F4B61897476E0073CF80 /* Spaceship.png in Resources */,
 				0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */,
 				0F0BEA5618A43AE700C672FE /* block40.png in Resources */,
 				0F0BEA5718A43AE700C672FE /* bot40.png in Resources */,
@@ -299,6 +300,7 @@
 				0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */,
 				0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */,
 				0FA5F4AB1897476E0073CF80 /* AppDelegate.m in Sources */,
+				0F0BEA5E18A53A4500C672FE /* PathFinder.m in Sources */,
 				0FA5F4A71897476E0073CF80 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

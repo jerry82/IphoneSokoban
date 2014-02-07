@@ -13,9 +13,6 @@
     
 }
 
-//methods
--(void) setGameLogic: (GameLogic*) gameLogic;
-
 -(void) createMaze;
 
 @end

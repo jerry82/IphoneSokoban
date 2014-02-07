@@ -16,16 +16,21 @@ MatrixPosStruct;
 
 @interface GameLogic : NSObject
 
+//singleton
++ (id) sharedGameLogic;
+
 //const variables
 extern const char BLOCK_CHAR;
 extern const char SPOT_CHAR;
 extern const char BOT_CHAR;
 extern const char BOX_CHAR;
 
-extern const NSString* BLOCK_IMG;
-extern const NSString* SPOT_IMG;
-extern const NSString* BOT_IMG;
-extern const NSString* BOX_IMG;
+extern NSString* const BLOCK_IMG;
+extern NSString* const SPOT_IMG;
+extern NSString* const BOT_IMG;
+extern NSString* const BOX_IMG;
+
+extern NSString* const BOT_NAME;
 
 extern const char LEFT;
 extern const char RIGHT;
@@ -34,11 +39,12 @@ extern const char DOWN;
 
 extern const float MOVE_DURATION;
 
+
 - (NSArray*) getMaze: (int) level;
 
 - (void) initMaze: (NSArray*) mazeChars;
 
-- (NSString*) getShortestPath: (MatrixPosStruct) pos;
+- (NSString*) getShortestPath: (MatrixPosStruct) pos withBotPos: (MatrixPosStruct) botPos;
 
 @end
 

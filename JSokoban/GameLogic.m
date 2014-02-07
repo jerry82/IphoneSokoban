@@ -7,9 +7,23 @@
 //
 
 #import "GameLogic.h"
+#import "PathFinder.h"
 
 @implementation GameLogic {
     NSMutableArray* maze;
+    PathFinder* pathFinder;
+}
+
+//singleton
++ (id) sharedGameLogic {
+    static GameLogic* sharedThisGameLogic = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedThisGameLogic = [[self alloc] init];
+    });
+    
+    return sharedThisGameLogic;
 }
 
 /*
@@ -20,10 +34,12 @@ const char SPOT_CHAR = '+';
 const char BOT_CHAR = '@';
 const char BOX_CHAR = '$';
 
-const NSString* BLOCK_IMG = @"block40";
-const NSString* SPOT_IMG = @"spot40";
-const NSString* BOT_IMG = @"bot40";
-const NSString* BOX_IMG = @"box40";
+NSString* const BLOCK_IMG = @"block40";
+NSString* const SPOT_IMG = @"spot40";
+NSString* const BOT_IMG = @"bot40";
+NSString* const BOX_IMG = @"box40";
+
+NSString* const BOT_NAME = @"bot";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';
@@ -31,6 +47,15 @@ const char UP = 'U';
 const char DOWN = 'D';
 
 const float MOVE_DURATION = 0.5;
+
+
+- (id) init {
+    if (self = [super init])
+        
+        pathFinder = [[PathFinder alloc] init];
+    
+    return self;
+}
 
 
 //properly get the level from sqlite db
@@ -78,10 +103,18 @@ const float MOVE_DURATION = 0.5;
 }
 
 //based on the current state of the maze, calculate the shortest path to touch position
-- (NSString*) getShortestPath:(MatrixPosStruct) pos {
-    int row = pos.Row;
-    int col = maze.count - pos.Col;
+- (NSString*) getShortestPath: (MatrixPosStruct) pos withBotPos: (MatrixPosStruct) botPos {
     
-    return @"RRRRUUUDDDL";
+    //translate to maze coordinate
+    pos.Row = maze.count - pos.Row;
+    //[self displayMaze];
+    NSString* path = [pathFinder getShortestPathString:maze touchPos:pos withBotPos:botPos];
+
+    return path;
+}
+
+//helper
+- (void) displayMaze {
+    [pathFinder displayMaze: maze];
 }
 @end

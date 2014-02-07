@@ -12,7 +12,8 @@
 @implementation MyScene {
     int Sprite_Edge;
     int Pad_Bottom_Screen;
-    GameLogic* gameLogic;
+    GameLogic* shareGameLogic;
+    BOOL botMoving;
 }
 
 
@@ -24,71 +25,74 @@
         Sprite_Edge = 40;
         Pad_Bottom_Screen = 40;
         
-        gameLogic = [[GameLogic alloc] init];
+        //gameLogic = [[GameLogic alloc] init];
+        shareGameLogic = [GameLogic sharedGameLogic];
         
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
-        /*
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        botMoving = NO;
         
-        myLabel.text = @"Hello, World!";
-        myLabel.fontSize = 30;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                       CGRectGetMidY(self.frame));
-        
-        [self addChild:myLabel];
-         */
     }
     return self;
 }
 
--(void) setGameLogic:(GameLogic *)input {
-    gameLogic = input;
-}
-
-
-
--(void) buildDigitalMaze : (NSArray*) mazeChars {
-    
-}
 
 -(void) createMaze {
     NSArray* mazeChars = [self.userData objectForKey:@"maze"];
     
-    [gameLogic initMaze:mazeChars];
+    //resize sprite base on the width of maze
+    //TODO: convert newEdge to float value
+    NSString* line = [mazeChars objectAtIndex:0];
+    int newEdge = 320 / line.length;
+    float scale = (float)newEdge / Sprite_Edge;
+    Sprite_Edge = newEdge;
     
+    NSLog(@"%f", scale);
+    
+    //init maze in gameLogic
+    [shareGameLogic initMaze:mazeChars];
+    
+    //draw maze on board
     for (int i = (int)mazeChars.count - 1; i >= 0; i--) {
         NSString* line = (NSString*)mazeChars[i];
-        for (int j = 1; j < line.length; j++) {
+        for (int j = 0; j < line.length; j++) {
             
             if ([line characterAtIndex:j] == ' ') continue;
             
             SKSpriteNode* blockSprite;
             
             if ([line characterAtIndex:j] == BLOCK_CHAR) {
-                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"block40"];
+                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BLOCK_IMG];
             }
             else if ([line characterAtIndex:j] == SPOT_CHAR) {
-                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"spot40"];
+                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:SPOT_IMG];
             }
             else if ([line characterAtIndex:j] == BOX_CHAR) {
-                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"box40"];
+                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BOX_IMG];
             }
             else if ([line characterAtIndex:j] == BOT_CHAR) {
-                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"bot40"];
-                blockSprite.name = @"bot";
+                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BOT_IMG];
+                blockSprite.name = BOT_NAME;
             }
             
             if (blockSprite != nil) {
-                float x = j * Sprite_Edge - Sprite_Edge/2;
+                float x = j * Sprite_Edge + Sprite_Edge/2;
                 float y = Pad_Bottom_Screen + (mazeChars.count - i) * Sprite_Edge - Sprite_Edge / 2;
                 //NSLog(@"%f %f", x, y);
                 blockSprite.position = CGPointMake(x, y);
+                blockSprite.scale = scale;
                 
                 [self addChild:blockSprite];
             }
         }
     }
+}
+
+/*
+ * update state of maze
+ */
+- (void)updateMaze {
+    
 }
 
 /*
@@ -105,18 +109,20 @@
 -(MatrixPosStruct) getMatrixPos: (CGPoint) point {
     MatrixPosStruct pos;
     pos.Col = (int)(point.x / Sprite_Edge);
-    pos.Row = (int)((point.y - Pad_Bottom_Screen) / Sprite_Edge);
+    pos.Row = (int)((point.y - Pad_Bottom_Screen) / Sprite_Edge) + 1;
     return pos;
 }
 
 
 /*
+ *  Make the BOT move
  *  path array contains sequence of movement: L: Left, R: Right, U: Up, D: Down
  *  iterate through the input path string to create a movement of a sprite
  */
 -(void) moveBot: (NSString*) path{
     
-    SKNode* myBot = [self childNodeWithName:@"bot"];
+    //search bot
+    SKNode* myBot = [self childNodeWithName:BOT_NAME];
     if (myBot == nil) {
         return;
     }
@@ -146,8 +152,32 @@
     
     NSArray* moveArray = [[NSArray alloc] initWithArray:moves];
     SKAction* moveSequence = [SKAction sequence:moveArray];
-    [myBot runAction:moveSequence];
+    botMoving = YES;
+    [myBot runAction:moveSequence completion:^{[self botStop];}];
 }
+
+-(void) botStop {
+    botMoving = NO;
+    NSLog(@"bot Stop");
+    //calculate latest bot coordinate
+}
+
+/*
+ *  retrieve the current location of the BOT
+ */
+-(CGPoint) getBotLocation {
+    
+    SKNode* myBot = [self childNodeWithName:BOT_NAME];
+    if (myBot != nil) {
+        return myBot.position;
+    }
+    
+    return CGPointMake(-1, -1);
+}
+
+/*
+ * handle touch event
+ */
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 
@@ -155,10 +185,19 @@
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
         
-        MatrixPosStruct pos = [self getMatrixPos:location];
+        if (botMoving){
+            break;
+        }
         
-        NSString* path = [gameLogic getShortestPath:pos];
+        MatrixPosStruct touchPos = [self getMatrixPos:location];
+        MatrixPosStruct botPos = [self getMatrixPos:[self getBotLocation]];
+        
+        printf("bot location: %d,%d\n", botPos.Row, botPos.Col);
+        
+        //if the 'boxes' are not touched
+        NSString* path = [shareGameLogic getShortestPath:touchPos withBotPos:botPos];
         [self moveBot:path];
+
 
         //handle 1 touch
         break;
