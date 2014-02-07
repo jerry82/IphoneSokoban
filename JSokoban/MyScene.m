@@ -123,9 +123,10 @@
     
     //search bot
     SKNode* myBot = [self childNodeWithName:BOT_NAME];
-    if (myBot == nil) {
+    if (myBot == nil || path == @"") {
         return;
     }
+    
     
     NSMutableArray* moves = [[NSMutableArray alloc] init];
     
@@ -158,6 +159,8 @@
 
 -(void) botStop {
     botMoving = NO;
+    MatrixPosStruct botPos = [self getMatrixPos:[self getBotLocation]];
+    printf("stop location : %d,%d\n", botPos.Row, botPos.Col);
     NSLog(@"bot Stop");
     //calculate latest bot coordinate
 }
@@ -192,7 +195,7 @@
         MatrixPosStruct touchPos = [self getMatrixPos:location];
         MatrixPosStruct botPos = [self getMatrixPos:[self getBotLocation]];
         
-        printf("bot location: %d,%d\n", botPos.Row, botPos.Col);
+        printf("bot location: %d,%d ---> %d,%d\n", botPos.Row, botPos.Col, touchPos.Row, touchPos.Col);
         
         //if the 'boxes' are not touched
         NSString* path = [shareGameLogic getShortestPath:touchPos withBotPos:botPos];

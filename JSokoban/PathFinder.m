@@ -39,7 +39,7 @@ const int MOVE_COST = 5;
 - (NSString*) getShortestPathString: (NSMutableArray*)maze touchPos: (MatrixPosStruct)pos withBotPos: (MatrixPosStruct)botPos {
     
     //NSLog(@"%d : %d", pos.Row, pos.Col);
-    myMaze = maze;
+    myMaze = [[NSMutableArray alloc] initWithArray:maze];
     
     //out of bound
     if (pos.Row < 0 || pos.Col < 0 || pos.Row >= [self getMazeHeight] || pos.Col >= [self getMazeWidth])
@@ -108,7 +108,6 @@ const int MOVE_COST = 5;
         
         [path appendString:[self getMove:cur To:next]];
     }
-    
     return [NSString stringWithString:path];
 }
 

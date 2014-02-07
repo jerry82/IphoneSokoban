@@ -107,6 +107,8 @@ const float MOVE_DURATION = 0.5;
     
     //translate to maze coordinate
     pos.Row = maze.count - pos.Row;
+    botPos.Row = maze.count - botPos.Row;
+    
     //[self displayMaze];
     NSString* path = [pathFinder getShortestPathString:maze touchPos:pos withBotPos:botPos];
 
