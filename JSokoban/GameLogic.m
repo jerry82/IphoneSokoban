@@ -33,6 +33,8 @@ const char BLOCK_CHAR = '#';
 const char SPOT_CHAR = '+';
 const char BOT_CHAR = '@';
 const char BOX_CHAR = '$';
+const char PATH_CHAR = '.';
+const char BOX_ON_SPOT = 'x';
 
 NSString* const BLOCK_IMG = @"block40";
 NSString* const SPOT_IMG = @"spot40";
@@ -40,13 +42,18 @@ NSString* const BOT_IMG = @"bot40";
 NSString* const BOX_IMG = @"box40";
 
 NSString* const BOT_NAME = @"bot";
+NSString* const BOX_NAME = @"box";
+NSString* const BLOCK_NAME = @"block";
+NSString* const SPOT_NAME = @"spot";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';
 const char UP = 'U';
 const char DOWN = 'D';
 
-const float MOVE_DURATION = 0.5;
+const float MOVE_DURATION = 0.15;
+
+@synthesize NoOfSpots;
 
 
 - (id) init {
@@ -59,8 +66,8 @@ const float MOVE_DURATION = 0.5;
 
 
 //properly get the level from sqlite db
--(NSArray*) getMaze:(int)level {
-    NSArray* mazeChars = [NSArray arrayWithObjects:
+-(NSMutableArray*) getMaze:(int)level {
+    NSMutableArray* mazeChars = [NSMutableArray arrayWithObjects:
                           @"      ####",
                           @"    ###++#",
                           @"    #..++#",
@@ -76,7 +83,7 @@ const float MOVE_DURATION = 0.5;
 }
 
 //update 'maze' object to the current level maze
-- (void) initMaze: (NSArray*) mazeChars {
+- (void) initMaze: (NSMutableArray*) mazeChars {
     
     maze = [[NSMutableArray alloc] init];
     
@@ -89,7 +96,7 @@ const float MOVE_DURATION = 0.5;
             char tmpChar = [line characterAtIndex:j];
             int tmpNum = -1;
             
-            if (tmpChar == ' ' || tmpChar == BLOCK_CHAR || tmpChar == BOX_CHAR) {
+            if (tmpChar == ' ' || tmpChar == BLOCK_CHAR || tmpChar == BOX_CHAR || tmpChar == BOX_ON_SPOT) {
                 tmpNum = -1;
             }
             else {
@@ -104,15 +111,27 @@ const float MOVE_DURATION = 0.5;
 
 //based on the current state of the maze, calculate the shortest path to touch position
 - (NSString*) getShortestPath: (MatrixPosStruct) pos withBotPos: (MatrixPosStruct) botPos {
-    
-    //translate to maze coordinate
-    pos.Row = maze.count - pos.Row;
-    botPos.Row = maze.count - botPos.Row;
-    
     //[self displayMaze];
     NSString* path = [pathFinder getShortestPathString:maze touchPos:pos withBotPos:botPos];
-
     return path;
+}
+
+- (BOOL)checkGameWin: (NSMutableArray*) mazeCharacters {
+    BOOL win = NO;
+    
+    int cntSpot = 0;
+    
+    for (int i = 0; i < mazeCharacters.count; i++) {
+        NSString* line = [mazeCharacters objectAtIndex:i];
+        for (int j = 0; j < line.length; j++) {
+            if ([line characterAtIndex:j] == BOX_ON_SPOT)
+                cntSpot++;
+        }
+    }
+    
+    win = (cntSpot == NoOfSpots);
+    
+    return win;
 }
 
 //helper

@@ -26,7 +26,7 @@
     scene.scaleMode = SKSceneScaleModeAspectFit;
     
     GameLogic* sharedGameLogic = [GameLogic sharedGameLogic];
-    NSArray* mazeChars = [sharedGameLogic getMaze:1];
+    NSMutableArray* mazeChars = [sharedGameLogic getMaze:1];
     //pass the maze to skscene
     
     scene.userData = [NSMutableDictionary dictionary];
