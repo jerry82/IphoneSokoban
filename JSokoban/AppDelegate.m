@@ -7,12 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "DataAccess.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    //TODO: to move to setting file
+    NSString* DATABASE_FILE;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    DATABASE_FILE = @"sodokuDB.sqlite";
     // Override point for customization after application launch.
+    [self createCopiedDBIfNeeded];
+    [self initDB];
+    
     return YES;
 }
 							
@@ -42,5 +50,56 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma mark Database Initialization
+- (void) createCopiedDBIfNeeded {
+    BOOL success;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSError *error;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    
+    NSString *docDir = [paths objectAtIndex:0];
+    
+    //check and create directory
+    BOOL isDirectory;
+    if (![fileManager fileExistsAtPath:docDir isDirectory:&isDirectory]) {
+        NSLog(@"target folder not found. creating folder...");
+        NSDictionary *attr = [NSDictionary dictionaryWithObject:NSFileProtectionComplete
+                                                         forKey:NSFileProtectionKey];
+        [fileManager createDirectoryAtPath:docDir withIntermediateDirectories:YES attributes:attr error:&error];
+        if (error) {
+            NSLog(@"Error creating document folder: %@",[error localizedDescription]);
+            return;
+        }
+    }
+    
+    NSString *writePath = [docDir stringByAppendingPathComponent:DATABASE_FILE];
+    NSLog(@"writepath: %@", writePath);
+    
+    success = [fileManager fileExistsAtPath:writePath];
+    
+    if (success)
+        return;
+    
+    NSString *defaultPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DATABASE_FILE];
+    
+    success = [fileManager copyItemAtPath:defaultPath toPath:writePath error:&error];
+    
+    if (!success) {
+        NSAssert1(0, @"Error: failed to copy data file with message '%@'", [error localizedDescription]);
+    }
+}
+
+- (void) initDB {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    DatabasePath = [documentsDirectory stringByAppendingPathComponent:DATABASE_FILE];
+}
+
 
 @end

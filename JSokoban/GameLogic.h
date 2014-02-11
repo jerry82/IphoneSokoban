@@ -33,10 +33,15 @@ extern NSString* const SPOT_IMG;
 extern NSString* const BOT_IMG;
 extern NSString* const BOX_IMG;
 
+//menu
+extern NSString* const REFRESH_IMG;
+
 extern NSString* const BOT_NAME;
 extern NSString* const BOX_NAME;
 extern NSString* const BLOCK_NAME;
 extern NSString* const SPOT_NAME;
+
+extern NSString* const REFRESH;
 
 extern const char LEFT;
 extern const char RIGHT;

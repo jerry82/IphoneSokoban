@@ -16,24 +16,26 @@
 {
     [super viewDidLoad];
 
+    [self createNewScene:2];
+}
+
+- (void) createNewScene: (int)level {
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    GameLogic* sharedGameLogic = [GameLogic sharedGameLogic];
+    NSMutableArray* mazeChars = [sharedGameLogic getMaze:level];
+    //pass the maze to skscene
     
     // Create and configure the scene.
     MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFit;
+    scene.viewController = self;
+    scene.CurrentLevel = level;
+
     
-    GameLogic* sharedGameLogic = [GameLogic sharedGameLogic];
-    NSMutableArray* mazeChars = [sharedGameLogic getMaze:1];
-    //pass the maze to skscene
+    [scene createMaze:mazeChars];
+    // Present the scene.
     
-    scene.userData = [NSMutableDictionary dictionary];
-    [scene.userData setObject:mazeChars forKey:@"maze"];
-    
-    [scene createMaze];
-     // Present the scene.
     [skView presentScene:scene];
 }
 

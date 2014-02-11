@@ -9,11 +9,17 @@
 #import <SpriteKit/SpriteKit.h>
 #import "GameLogic.h"
 
+@class ViewController;
+
 @interface MyScene : SKScene {
     
 }
 
--(void) createMaze;
+@property (assign) int CurrentLevel;
+
+@property (nonatomic, weak) ViewController *viewController;
+
+-(void) createMaze: (NSMutableArray*) newMaze;
 
 @end
 

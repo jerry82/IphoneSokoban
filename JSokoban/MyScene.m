@@ -8,14 +8,16 @@
 
 #import "MyScene.h"
 #import "GameLogic.h"
+#import "ViewController.h"
 
 @implementation MyScene {
     int Sprite_Edge;
     int Pad_Bottom_Screen;
     GameLogic* shareGameLogic;
     BOOL botMoving;
-    NSMutableArray* boxes;
     NSMutableArray* mazeChars;
+    
+    NSMutableArray* spriteBag;
 }
 
 -(id)initWithSize:(CGSize)size {
@@ -27,20 +29,44 @@
         Pad_Bottom_Screen = 40;
         
         shareGameLogic = [GameLogic sharedGameLogic];
+
+        //self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+        self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
         
-        boxes = [[NSMutableArray alloc] init];
+        spriteBag = [[NSMutableArray alloc] init];
         
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        
-        botMoving = NO;
-        
+        [self createMenu];
     }
+    
     return self;
 }
 
 
--(void) createMaze {
-    mazeChars = [self.userData objectForKey:@"maze"];
+//MARK: MENU here
+- (void) createMenu {
+    //add refresh node
+    SKSpriteNode* refreshBtn = [SKSpriteNode spriteNodeWithImageNamed:REFRESH_IMG];
+    refreshBtn.position = CGPointMake(self.size.width - refreshBtn.size.width, self.size.height - refreshBtn.size.height);
+    refreshBtn.name = REFRESH;
+    [self addChild:refreshBtn];
+    
+    //TODO: to change
+    //next button
+    SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:REFRESH_IMG];
+    nextBtn.position = CGPointMake(0, self.size.height - nextBtn.size.height);
+    nextBtn.name = @"NEXT_LEVEL";
+    nextBtn.zPosition = 10;
+    [self addChild:nextBtn];
+}
+
+
+
+-(void) createMaze: (NSMutableArray*) newMaze {
+    
+    botMoving = NO;
+    
+    //mazeChars = [self.userData objectForKey:@"maze"];
+    mazeChars = [NSMutableArray arrayWithArray:newMaze];
     
     //resize sprite base on the width of maze
     //TODO: convert newEdge to float value, detect screen width in runtime
@@ -73,15 +99,19 @@
             else if ([line characterAtIndex:j] == SPOT_CHAR) {
                 blockSprite = [SKSpriteNode spriteNodeWithImageNamed:SPOT_IMG];
                 blockSprite.name = SPOT_NAME;
+                //below others
+                [blockSprite setZPosition:0];
                 cntSpot++;
             }
             else if ([line characterAtIndex:j] == BOX_CHAR) {
                 blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BOX_IMG];
                 blockSprite.name = [NSString stringWithFormat:@"box_%d", boxCnt++];
+                [blockSprite setZPosition:1];
             }
             else if ([line characterAtIndex:j] == BOT_CHAR) {
                 blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BOT_IMG];
                 blockSprite.name = BOT_NAME;
+                [blockSprite setZPosition:1];
             }
             
             if (blockSprite != nil) {
@@ -91,6 +121,8 @@
                 blockSprite.position = CGPointMake(x, y);
                 blockSprite.scale = scale;
                 
+                //add to bag
+                [spriteBag addObject:blockSprite];
                 [self addChild:blockSprite];
             }
         }
@@ -160,6 +192,19 @@
     /* Called when a touch begins */
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
+        
+        //check buttons touched
+        SKNode* tmpNode = [self nodeAtPoint:location];
+        if (tmpNode.name != nil) {
+            if (tmpNode.name == REFRESH) {
+                [self refreshLevel];
+                return;
+            }
+            else if ([tmpNode.name  isEqual: @"NEXT_LEVEL"]) {
+                [self nextLevel];
+                return;
+            }
+        }
         
         if (botMoving){
             break;
@@ -325,6 +370,16 @@
 
 - (void) handleGameWin {
     NSLog(@"game is win");
+}
+
+- (void) refreshLevel {
+    [self.viewController createNewScene:1];
+}
+
+//TODO: to test
+- (void) nextLevel {
+    [self.viewController createNewScene:self.CurrentLevel + 1];
+    NSLog(@"next level %d", self.CurrentLevel + 1);
 }
 
 //TODO: for debugging

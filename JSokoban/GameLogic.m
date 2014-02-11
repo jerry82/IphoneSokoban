@@ -8,6 +8,7 @@
 
 #import "GameLogic.h"
 #import "PathFinder.h"
+#import "DataAccess.h"
 
 @implementation GameLogic {
     NSMutableArray* maze;
@@ -30,10 +31,13 @@
  * const declaration
  */
 const char BLOCK_CHAR = '#';
-const char SPOT_CHAR = '+';
+//const char SPOT_CHAR = '+';
+const char SPOT_CHAR = '.';
+
 const char BOT_CHAR = '@';
 const char BOX_CHAR = '$';
-const char PATH_CHAR = '.';
+//const char PATH_CHAR = '.';
+const char PATH_CHAR = ' ';
 const char BOX_ON_SPOT = 'x';
 
 NSString* const BLOCK_IMG = @"block40";
@@ -41,10 +45,15 @@ NSString* const SPOT_IMG = @"spot40";
 NSString* const BOT_IMG = @"bot40";
 NSString* const BOX_IMG = @"box40";
 
+//menu
+NSString* const REFRESH_IMG = @"refresh60";
+
 NSString* const BOT_NAME = @"bot";
 NSString* const BOX_NAME = @"box";
 NSString* const BLOCK_NAME = @"block";
 NSString* const SPOT_NAME = @"spot";
+
+NSString* const REFRESH = @"refresh";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';
@@ -67,6 +76,18 @@ const float MOVE_DURATION = 0.15;
 
 //properly get the level from sqlite db
 -(NSMutableArray*) getMaze:(int)level {
+    
+    NSString* tmp = [[DataAccess sharedInstance] getLevel:level];
+    NSArray* stringArr = [tmp componentsSeparatedByString:@"0"];
+    
+    NSMutableArray* mazeChars = [[NSMutableArray alloc] init];
+    for (int i = 0; i < stringArr.count; i++) {
+        NSString* line = [stringArr objectAtIndex:i];
+        if (line.length > 0)
+            [mazeChars addObject:line];
+    }
+    
+    /*
     NSMutableArray* mazeChars = [NSMutableArray arrayWithObjects:
                           @"      ####",
                           @"    ###++#",
@@ -78,7 +99,7 @@ const float MOVE_DURATION = 0.15;
                           @" #.$.#.#.#",
                           @" #...#...#",
                           @" #########", nil];
-    
+    */
     return mazeChars;
 }
 
@@ -96,7 +117,7 @@ const float MOVE_DURATION = 0.15;
             char tmpChar = [line characterAtIndex:j];
             int tmpNum = -1;
             
-            if (tmpChar == ' ' || tmpChar == BLOCK_CHAR || tmpChar == BOX_CHAR || tmpChar == BOX_ON_SPOT) {
+            if (tmpChar == BLOCK_CHAR || tmpChar == BOX_CHAR || tmpChar == BOX_ON_SPOT) {
                 tmpNum = -1;
             }
             else {

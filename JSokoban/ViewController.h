@@ -11,4 +11,6 @@
 
 @interface ViewController : UIViewController
 
+- (void) createNewScene: (int) level;
+
 @end
