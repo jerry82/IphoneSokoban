@@ -28,10 +28,14 @@
         Sprite_Edge = 40;
         Pad_Bottom_Screen = 40;
         
+        printf("%f %f", size.height, size.width);
+        
         shareGameLogic = [GameLogic sharedGameLogic];
 
         //self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
+        //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
+        self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
+        
         
         spriteBag = [[NSMutableArray alloc] init];
         
@@ -44,16 +48,23 @@
 
 //MARK: MENU here
 - (void) createMenu {
+    
+    SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"screen.png"];
+    background.position = CGPointMake(background.size.width / 2, background.size.height / 2);
+    //background.scale = 0.75;
+    [self addChild:background];
+    
     //add refresh node
     SKSpriteNode* refreshBtn = [SKSpriteNode spriteNodeWithImageNamed:REFRESH_IMG];
-    refreshBtn.position = CGPointMake(self.size.width - refreshBtn.size.width, self.size.height - refreshBtn.size.height);
+    refreshBtn.position = CGPointMake(self.size.width - refreshBtn.size.width / 2, self.size.height - refreshBtn.size.height);
     refreshBtn.name = REFRESH;
+    
     [self addChild:refreshBtn];
     
     //TODO: to change
     //next button
-    SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:REFRESH_IMG];
-    nextBtn.position = CGPointMake(0, self.size.height - nextBtn.size.height);
+    SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:@"back50"];
+    nextBtn.position = CGPointMake(nextBtn.size.width/2, self.size.height - nextBtn.size.height);
     nextBtn.name = @"NEXT_LEVEL";
     nextBtn.zPosition = 10;
     [self addChild:nextBtn];
@@ -151,28 +162,50 @@
     
     for (int i = 0; i < path.length; i++) {
         SKAction* aMove = [[SKAction alloc] init];
+        SKAction* flipAction = [[SKAction alloc] init];
         
         char tmpChar = [path characterAtIndex:i];
         switch (tmpChar) {
-            case 'L':
+            case 'L': {
+                    flipAction = [SKAction runBlock:^{
+                        myBot.xScale = -1;
+                    }];
+                
+                [moves addObject:flipAction];
+
                 aMove = [SKAction moveByX:-1 * Sprite_Edge y:0 duration:MOVE_DURATION];
                 break;
-            case 'R':
+            }
+            case 'R': {
+                flipAction = [SKAction runBlock:^{
+                    myBot.xScale = 1;
+                }];
+                [moves addObject:flipAction];
+
                 aMove = [SKAction moveByX:Sprite_Edge y:0 duration:MOVE_DURATION];
                 break;
-            case 'U':
+            }
+            case 'U': {
                 aMove = [SKAction moveByX:0 y:Sprite_Edge duration:MOVE_DURATION];
                 break;
-            case 'D':
+            }
+            case 'D': {
                 aMove = [SKAction moveByX:0 y:-1 * Sprite_Edge duration:MOVE_DURATION];
                 break;
+            }
+        }
+        
+        if (flipAction != nil) {
+            
         }
         [moves addObject:aMove];
+
     }
     
     NSArray* moveArray = [[NSArray alloc] initWithArray:moves];
     SKAction* moveSequence = [SKAction sequence:moveArray];
     botMoving = YES;
+    
     [myBot runAction:moveSequence completion:^{[self botStop: botOldLocation];}];
 }
 -(void) botStop: (MatrixPosStruct) botOldLocation {

@@ -46,7 +46,7 @@ NSString* const BOT_IMG = @"bot40";
 NSString* const BOX_IMG = @"box40";
 
 //menu
-NSString* const REFRESH_IMG = @"refresh60";
+NSString* const REFRESH_IMG = @"refresh50";
 
 NSString* const BOT_NAME = @"bot";
 NSString* const BOX_NAME = @"box";
