@@ -16,7 +16,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    DATABASE_FILE = @"sodokuDB.sqlite";
+    //MARK: just a demonstration how to read value from property file
+    // don't need to store the database file name outside the app
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"App" ofType:@"plist"];
+    NSDictionary* settings = [[NSDictionary alloc] initWithContentsOfFile:path];
+    //DATABASE_FILE = @"sodokuDB.sqlite";
+    DATABASE_FILE = [settings objectForKey:@"LocalDB"];
+    
     // Override point for customization after application launch.
     [self createCopiedDBIfNeeded];
     [self initDB];

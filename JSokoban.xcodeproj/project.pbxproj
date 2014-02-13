@@ -25,6 +25,10 @@
 		0F2807AB18AAD70000DB42CC /* bot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807AA18AAD70000DB42CC /* bot40.png */; };
 		0F2807B118AAFB8D00DB42CC /* refresh50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B018AAFB8D00DB42CC /* refresh50.png */; };
 		0F2807B318AAFC3800DB42CC /* back50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B218AAFC3800DB42CC /* back50.png */; };
+		0F2807B618ABEFCF00DB42CC /* canMove40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B418ABEFCF00DB42CC /* canMove40.png */; };
+		0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B518ABEFCF00DB42CC /* cannotMove40.png */; };
+		0F2807BA18AC7EC100DB42CC /* JSokoban-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4A21897476E0073CF80 /* JSokoban-Info.plist */; };
+		0F2807BC18AC805C00DB42CC /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807BB18AC805C00DB42CC /* App.plist */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -80,6 +84,9 @@
 		0F2807AA18AAD70000DB42CC /* bot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bot40.png; sourceTree = "<group>"; };
 		0F2807B018AAFB8D00DB42CC /* refresh50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh50.png; sourceTree = "<group>"; };
 		0F2807B218AAFC3800DB42CC /* back50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back50.png; sourceTree = "<group>"; };
+		0F2807B418ABEFCF00DB42CC /* canMove40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = canMove40.png; sourceTree = "<group>"; };
+		0F2807B518ABEFCF00DB42CC /* cannotMove40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cannotMove40.png; sourceTree = "<group>"; };
+		0F2807BB18AC805C00DB42CC /* App.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -133,6 +140,8 @@
 		0F0BEA5B18A43AFB00C672FE /* multimedia */ = {
 			isa = PBXGroup;
 			children = (
+				0F2807B418ABEFCF00DB42CC /* canMove40.png */,
+				0F2807B518ABEFCF00DB42CC /* cannotMove40.png */,
 				0F2807B218AAFC3800DB42CC /* back50.png */,
 				0F2807B018AAFB8D00DB42CC /* refresh50.png */,
 				0F2807AA18AAD70000DB42CC /* bot40.png */,
@@ -215,6 +224,7 @@
 				0F0BEA5D18A53A4500C672FE /* PathFinder.m */,
 				0F0BEA7718A9CB2300C672FE /* DataAccess.h */,
 				0F0BEA7818A9CB2300C672FE /* DataAccess.m */,
+				0F2807BB18AC805C00DB42CC /* App.plist */,
 			);
 			path = JSokoban;
 			sourceTree = "<group>";
@@ -325,13 +335,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FA5F4A51897476E0073CF80 /* InfoPlist.strings in Resources */,
+				0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */,
 				0F2807AB18AAD70000DB42CC /* bot40.png in Resources */,
 				0F0BEA7B18A9CE0000C672FE /* sodokuDB.sqlite in Resources */,
+				0F2807BC18AC805C00DB42CC /* App.plist in Resources */,
+				0F2807B618ABEFCF00DB42CC /* canMove40.png in Resources */,
 				0F2807B318AAFC3800DB42CC /* back50.png in Resources */,
 				0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */,
 				0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */,
 				0F2807A718AACC5100DB42CC /* box40.png in Resources */,
 				0F28079F18AAC79500DB42CC /* block40.png in Resources */,
+				0F2807BA18AC7EC100DB42CC /* JSokoban-Info.plist in Resources */,
 				0F2807A318AACB5500DB42CC /* spot40.png in Resources */,
 				0F2807B118AAFB8D00DB42CC /* refresh50.png in Resources */,
 				0F28079918AAC2EB00DB42CC /* screen.png in Resources */,

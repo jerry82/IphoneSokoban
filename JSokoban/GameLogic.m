@@ -44,7 +44,9 @@ NSString* const BLOCK_IMG = @"block40";
 NSString* const SPOT_IMG = @"spot40";
 NSString* const BOT_IMG = @"bot40";
 NSString* const BOX_IMG = @"box40";
-
+NSString* const CANMOVE_IMG = @"canMove40";
+NSString* const CANNOTMOVE_IMG = @"cannotMove40";
+NSString* const PATH_OUTBOUND = @"OUTBOUND";
 //menu
 NSString* const REFRESH_IMG = @"refresh50";
 
@@ -52,6 +54,9 @@ NSString* const BOT_NAME = @"bot";
 NSString* const BOX_NAME = @"box";
 NSString* const BLOCK_NAME = @"block";
 NSString* const SPOT_NAME = @"spot";
+
+NSString* const CANMOVE_NAME = @"canmove";
+NSString* const CANNOTMOVE_NAME = @"cannotmove";
 
 NSString* const REFRESH = @"refresh";
 
@@ -128,6 +133,10 @@ const float MOVE_DURATION = 0.15;
         }
         [maze addObject:rows];
     }
+    
+    //TODO: debugging
+    printf("\n\n");
+    [self displayMaze];
 }
 
 //based on the current state of the maze, calculate the shortest path to touch position

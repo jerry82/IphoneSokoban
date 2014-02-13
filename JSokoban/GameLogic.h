@@ -32,6 +32,8 @@ extern NSString* const BLOCK_IMG;
 extern NSString* const SPOT_IMG;
 extern NSString* const BOT_IMG;
 extern NSString* const BOX_IMG;
+extern NSString* const CANMOVE_IMG;
+extern NSString* const CANNOTMOVE_IMG;
 
 //menu
 extern NSString* const REFRESH_IMG;
@@ -40,6 +42,11 @@ extern NSString* const BOT_NAME;
 extern NSString* const BOX_NAME;
 extern NSString* const BLOCK_NAME;
 extern NSString* const SPOT_NAME;
+
+extern NSString* const CANMOVE_NAME;
+extern NSString* const CANNOTMOVE_NAME;
+
+extern NSString* const PATH_OUTBOUND;
 
 extern NSString* const REFRESH;
 

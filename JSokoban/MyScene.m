@@ -18,6 +18,7 @@
     NSMutableArray* mazeChars;
     
     NSMutableArray* spriteBag;
+    float spriteScale;
 }
 
 -(id)initWithSize:(CGSize)size {
@@ -70,8 +71,6 @@
     [self addChild:nextBtn];
 }
 
-
-
 -(void) createMaze: (NSMutableArray*) newMaze {
     
     botMoving = NO;
@@ -81,12 +80,30 @@
     
     //resize sprite base on the width of maze
     //TODO: convert newEdge to float value, detect screen width in runtime
-    NSString* line = [mazeChars objectAtIndex:0];
-    int newEdge = 320 / line.length;
-    float scale = (float)newEdge / Sprite_Edge;
+    
+    int width = 0;
+    for (NSMutableString* line in mazeChars) {
+        if (width < line.length) {
+            width = line.length;
+        }
+    }
+    
+    //should fill short line
+    for (int j = 0; j < mazeChars.count; j++) {
+        NSMutableString* line = [mazeChars objectAtIndex:j];
+        NSString* newline = ([line stringByPaddingToLength:width withString:@" " startingAtIndex:0]);
+        [mazeChars setObject:newline atIndexedSubscript:j];
+        
+    }
+    
+    int newEdge = 320 / width;
+    spriteScale = (float)newEdge / Sprite_Edge;
     Sprite_Edge = newEdge;
     
-    NSLog(@"%f", scale);
+    NSLog(@"%f", spriteScale);
+    
+    //TODO: debug purpose
+    [self displayMazeChars];
     
     //init maze in gameLogic
     [shareGameLogic initMaze:mazeChars];
@@ -130,7 +147,7 @@
                 float y = Pad_Bottom_Screen + (mazeChars.count - i) * Sprite_Edge - Sprite_Edge / 2;
                 //NSLog(@"%f %f", x, y);
                 blockSprite.position = CGPointMake(x, y);
-                blockSprite.scale = scale;
+                blockSprite.scale = spriteScale;
                 
                 //add to bag
                 [spriteBag addObject:blockSprite];
@@ -168,7 +185,7 @@
         switch (tmpChar) {
             case 'L': {
                     flipAction = [SKAction runBlock:^{
-                        myBot.xScale = -1;
+                        myBot.xScale = -1 * spriteScale;
                     }];
                 
                 [moves addObject:flipAction];
@@ -178,7 +195,7 @@
             }
             case 'R': {
                 flipAction = [SKAction runBlock:^{
-                    myBot.xScale = 1;
+                    myBot.xScale = 1 * spriteScale;
                 }];
                 [moves addObject:flipAction];
 
@@ -275,11 +292,44 @@
             
             //if the 'boxes' are not touched
             NSString* path = [shareGameLogic getShortestPath:touchPos withBotPos:botPos];
-            [self moveBot:path];
+            if (path.length > 0 && ![path isEqualToString:PATH_OUTBOUND]) {
+                [self showDestinationIcon:touchPos canMove:YES];
+                [self moveBot:path];
+            }
+            else if (![path isEqualToString:PATH_OUTBOUND])
+                [self showDestinationIcon:touchPos canMove:NO];
         }
 
         //handle 1 touch
         break;
+    }
+}
+
+-(void) showDestinationIcon: (MatrixPosStruct) mpos canMove: (BOOL)canMove {
+    
+    NSString* tmpIMG = [[NSString alloc] init];
+    NSString* tmpName = [[NSString alloc] init];
+    if (canMove == TRUE) {
+        tmpIMG = CANMOVE_IMG;
+        tmpName = CANMOVE_NAME;
+    }
+    else {
+        tmpIMG = CANNOTMOVE_IMG;
+        tmpName = CANNOTMOVE_NAME;
+    }
+    
+    SKNode* sprite = [self childNodeWithName:tmpName];
+    if (sprite == nil) {
+        sprite = [SKSpriteNode spriteNodeWithImageNamed:tmpIMG];
+        sprite.name = CANNOTMOVE_NAME;
+        sprite.position = [self getCGPoint:mpos];
+        [self addChild:sprite];
+        
+        SKAction* pause = [SKAction waitForDuration:0.3];
+        SKAction* remove = [SKAction removeFromParent];
+        SKAction* sequence = [SKAction sequence:@[pause, remove]];
+        
+        [sprite runAction:sequence];
     }
 }
 
@@ -323,15 +373,25 @@
         
         if ([moveSymbol length] > 0) {
             SKAction* aMove = [[SKAction alloc] init];
+            SKAction* flip = [[SKAction alloc] init];
+            SKNode* myBot = [self childNodeWithName:BOT_NAME];
             
             char tmpChar = [moveSymbol characterAtIndex:0];
             switch (tmpChar) {
-                case 'L':
+                case 'L': {
                     aMove = [SKAction moveByX:-1 * Sprite_Edge y:0 duration:MOVE_DURATION];
+                    flip = [SKAction runBlock:^{
+                        myBot.xScale = -1 * spriteScale;
+                    }];
                     break;
-                case 'R':
+                }
+                case 'R': {
                     aMove = [SKAction moveByX:Sprite_Edge y:0 duration:MOVE_DURATION];
+                    flip = [SKAction runBlock:^{
+                        myBot.XScale = 1 * spriteScale;
+                    }];
                     break;
+                }
                 case 'U':
                     aMove = [SKAction moveByX:0 y:Sprite_Edge duration:MOVE_DURATION];
                     break;
@@ -340,9 +400,10 @@
                     break;
             }
             
-            SKNode* myBot = [self childNodeWithName:BOT_NAME];
+            
             botMoving = YES;
-            [myBot runAction:aMove];
+            SKAction* botSeq = [SKAction sequence:@[flip, aMove]];
+            [myBot runAction:botSeq];
             [box runAction:aMove completion:^{[self updateMazeWithNewBoxLocation: box : boxLocation];}];
         }
     }

@@ -7,7 +7,7 @@
 //
 
 #import "PathFinder.h"
-
+#import "GameLogic.h"
 
 @implementation PathFinder {
     NSMutableDictionary* nodeDict;
@@ -47,7 +47,7 @@ const int MOVE_COST = 5;
     
     //out of bound
     if (pos.Row < 0 || pos.Col < 0 || pos.Row >= [self getMazeHeight] || pos.Col >= [self getMazeWidth])
-        return @"";
+        return PATH_OUTBOUND;
     
     
     startNodeId = [self getNodeId:botPos.Row andCol:botPos.Col];
