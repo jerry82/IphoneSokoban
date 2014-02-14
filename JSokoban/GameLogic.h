@@ -36,7 +36,30 @@ extern NSString* const CANMOVE_IMG;
 extern NSString* const CANNOTMOVE_IMG;
 
 //menu
-extern NSString* const REFRESH_IMG;
+extern NSString* const RESTARTBTN_IMG;
+extern NSString* const RESTARTBTN_NAME;
+
+extern NSString* const MENUBTN_IMG;
+extern NSString* const MENUBTN_NAME;
+
+extern NSString* const SOUNDONBTN_IMG;
+extern NSString* const SOUNDONBTN_NAME;
+
+extern NSString* const NEXTBTN_IMG;
+extern NSString* const NEXTBTN_NAME;
+
+extern NSString* const MENUBAR_IMG;
+extern NSString* const MENUBAR_NAME;
+
+extern NSString* const MENU_NAME;
+extern NSString* const MENUBG_NAME;
+
+extern NSString* const WINDIALOG_IMG;
+extern NSString* const WINDIALOG_NAME;
+
+extern NSString* const PAUSE_IMG;
+extern NSString* const PAUSE_NAME;
+
 
 extern NSString* const BOT_NAME;
 extern NSString* const BOX_NAME;

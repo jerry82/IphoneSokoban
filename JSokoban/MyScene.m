@@ -9,6 +9,7 @@
 #import "MyScene.h"
 #import "GameLogic.h"
 #import "ViewController.h"
+#import "MenuNode.h"
 
 @implementation MyScene {
     int Sprite_Edge;
@@ -50,11 +51,19 @@
 //MARK: MENU here
 - (void) createMenu {
     
+    
     SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"screen.png"];
     background.position = CGPointMake(background.size.width / 2, background.size.height / 2);
     //background.scale = 0.75;
     [self addChild:background];
     
+    //add pause to show menu
+    SKSpriteNode* pauseBtn = [SKSpriteNode spriteNodeWithImageNamed:PAUSE_IMG];
+    pauseBtn.position = CGPointMake(pauseBtn.size.width/2, self.size.height - pauseBtn.size.height);
+    pauseBtn.name = PAUSE_NAME;
+    [self addChild:pauseBtn];
+    
+    /*
     //add refresh node
     SKSpriteNode* refreshBtn = [SKSpriteNode spriteNodeWithImageNamed:REFRESH_IMG];
     refreshBtn.position = CGPointMake(self.size.width - refreshBtn.size.width / 2, self.size.height - refreshBtn.size.height);
@@ -69,6 +78,7 @@
     nextBtn.name = @"NEXT_LEVEL";
     nextBtn.zPosition = 10;
     [self addChild:nextBtn];
+     */
 }
 
 -(void) createMaze: (NSMutableArray*) newMaze {
@@ -84,7 +94,7 @@
     int width = 0;
     for (NSMutableString* line in mazeChars) {
         if (width < line.length) {
-            width = line.length;
+            width = (int)line.length;
         }
     }
     
@@ -182,6 +192,9 @@
         SKAction* flipAction = [[SKAction alloc] init];
         
         char tmpChar = [path characterAtIndex:i];
+        
+        //TODO: to check the sprite position again
+        //if already left, don't flip left
         switch (tmpChar) {
             case 'L': {
                     flipAction = [SKAction runBlock:^{
@@ -240,20 +253,12 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 
     /* Called when a touch begins */
+    //TODO: bring to other function
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
         
-        //check buttons touched
-        SKNode* tmpNode = [self nodeAtPoint:location];
-        if (tmpNode.name != nil) {
-            if (tmpNode.name == REFRESH) {
-                [self refreshLevel];
-                return;
-            }
-            else if ([tmpNode.name  isEqual: @"NEXT_LEVEL"]) {
-                [self nextLevel];
-                return;
-            }
+        if ([self handleTouchMenu:location]) {
+            return;
         }
         
         if (botMoving){
@@ -302,6 +307,86 @@
 
         //handle 1 touch
         break;
+    }
+}
+
+
+//MARK: menu handlers
+-(BOOL) handleTouchMenu: (CGPoint) location {
+    
+    //check buttons touched
+    //handle following the hierrachy top down
+    SKNode* tmpNode = [self nodeAtPoint:location];
+    if (tmpNode.name != nil) {
+        NSLog(@"touch node: %@", tmpNode.name);
+        
+        if ([tmpNode.name isEqual: MENUBTN_NAME]) {
+            NSLog(@"back to Main menu");
+            return YES;
+        }
+        else if ([tmpNode.name isEqual:RESTARTBTN_NAME]) {
+            [self restartLevel];
+            return YES;
+        }
+        else if ([tmpNode.name isEqual:SOUNDONBTN_NAME]) {
+            NSLog(@"Sound on");
+            return YES;
+        }
+        else if ([tmpNode.name isEqual:PAUSE_NAME]) {
+            [self showMenu];
+            return YES;
+        }
+        else if ([tmpNode.name isEqual:MENUBG_NAME]) {
+            [self hideMenu];
+            return YES;
+        }
+        else if ([tmpNode.name isEqual:NEXTBTN_NAME]) {
+            [self nextLevel];
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+-(void) showMenu {
+    SKNode* menu = [self childNodeWithName:MENU_NAME];
+    
+    if (menu == nil) {
+        
+        CGPoint pos = CGPointMake(self.size.width/ 2, self.size.height/2);
+        menu = [[MenuNode alloc] initMenuWithPos:pos andSize: (self.size)];
+        menu.name = MENU_NAME;
+        menu.zPosition = 10;
+        [self addChild:menu];
+    }
+}
+
+- (void) showWinDialog {
+    SKNode* winDialog = [self childNodeWithName:WINDIALOG_NAME];
+    
+    if (winDialog == nil) {
+        CGPoint pos = CGPointMake(self.size.width/2, self.size.height/2);
+        winDialog = [[MenuNode alloc] initDialogWithPos:pos andSize:self.size];
+        winDialog.name = WINDIALOG_NAME;
+        winDialog.zPosition = 10;
+        [self addChild: winDialog];
+    }
+}
+
+-(void) hideMenu {
+    SKNode* menu = [self childNodeWithName:MENU_NAME];
+    if (menu != nil) {
+        [menu removeAllChildren];
+        [menu removeFromParent];
+    }
+}
+
+-(void) hideWinDialog {
+    SKNode* dialog = [self childNodeWithName:WINDIALOG_NAME];
+    if (dialog != nil) {
+        [dialog removeAllChildren];
+        [dialog removeFromParent];
     }
 }
 
@@ -464,10 +549,12 @@
 
 - (void) handleGameWin {
     NSLog(@"game is win");
+    [self showWinDialog];
 }
 
-- (void) refreshLevel {
-    [self.viewController createNewScene:1];
+- (void) restartLevel {
+    NSLog(@"restart current level:%d", self.CurrentLevel);
+    [self.viewController createNewScene:self.CurrentLevel];
 }
 
 //TODO: to test

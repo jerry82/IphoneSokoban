@@ -50,6 +50,30 @@ NSString* const PATH_OUTBOUND = @"OUTBOUND";
 //menu
 NSString* const REFRESH_IMG = @"refresh50";
 
+NSString* const RESTARTBTN_IMG = @"restart_btn50";
+NSString* const RESTARTBTN_NAME = @"restart_btn";
+
+NSString* const NEXTBTN_IMG = @"next50";
+NSString* const NEXTBTN_NAME = @"next";
+
+NSString* const MENUBTN_IMG = @"menu_btn50";
+NSString* const MENUBTN_NAME = @"menu_btn";
+
+NSString* const SOUNDONBTN_IMG = @"radioon_btn50";
+NSString* const SOUNDONBTN_NAME = @"radioon_btn";
+
+NSString* const MENUBAR_IMG = @"menu";
+NSString* const MENUBAR_NAME = @"menubar";
+
+NSString* const MENU_NAME = @"menu";
+NSString* const MENUBG_NAME = @"menu_bg";
+
+NSString* const WINDIALOG_NAME = @"windialog";
+NSString* const WINDIALOG_IMG = @"popup";
+
+NSString* const PAUSE_IMG = @"pause50";
+NSString* const PAUSE_NAME = @"pause";
+
 NSString* const BOT_NAME = @"bot";
 NSString* const BOX_NAME = @"box";
 NSString* const BLOCK_NAME = @"block";
@@ -135,8 +159,8 @@ const float MOVE_DURATION = 0.15;
     }
     
     //TODO: debugging
-    printf("\n\n");
-    [self displayMaze];
+    //printf("\n\n");
+    //[self displayMaze];
 }
 
 //based on the current state of the maze, calculate the shortest path to touch position
