@@ -46,6 +46,8 @@ NSString* const BOT_IMG = @"bot40";
 NSString* const BOX_IMG = @"box40";
 NSString* const CANMOVE_IMG = @"canMove40";
 NSString* const CANNOTMOVE_IMG = @"cannotMove40";
+NSString* const SCREEN_IMG = @"screen";
+
 NSString* const PATH_OUTBOUND = @"OUTBOUND";
 //menu
 NSString* const REFRESH_IMG = @"refresh50";
@@ -53,8 +55,8 @@ NSString* const REFRESH_IMG = @"refresh50";
 NSString* const RESTARTBTN_IMG = @"restart_btn50";
 NSString* const RESTARTBTN_NAME = @"restart_btn";
 
-NSString* const NEXTBTN_IMG = @"next50";
-NSString* const NEXTBTN_NAME = @"next";
+NSString* const NEXTBTN_IMG = @"next_btn50";
+NSString* const NEXTBTN_NAME = @"next_btn";
 
 NSString* const MENUBTN_IMG = @"menu_btn50";
 NSString* const MENUBTN_NAME = @"menu_btn";
@@ -84,6 +86,13 @@ NSString* const CANNOTMOVE_NAME = @"cannotmove";
 
 NSString* const REFRESH = @"refresh";
 
+NSString* const EPISODE_IMG = @"episode";
+NSString* const EPISODE_SCREEN_IMG = @"episodeScreen";
+
+NSString* const SPLASHSCREEN_IMG = @"SplashScreen";
+
+NSString* const APP_FONT_NAME = @"angrybirds-regular";
+
 const char LEFT = 'L';
 const char RIGHT = 'R';
 const char UP = 'U';
@@ -96,7 +105,6 @@ const float MOVE_DURATION = 0.15;
 
 - (id) init {
     if (self = [super init])
-        
         pathFinder = [[PathFinder alloc] init];
     
     return self;
@@ -104,32 +112,25 @@ const float MOVE_DURATION = 0.15;
 
 
 //properly get the level from sqlite db
--(NSMutableArray*) getMaze:(int)level {
+- (LevelDetailItem*) getNextLevelDetailItem: (LevelDetailItem*) curLevel {
     
-    NSString* tmp = [[DataAccess sharedInstance] getLevel:level];
-    NSArray* stringArr = [tmp componentsSeparatedByString:@"0"];
+    if (curLevel == nil) {
+        curLevel = [[LevelDetailItem alloc] init];
+        curLevel.PackId = 1;
+        curLevel.LevelNum = 0;
+        NSLog(@"START");
+    }
+    LevelDetailItem* level = [[DataAccess sharedInstance] getNextLevelDetailItem:curLevel.PackId currentLevel:curLevel.LevelNum];
+    NSArray* stringArr = [level.Content componentsSeparatedByString:@"0"];
     
-    NSMutableArray* mazeChars = [[NSMutableArray alloc] init];
+    level.MazeChars = [[NSMutableArray alloc] init];
     for (int i = 0; i < stringArr.count; i++) {
         NSString* line = [stringArr objectAtIndex:i];
         if (line.length > 0)
-            [mazeChars addObject:line];
+            [level.MazeChars addObject:line];
     }
     
-    /*
-    NSMutableArray* mazeChars = [NSMutableArray arrayWithObjects:
-                          @"      ####",
-                          @"    ###++#",
-                          @"    #..++#",
-                          @"    #..$.#",
-                          @"######.###",
-                          @"#@.....###",
-                          @"##.#.$.$.#",
-                          @" #.$.#.#.#",
-                          @" #...#...#",
-                          @" #########", nil];
-    */
-    return mazeChars;
+    return level;
 }
 
 //update 'maze' object to the current level maze
@@ -186,6 +187,15 @@ const float MOVE_DURATION = 0.15;
     win = (cntSpot == NoOfSpots);
     
     return win;
+}
+
+- (void) updateGameWin: (LevelDetailItem*) curLevelItem {
+    [[DataAccess sharedInstance] updateGameWin:curLevelItem];
+    
+}
+
+- (NSMutableArray*) getAllEpisodes {
+    return [[DataAccess sharedInstance] getAllEpisodes];
 }
 
 //helper

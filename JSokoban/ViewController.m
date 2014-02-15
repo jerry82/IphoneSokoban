@@ -7,33 +7,73 @@
 //
 
 #import "ViewController.h"
-#import "MyScene.h"
+#import "GameScene.h"
 #import "GameLogic.h"
+#import "EpisodeScene.h"
+#import "FirstScene.h"
 
-@implementation ViewController
+@implementation ViewController {
+    GameLogic* gameLogic;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self createNewScene:2];
+    
+    gameLogic = [GameLogic sharedGameLogic];
+    
+    [self createFirstScene];
+    //[self createEpisodeScene];
+    //[self createNewScene:Nil];
 }
 
-- (void) createNewScene: (int)level {
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    GameLogic* sharedGameLogic = [GameLogic sharedGameLogic];
-    NSMutableArray* mazeChars = [sharedGameLogic getMaze:level];
-    //pass the maze to skscene
+- (void) createFirstScene {
+    SKView* skView = (SKView*) self.view;
+    FirstScene* scene = [FirstScene sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFit;
+    scene.MainViewController = self;
+    
+    [skView presentScene:scene];
+}
+
+- (void) createEpisodeScene {
+    
+    SKView* skView = (SKView*) self.view;
     
     // Create and configure the scene.
-    MyScene * scene = [MyScene sceneWithSize:skView.bounds.size];
+    EpisodeScene* scene = [EpisodeScene sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFit;
+    scene.MainViewController = self;
+    
+    [skView presentScene:scene];
+}
+
+- (void) createNewScene: (LevelDetailItem*) curLevel {
+    
+    // Configure the view.
+    SKView * skView = (SKView *)self.view;
+    
+    LevelDetailItem* nextLevel = [gameLogic getNextLevelDetailItem:curLevel];
+    //pass the maze to skscene
+    
+    
+    if (nextLevel == nil) {
+        NSLog(@"no more level");
+        return;
+    }
+    else if ([nextLevel.Content length] == 0) {
+        NSLog(@"no more level");
+        return;
+    }
+    
+    // Create and configure the scene.
+    GameScene * scene = [GameScene sceneWithSize:skView.bounds.size];
+    scene.LevelDetail = nextLevel;
     scene.scaleMode = SKSceneScaleModeAspectFit;
     scene.viewController = self;
-    scene.CurrentLevel = level;
 
-    
-    [scene createMaze:mazeChars];
+
+    [scene createMaze:nextLevel.MazeChars];
     // Present the scene.
     
     [skView presentScene:scene];

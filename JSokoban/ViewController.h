@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import "LevelDetailItem.h"
 
 @interface ViewController : UIViewController
 
-- (void) createNewScene: (int) level;
+- (void) createNewScene: (LevelDetailItem*) curLevel;
+
+- (void) createEpisodeScene;
 
 @end

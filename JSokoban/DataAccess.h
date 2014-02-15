@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LevelDetailItem.h"
+#import "EpisodeItem.h"
 
 @interface DataAccess : NSObject {
     
@@ -16,6 +18,10 @@ extern NSString* DatabasePath;
 
 + (id) sharedInstance;
 
-- (NSString*) getLevel: (int) level;
+- (LevelDetailItem*) getNextLevelDetailItem: (int) pack currentLevel: (int) level;
+
+- (NSMutableArray*) getAllEpisodes;
+
+- (void) updateGameWin: (LevelDetailItem*) curLevelItem;
 
 @end

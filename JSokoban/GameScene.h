@@ -8,14 +8,15 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "GameLogic.h"
+#import "LevelDetailItem.h"
 
 @class ViewController;
 
-@interface MyScene : SKScene {
+@interface GameScene : SKScene {
     
 }
 
-@property (assign) int CurrentLevel;
+@property LevelDetailItem* LevelDetail;
 
 @property (nonatomic, weak) ViewController *viewController;
 

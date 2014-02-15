@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4F18A43A4C00C672FE /* GameLogic.m */; };
-		0F0BEA5918A43AE700C672FE /* path40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5418A43AE700C672FE /* path40.png */; };
 		0F0BEA5E18A53A4500C672FE /* PathFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5D18A53A4500C672FE /* PathFinder.m */; };
 		0F0BEA6F18A9C8F900C672FE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA6618A9C8F900C672FE /* FMDatabase.m */; };
 		0F0BEA7018A9C8F900C672FE /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA6818A9C8F900C672FE /* FMDatabaseAdditions.m */; };
@@ -17,8 +16,13 @@
 		0F0BEA7318A9C8F900C672FE /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA6E18A9C8F900C672FE /* FMResultSet.m */; };
 		0F0BEA7618A9C94700C672FE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0BEA7518A9C94700C672FE /* libsqlite3.dylib */; };
 		0F0BEA7918A9CB2400C672FE /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA7818A9CB2300C672FE /* DataAccess.m */; };
-		0F0BEA7B18A9CE0000C672FE /* sodokuDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0F0BEA7A18A9CE0000C672FE /* sodokuDB.sqlite */; };
-		0F25F70718AD3C4600E83745 /* popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F25F70618AD3C4600E83745 /* popup.png */; };
+		0F2548C418AE8B380085C295 /* LevelDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548C318AE8B380085C295 /* LevelDetailItem.m */; };
+		0F2548C918AEAB5F0085C295 /* EpisodeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548C818AEAB5F0085C295 /* EpisodeScene.m */; };
+		0F2548CD18AEAFD90085C295 /* episode.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548CC18AEAFD90085C295 /* episode.png */; };
+		0F2548CF18AEB1120085C295 /* angrybirds-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */; };
+		0F2548D218AEB5030085C295 /* EpisodeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548D118AEB5030085C295 /* EpisodeItem.m */; };
+		0F2548D818AEBF9C0085C295 /* sodokuDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548D718AEBF9C0085C295 /* sodokuDB.sqlite */; };
+		0F2548DC18AF116C0085C295 /* episodeScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548DB18AF116C0085C295 /* episodeScreen.png */; };
 		0F25F70D18AD408A00E83745 /* pause50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F25F70C18AD408A00E83745 /* pause50.png */; };
 		0F25F71018AD411700E83745 /* MenuNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F25F70F18AD411700E83745 /* MenuNode.m */; };
 		0F25F71218AD6CED00E83745 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F25F71118AD6CED00E83745 /* menu.png */; };
@@ -36,6 +40,7 @@
 		0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B518ABEFCF00DB42CC /* cannotMove40.png */; };
 		0F2807BA18AC7EC100DB42CC /* JSokoban-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4A21897476E0073CF80 /* JSokoban-Info.plist */; };
 		0F2807BC18AC805C00DB42CC /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807BB18AC805C00DB42CC /* App.plist */; };
+		0F2F608118AF303800172586 /* popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2F608018AF303800172586 /* popup.png */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -45,13 +50,15 @@
 		0FA5F4AB1897476E0073CF80 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4AA1897476E0073CF80 /* AppDelegate.m */; };
 		0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4AC1897476E0073CF80 /* Main.storyboard */; };
 		0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B01897476E0073CF80 /* ViewController.m */; };
-		0FA5F4B41897476E0073CF80 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B31897476E0073CF80 /* MyScene.m */; };
+		0FA5F4B41897476E0073CF80 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B31897476E0073CF80 /* GameScene.m */; };
 		0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4B71897476E0073CF80 /* Images.xcassets */; };
 		0FA5F4BF1897476E0073CF80 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4BE1897476E0073CF80 /* XCTest.framework */; };
 		0FA5F4C01897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F4C11897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
 		0FA5F4C91897476E0073CF80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4C71897476E0073CF80 /* InfoPlist.strings */; };
 		0FA5F4CB1897476E0073CF80 /* JSokobanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */; };
+		0FB5B3D718AF352E007EFE38 /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB5B3D618AF352E007EFE38 /* SplashScreen.png */; };
+		0FB5B3DA18AF35BE007EFE38 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5B3D918AF35BE007EFE38 /* FirstScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +74,6 @@
 /* Begin PBXFileReference section */
 		0F0BEA4E18A43A4C00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
 		0F0BEA4F18A43A4C00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
-		0F0BEA5418A43AE700C672FE /* path40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = path40.png; sourceTree = "<group>"; };
 		0F0BEA5C18A53A4500C672FE /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
 		0F0BEA5D18A53A4500C672FE /* PathFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathFinder.m; sourceTree = "<group>"; };
 		0F0BEA6518A9C8F900C672FE /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -83,8 +89,16 @@
 		0F0BEA7518A9C94700C672FE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0F0BEA7718A9CB2300C672FE /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccess.h; sourceTree = "<group>"; };
 		0F0BEA7818A9CB2300C672FE /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccess.m; sourceTree = "<group>"; };
-		0F0BEA7A18A9CE0000C672FE /* sodokuDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = sodokuDB.sqlite; path = ../../data/sodokuDB.sqlite; sourceTree = "<group>"; };
-		0F25F70618AD3C4600E83745 /* popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup.png; sourceTree = "<group>"; };
+		0F2548C218AE8B380085C295 /* LevelDetailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDetailItem.h; sourceTree = "<group>"; };
+		0F2548C318AE8B380085C295 /* LevelDetailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelDetailItem.m; sourceTree = "<group>"; };
+		0F2548C718AEAB5F0085C295 /* EpisodeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeScene.h; sourceTree = "<group>"; };
+		0F2548C818AEAB5F0085C295 /* EpisodeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeScene.m; sourceTree = "<group>"; };
+		0F2548CC18AEAFD90085C295 /* episode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = episode.png; sourceTree = "<group>"; };
+		0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "angrybirds-regular.ttf"; sourceTree = "<group>"; };
+		0F2548D018AEB5030085C295 /* EpisodeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeItem.h; sourceTree = "<group>"; };
+		0F2548D118AEB5030085C295 /* EpisodeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeItem.m; sourceTree = "<group>"; };
+		0F2548D718AEBF9C0085C295 /* sodokuDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sodokuDB.sqlite; sourceTree = "<group>"; };
+		0F2548DB18AF116C0085C295 /* episodeScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = episodeScreen.png; sourceTree = "<group>"; };
 		0F25F70C18AD408A00E83745 /* pause50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause50.png; sourceTree = "<group>"; };
 		0F25F70E18AD411700E83745 /* MenuNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuNode.h; sourceTree = "<group>"; };
 		0F25F70F18AD411700E83745 /* MenuNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuNode.m; sourceTree = "<group>"; };
@@ -102,6 +116,7 @@
 		0F2807B418ABEFCF00DB42CC /* canMove40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = canMove40.png; sourceTree = "<group>"; };
 		0F2807B518ABEFCF00DB42CC /* cannotMove40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cannotMove40.png; sourceTree = "<group>"; };
 		0F2807BB18AC805C00DB42CC /* App.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
+		0F2F608018AF303800172586 /* popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup.png; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -116,14 +131,17 @@
 		0FA5F4AD1897476E0073CF80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0FA5F4AF1897476E0073CF80 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		0FA5F4B01897476E0073CF80 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		0FA5F4B21897476E0073CF80 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
-		0FA5F4B31897476E0073CF80 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		0FA5F4B21897476E0073CF80 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		0FA5F4B31897476E0073CF80 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		0FA5F4B71897476E0073CF80 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0FA5F4BD1897476E0073CF80 /* JSokobanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JSokobanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4BE1897476E0073CF80 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0FA5F4C61897476E0073CF80 /* JSokobanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSokobanTests-Info.plist"; sourceTree = "<group>"; };
 		0FA5F4C81897476E0073CF80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSokobanTests.m; sourceTree = "<group>"; };
+		0FB5B3D618AF352E007EFE38 /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashScreen.png; sourceTree = "<group>"; };
+		0FB5B3D818AF35BE007EFE38 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = ../FirstScene.h; sourceTree = "<group>"; };
+		0FB5B3D918AF35BE007EFE38 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = ../FirstScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +173,11 @@
 		0F0BEA5B18A43AFB00C672FE /* multimedia */ = {
 			isa = PBXGroup;
 			children = (
+				0FB5B3D618AF352E007EFE38 /* SplashScreen.png */,
+				0F2F608018AF303800172586 /* popup.png */,
+				0F2548DB18AF116C0085C295 /* episodeScreen.png */,
+				0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */,
+				0F2548CC18AEAFD90085C295 /* episode.png */,
 				0F25F71318AD714000E83745 /* menu_btn50.png */,
 				0F25F71418AD714000E83745 /* next_btn50.png */,
 				0F25F71518AD714000E83745 /* radiooff_btn50.png */,
@@ -162,7 +185,6 @@
 				0F25F71718AD714000E83745 /* restart_btn50.png */,
 				0F25F71118AD6CED00E83745 /* menu.png */,
 				0F25F70C18AD408A00E83745 /* pause50.png */,
-				0F25F70618AD3C4600E83745 /* popup.png */,
 				0F2807B418ABEFCF00DB42CC /* canMove40.png */,
 				0F2807B518ABEFCF00DB42CC /* cannotMove40.png */,
 				0F2807AA18AAD70000DB42CC /* bot40.png */,
@@ -170,7 +192,6 @@
 				0F2807A218AACB5500DB42CC /* spot40.png */,
 				0F28079E18AAC79500DB42CC /* block40.png */,
 				0F28079818AAC2EB00DB42CC /* screen.png */,
-				0F0BEA5418A43AE700C672FE /* path40.png */,
 			);
 			name = multimedia;
 			sourceTree = "<group>";
@@ -190,6 +211,17 @@
 				0F0BEA6E18A9C8F900C672FE /* FMResultSet.m */,
 			);
 			name = FMDB;
+			sourceTree = "<group>";
+		};
+		0F2548C118AE8B1F0085C295 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0F2548C218AE8B380085C295 /* LevelDetailItem.h */,
+				0F2548C318AE8B380085C295 /* LevelDetailItem.m */,
+				0F2548D018AEB5030085C295 /* EpisodeItem.h */,
+				0F2548D118AEB5030085C295 /* EpisodeItem.m */,
+			);
+			name = Entity;
 			sourceTree = "<group>";
 		};
 		0FA5F48C1897476E0073CF80 = {
@@ -227,7 +259,10 @@
 		0FA5F4A01897476E0073CF80 /* JSokoban */ = {
 			isa = PBXGroup;
 			children = (
-				0F0BEA7A18A9CE0000C672FE /* sodokuDB.sqlite */,
+				0FB5B3D818AF35BE007EFE38 /* FirstScene.h */,
+				0FB5B3D918AF35BE007EFE38 /* FirstScene.m */,
+				0F2548D718AEBF9C0085C295 /* sodokuDB.sqlite */,
+				0F2548C118AE8B1F0085C295 /* Entity */,
 				0F0BEA7418A9C90900C672FE /* FMDB */,
 				0F0BEA5B18A43AFB00C672FE /* multimedia */,
 				0F0BEA4E18A43A4C00C672FE /* GameLogic.h */,
@@ -237,8 +272,8 @@
 				0FA5F4AC1897476E0073CF80 /* Main.storyboard */,
 				0FA5F4AF1897476E0073CF80 /* ViewController.h */,
 				0FA5F4B01897476E0073CF80 /* ViewController.m */,
-				0FA5F4B21897476E0073CF80 /* MyScene.h */,
-				0FA5F4B31897476E0073CF80 /* MyScene.m */,
+				0FA5F4B21897476E0073CF80 /* GameScene.h */,
+				0FA5F4B31897476E0073CF80 /* GameScene.m */,
 				0FA5F4B71897476E0073CF80 /* Images.xcassets */,
 				0FA5F4A11897476E0073CF80 /* Supporting Files */,
 				0F0BEA5C18A53A4500C672FE /* PathFinder.h */,
@@ -248,6 +283,8 @@
 				0F2807BB18AC805C00DB42CC /* App.plist */,
 				0F25F70E18AD411700E83745 /* MenuNode.h */,
 				0F25F70F18AD411700E83745 /* MenuNode.m */,
+				0F2548C718AEAB5F0085C295 /* EpisodeScene.h */,
+				0F2548C818AEAB5F0085C295 /* EpisodeScene.m */,
 			);
 			path = JSokoban;
 			sourceTree = "<group>";
@@ -359,26 +396,29 @@
 			files = (
 				0FA5F4A51897476E0073CF80 /* InfoPlist.strings in Resources */,
 				0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */,
+				0FB5B3D718AF352E007EFE38 /* SplashScreen.png in Resources */,
 				0F2807AB18AAD70000DB42CC /* bot40.png in Resources */,
 				0F25F71A18AD714000E83745 /* radiooff_btn50.png in Resources */,
-				0F0BEA7B18A9CE0000C672FE /* sodokuDB.sqlite in Resources */,
 				0F2807BC18AC805C00DB42CC /* App.plist in Resources */,
 				0F2807B618ABEFCF00DB42CC /* canMove40.png in Resources */,
+				0F2548CF18AEB1120085C295 /* angrybirds-regular.ttf in Resources */,
 				0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */,
+				0F2F608118AF303800172586 /* popup.png in Resources */,
 				0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */,
 				0F25F70D18AD408A00E83745 /* pause50.png in Resources */,
 				0F2807A718AACC5100DB42CC /* box40.png in Resources */,
 				0F28079F18AAC79500DB42CC /* block40.png in Resources */,
 				0F25F71918AD714000E83745 /* next_btn50.png in Resources */,
+				0F2548DC18AF116C0085C295 /* episodeScreen.png in Resources */,
+				0F2548CD18AEAFD90085C295 /* episode.png in Resources */,
 				0F25F71C18AD714000E83745 /* restart_btn50.png in Resources */,
 				0F2807BA18AC7EC100DB42CC /* JSokoban-Info.plist in Resources */,
 				0F25F71B18AD714000E83745 /* radioon_btn50.png in Resources */,
-				0F25F70718AD3C4600E83745 /* popup.png in Resources */,
+				0F2548D818AEBF9C0085C295 /* sodokuDB.sqlite in Resources */,
 				0F25F71218AD6CED00E83745 /* menu.png in Resources */,
 				0F2807A318AACB5500DB42CC /* spot40.png in Resources */,
 				0F28079918AAC2EB00DB42CC /* screen.png in Resources */,
 				0F25F71818AD714000E83745 /* menu_btn50.png in Resources */,
-				0F0BEA5918A43AE700C672FE /* path40.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,8 +437,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FA5F4B41897476E0073CF80 /* MyScene.m in Sources */,
+				0FB5B3DA18AF35BE007EFE38 /* FirstScene.m in Sources */,
+				0F2548D218AEB5030085C295 /* EpisodeItem.m in Sources */,
+				0FA5F4B41897476E0073CF80 /* GameScene.m in Sources */,
+				0F2548C918AEAB5F0085C295 /* EpisodeScene.m in Sources */,
 				0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */,
+				0F2548C418AE8B380085C295 /* LevelDetailItem.m in Sources */,
 				0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */,
 				0F0BEA7918A9CB2400C672FE /* DataAccess.m in Sources */,
 				0F0BEA6F18A9C8F900C672FE /* FMDatabase.m in Sources */,

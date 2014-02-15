@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LevelDetailItem.h"
 
 typedef struct tagMatrixPos {
     int Row;
@@ -34,6 +35,8 @@ extern NSString* const BOT_IMG;
 extern NSString* const BOX_IMG;
 extern NSString* const CANMOVE_IMG;
 extern NSString* const CANNOTMOVE_IMG;
+
+extern NSString* const SCREEN_IMG;
 
 //menu
 extern NSString* const RESTARTBTN_IMG;
@@ -73,6 +76,13 @@ extern NSString* const PATH_OUTBOUND;
 
 extern NSString* const REFRESH;
 
+extern NSString* const EPISODE_IMG;
+extern NSString* const EPISODE_SCREEN_IMG;
+
+extern NSString* const SPLASHSCREEN_IMG;
+
+extern NSString* const APP_FONT_NAME;
+
 extern const char LEFT;
 extern const char RIGHT;
 extern const char UP;
@@ -83,13 +93,17 @@ extern const float MOVE_DURATION;
 @property (nonatomic, assign) int NoOfSpots;
 
 
-- (NSMutableArray*) getMaze: (int) level;
+- (LevelDetailItem*) getNextLevelDetailItem: (LevelDetailItem*) curLevel;
 
 - (void) initMaze: (NSMutableArray*) mazeChars;
 
 - (NSString*) getShortestPath: (MatrixPosStruct) pos withBotPos: (MatrixPosStruct) botPos;
 
 - (BOOL) checkGameWin: (NSMutableArray*) mazeCharacters;
+
+- (void) updateGameWin: (LevelDetailItem*) curLevelItem;
+
+- (NSMutableArray*) getAllEpisodes;
 
 @end
 

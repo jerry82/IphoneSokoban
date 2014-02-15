@@ -6,21 +6,21 @@
 //  Copyright (c) 2014 Jerry. All rights reserved.
 //
 
-#import "MyScene.h"
+#import "GameScene.h"
 #import "GameLogic.h"
 #import "ViewController.h"
 #import "MenuNode.h"
 
-@implementation MyScene {
+@implementation GameScene {
     int Sprite_Edge;
     int Pad_Bottom_Screen;
     GameLogic* shareGameLogic;
     BOOL botMoving;
     NSMutableArray* mazeChars;
-    
-    NSMutableArray* spriteBag;
     float spriteScale;
 }
+
+@synthesize LevelDetail;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -36,11 +36,8 @@
 
         //self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
-        self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
-        
-        
-        spriteBag = [[NSMutableArray alloc] init];
-        
+        //self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
+
         [self createMenu];
     }
     
@@ -51,37 +48,45 @@
 //MARK: MENU here
 - (void) createMenu {
     
-    
-    SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"screen.png"];
+    //add background
+    //TODO: to randomly select background
+    SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:SCREEN_IMG];
     background.position = CGPointMake(background.size.width / 2, background.size.height / 2);
-    //background.scale = 0.75;
     [self addChild:background];
     
     //add pause to show menu
     SKSpriteNode* pauseBtn = [SKSpriteNode spriteNodeWithImageNamed:PAUSE_IMG];
-    pauseBtn.position = CGPointMake(pauseBtn.size.width/2, self.size.height - pauseBtn.size.height);
+    pauseBtn.position = CGPointMake(pauseBtn.size.width / 2, self.size.height - pauseBtn.size.height);
     pauseBtn.name = PAUSE_NAME;
     [self addChild:pauseBtn];
     
-    /*
-    //add refresh node
-    SKSpriteNode* refreshBtn = [SKSpriteNode spriteNodeWithImageNamed:REFRESH_IMG];
-    refreshBtn.position = CGPointMake(self.size.width - refreshBtn.size.width / 2, self.size.height - refreshBtn.size.height);
-    refreshBtn.name = REFRESH;
-    
-    [self addChild:refreshBtn];
-    
-    //TODO: to change
+    //TODO: this is for debugging
     //next button
-    SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:@"back50"];
-    nextBtn.position = CGPointMake(nextBtn.size.width/2, self.size.height - nextBtn.size.height);
-    nextBtn.name = @"NEXT_LEVEL";
+    SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:NEXTBTN_IMG];
+    nextBtn.position = CGPointMake(self.size.width - nextBtn.size.width / 2, self.size.height - nextBtn.size.height);
+    nextBtn.name = NEXTBTN_NAME;
     nextBtn.zPosition = 10;
     [self addChild:nextBtn];
-     */
+    
+
+    SKLabelNode* levelText = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
+    levelText.name = @"LEVEL";
+    levelText.fontSize = 35;
+    levelText.fontColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    levelText.position = CGPointMake(self.size.width / 2, self.size.height -
+                                     pauseBtn.size.height);
+    [self addChild:levelText];
+    
 }
 
 -(void) createMaze: (NSMutableArray*) newMaze {
+    
+    //printf("Current pack-level is: %d\n", self.LevelDetail.PackId, self.LevelDetail.LevelNum);
+    //create packID-level text
+    SKLabelNode* levelText = (SKLabelNode*)[self childNodeWithName:@"LEVEL"];
+    if (levelText != nil) {
+        levelText.text = [NSString stringWithFormat:@"%d-%d", self.LevelDetail.PackId, self.LevelDetail.LevelNum];
+    }
     
     botMoving = NO;
     
@@ -159,8 +164,6 @@
                 blockSprite.position = CGPointMake(x, y);
                 blockSprite.scale = spriteScale;
                 
-                //add to bag
-                [spriteBag addObject:blockSprite];
                 [self addChild:blockSprite];
             }
         }
@@ -238,6 +241,7 @@
     
     [myBot runAction:moveSequence completion:^{[self botStop: botOldLocation];}];
 }
+
 -(void) botStop: (MatrixPosStruct) botOldLocation {
     //MARK: for debugging
     //MatrixPosStruct botPos = [self getMatrixPos:[self getBotLocation]];
@@ -322,6 +326,10 @@
         
         if ([tmpNode.name isEqual: MENUBTN_NAME]) {
             NSLog(@"back to Main menu");
+            [self.viewController createEpisodeScene];
+            [self hideMenu];
+            [self hideWinDialog];
+            
             return YES;
         }
         else if ([tmpNode.name isEqual:RESTARTBTN_NAME]) {
@@ -549,18 +557,20 @@
 
 - (void) handleGameWin {
     NSLog(@"game is win");
+    
+    //update completed level
+    [[GameLogic sharedGameLogic] updateGameWin:self.LevelDetail];
     [self showWinDialog];
 }
 
 - (void) restartLevel {
-    NSLog(@"restart current level:%d", self.CurrentLevel);
-    [self.viewController createNewScene:self.CurrentLevel];
+    self.LevelDetail.LevelNum--;
+    [self.viewController createNewScene: self.LevelDetail];
 }
 
 //TODO: to test
 - (void) nextLevel {
-    [self.viewController createNewScene:self.CurrentLevel + 1];
-    NSLog(@"next level %d", self.CurrentLevel + 1);
+    [self.viewController createNewScene:self.LevelDetail];
 }
 
 //TODO: for debugging
