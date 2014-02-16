@@ -121,10 +121,11 @@ NSString* DatabasePath;
     
     int nextLevel = curLevelItem.LevelNum + 1;
 
-    [db executeUpdate:@"UPDATE pack set current_level = ? where id = ?",
+    [db executeUpdate:@"UPDATE pack set current_level = ? where id = ? and current_level < ?",
                         [NSNumber numberWithInt:nextLevel],
-                        [NSNumber numberWithInt:curLevelItem.PackId]];
-
+                        [NSNumber numberWithInt:curLevelItem.PackId],
+                        [NSNumber numberWithInt:nextLevel]];
+ 
     if ([db hadError]) {
         NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
     }

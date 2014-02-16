@@ -31,14 +31,13 @@
  * const declaration
  */
 const char BLOCK_CHAR = '#';
-//const char SPOT_CHAR = '+';
 const char SPOT_CHAR = '.';
 
 const char BOT_CHAR = '@';
 const char BOX_CHAR = '$';
-//const char PATH_CHAR = '.';
 const char PATH_CHAR = ' ';
-const char BOX_ON_SPOT = 'x';
+//const char BOX_ON_SPOT = 'x';
+const char BOX_ON_SPOT = '*';
 
 NSString* const BLOCK_IMG = @"block40";
 NSString* const SPOT_IMG = @"spot40";
@@ -52,17 +51,28 @@ NSString* const PATH_OUTBOUND = @"OUTBOUND";
 //menu
 NSString* const REFRESH_IMG = @"refresh50";
 
+NSString* const UP_IMG = @"up50";
+NSString* const UP_NAME = @"up_btn";
+NSString* const DOWN_IMG = @"down50";
+NSString* const DOWN_NAME = @"down_btn";
+
 NSString* const RESTARTBTN_IMG = @"restart_btn50";
 NSString* const RESTARTBTN_NAME = @"restart_btn";
 
 NSString* const NEXTBTN_IMG = @"next_btn50";
 NSString* const NEXTBTN_NAME = @"next_btn";
 
+NSString* const BACKBTN_IMG = @"back_btn50";
+NSString* const BACKBTN_NAME = @"back_btn";
+
 NSString* const MENUBTN_IMG = @"menu_btn50";
 NSString* const MENUBTN_NAME = @"menu_btn";
 
 NSString* const SOUNDONBTN_IMG = @"radioon_btn50";
 NSString* const SOUNDONBTN_NAME = @"radioon_btn";
+
+NSString* const HELPBTN_IMG = @"help50";
+NSString* const HELPBTN_NAME = @"help_btn";
 
 NSString* const MENUBAR_IMG = @"menu";
 NSString* const MENUBAR_NAME = @"menubar";

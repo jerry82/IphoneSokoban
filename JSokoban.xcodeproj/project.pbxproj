@@ -18,10 +18,8 @@
 		0F0BEA7918A9CB2400C672FE /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA7818A9CB2300C672FE /* DataAccess.m */; };
 		0F2548C418AE8B380085C295 /* LevelDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548C318AE8B380085C295 /* LevelDetailItem.m */; };
 		0F2548C918AEAB5F0085C295 /* EpisodeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548C818AEAB5F0085C295 /* EpisodeScene.m */; };
-		0F2548CD18AEAFD90085C295 /* episode.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548CC18AEAFD90085C295 /* episode.png */; };
 		0F2548CF18AEB1120085C295 /* angrybirds-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */; };
 		0F2548D218AEB5030085C295 /* EpisodeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548D118AEB5030085C295 /* EpisodeItem.m */; };
-		0F2548D818AEBF9C0085C295 /* sodokuDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548D718AEBF9C0085C295 /* sodokuDB.sqlite */; };
 		0F2548DC18AF116C0085C295 /* episodeScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548DB18AF116C0085C295 /* episodeScreen.png */; };
 		0F25F70D18AD408A00E83745 /* pause50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F25F70C18AD408A00E83745 /* pause50.png */; };
 		0F25F71018AD411700E83745 /* MenuNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F25F70F18AD411700E83745 /* MenuNode.m */; };
@@ -35,12 +33,15 @@
 		0F28079F18AAC79500DB42CC /* block40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F28079E18AAC79500DB42CC /* block40.png */; };
 		0F2807A318AACB5500DB42CC /* spot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807A218AACB5500DB42CC /* spot40.png */; };
 		0F2807A718AACC5100DB42CC /* box40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807A618AACC5100DB42CC /* box40.png */; };
-		0F2807AB18AAD70000DB42CC /* bot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807AA18AAD70000DB42CC /* bot40.png */; };
 		0F2807B618ABEFCF00DB42CC /* canMove40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B418ABEFCF00DB42CC /* canMove40.png */; };
 		0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807B518ABEFCF00DB42CC /* cannotMove40.png */; };
 		0F2807BA18AC7EC100DB42CC /* JSokoban-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4A21897476E0073CF80 /* JSokoban-Info.plist */; };
 		0F2807BC18AC805C00DB42CC /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F2807BB18AC805C00DB42CC /* App.plist */; };
 		0F2F608118AF303800172586 /* popup.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F2F608018AF303800172586 /* popup.png */; };
+		0F71116718B0327B00560658 /* help50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71116618B0327B00560658 /* help50.png */; };
+		0F71116F18B10EE700560658 /* back_btn50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71116C18B10EE700560658 /* back_btn50.png */; };
+		0F71117018B10EE700560658 /* bot40.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71116D18B10EE700560658 /* bot40.png */; };
+		0F71117118B10EE700560658 /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71116E18B10EE700560658 /* SplashScreen.png */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -57,8 +58,10 @@
 		0FA5F4C11897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
 		0FA5F4C91897476E0073CF80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4C71897476E0073CF80 /* InfoPlist.strings */; };
 		0FA5F4CB1897476E0073CF80 /* JSokobanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */; };
-		0FB5B3D718AF352E007EFE38 /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB5B3D618AF352E007EFE38 /* SplashScreen.png */; };
 		0FB5B3DA18AF35BE007EFE38 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5B3D918AF35BE007EFE38 /* FirstScene.m */; };
+		0FB5B3E918AFEDB6007EFE38 /* down50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB5B3E718AFEDB6007EFE38 /* down50.png */; };
+		0FB5B3EA18AFEDB6007EFE38 /* up50.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FB5B3E818AFEDB6007EFE38 /* up50.png */; };
+		0FB5B3F218B030A5007EFE38 /* sodokuDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0FB5B3F118B030A5007EFE38 /* sodokuDB.sqlite */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,11 +96,9 @@
 		0F2548C318AE8B380085C295 /* LevelDetailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelDetailItem.m; sourceTree = "<group>"; };
 		0F2548C718AEAB5F0085C295 /* EpisodeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeScene.h; sourceTree = "<group>"; };
 		0F2548C818AEAB5F0085C295 /* EpisodeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeScene.m; sourceTree = "<group>"; };
-		0F2548CC18AEAFD90085C295 /* episode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = episode.png; sourceTree = "<group>"; };
 		0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "angrybirds-regular.ttf"; sourceTree = "<group>"; };
 		0F2548D018AEB5030085C295 /* EpisodeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeItem.h; sourceTree = "<group>"; };
 		0F2548D118AEB5030085C295 /* EpisodeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeItem.m; sourceTree = "<group>"; };
-		0F2548D718AEBF9C0085C295 /* sodokuDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sodokuDB.sqlite; sourceTree = "<group>"; };
 		0F2548DB18AF116C0085C295 /* episodeScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = episodeScreen.png; sourceTree = "<group>"; };
 		0F25F70C18AD408A00E83745 /* pause50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause50.png; sourceTree = "<group>"; };
 		0F25F70E18AD411700E83745 /* MenuNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuNode.h; sourceTree = "<group>"; };
@@ -112,11 +113,14 @@
 		0F28079E18AAC79500DB42CC /* block40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block40.png; sourceTree = "<group>"; };
 		0F2807A218AACB5500DB42CC /* spot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spot40.png; sourceTree = "<group>"; };
 		0F2807A618AACC5100DB42CC /* box40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box40.png; sourceTree = "<group>"; };
-		0F2807AA18AAD70000DB42CC /* bot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bot40.png; sourceTree = "<group>"; };
 		0F2807B418ABEFCF00DB42CC /* canMove40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = canMove40.png; sourceTree = "<group>"; };
 		0F2807B518ABEFCF00DB42CC /* cannotMove40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cannotMove40.png; sourceTree = "<group>"; };
 		0F2807BB18AC805C00DB42CC /* App.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
 		0F2F608018AF303800172586 /* popup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup.png; sourceTree = "<group>"; };
+		0F71116618B0327B00560658 /* help50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = help50.png; sourceTree = "<group>"; };
+		0F71116C18B10EE700560658 /* back_btn50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_btn50.png; sourceTree = "<group>"; };
+		0F71116D18B10EE700560658 /* bot40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bot40.png; sourceTree = "<group>"; };
+		0F71116E18B10EE700560658 /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashScreen.png; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,9 +143,11 @@
 		0FA5F4C61897476E0073CF80 /* JSokobanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSokobanTests-Info.plist"; sourceTree = "<group>"; };
 		0FA5F4C81897476E0073CF80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSokobanTests.m; sourceTree = "<group>"; };
-		0FB5B3D618AF352E007EFE38 /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashScreen.png; sourceTree = "<group>"; };
 		0FB5B3D818AF35BE007EFE38 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = ../FirstScene.h; sourceTree = "<group>"; };
 		0FB5B3D918AF35BE007EFE38 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = ../FirstScene.m; sourceTree = "<group>"; };
+		0FB5B3E718AFEDB6007EFE38 /* down50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down50.png; sourceTree = "<group>"; };
+		0FB5B3E818AFEDB6007EFE38 /* up50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up50.png; sourceTree = "<group>"; };
+		0FB5B3F118B030A5007EFE38 /* sodokuDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sodokuDB.sqlite; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,11 +179,15 @@
 		0F0BEA5B18A43AFB00C672FE /* multimedia */ = {
 			isa = PBXGroup;
 			children = (
-				0FB5B3D618AF352E007EFE38 /* SplashScreen.png */,
+				0F71116C18B10EE700560658 /* back_btn50.png */,
+				0F71116D18B10EE700560658 /* bot40.png */,
+				0F71116E18B10EE700560658 /* SplashScreen.png */,
+				0F71116618B0327B00560658 /* help50.png */,
+				0FB5B3E718AFEDB6007EFE38 /* down50.png */,
+				0FB5B3E818AFEDB6007EFE38 /* up50.png */,
 				0F2F608018AF303800172586 /* popup.png */,
 				0F2548DB18AF116C0085C295 /* episodeScreen.png */,
 				0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */,
-				0F2548CC18AEAFD90085C295 /* episode.png */,
 				0F25F71318AD714000E83745 /* menu_btn50.png */,
 				0F25F71418AD714000E83745 /* next_btn50.png */,
 				0F25F71518AD714000E83745 /* radiooff_btn50.png */,
@@ -187,7 +197,6 @@
 				0F25F70C18AD408A00E83745 /* pause50.png */,
 				0F2807B418ABEFCF00DB42CC /* canMove40.png */,
 				0F2807B518ABEFCF00DB42CC /* cannotMove40.png */,
-				0F2807AA18AAD70000DB42CC /* bot40.png */,
 				0F2807A618AACC5100DB42CC /* box40.png */,
 				0F2807A218AACB5500DB42CC /* spot40.png */,
 				0F28079E18AAC79500DB42CC /* block40.png */,
@@ -259,9 +268,9 @@
 		0FA5F4A01897476E0073CF80 /* JSokoban */ = {
 			isa = PBXGroup;
 			children = (
+				0FB5B3F118B030A5007EFE38 /* sodokuDB.sqlite */,
 				0FB5B3D818AF35BE007EFE38 /* FirstScene.h */,
 				0FB5B3D918AF35BE007EFE38 /* FirstScene.m */,
-				0F2548D718AEBF9C0085C295 /* sodokuDB.sqlite */,
 				0F2548C118AE8B1F0085C295 /* Entity */,
 				0F0BEA7418A9C90900C672FE /* FMDB */,
 				0F0BEA5B18A43AFB00C672FE /* multimedia */,
@@ -396,25 +405,28 @@
 			files = (
 				0FA5F4A51897476E0073CF80 /* InfoPlist.strings in Resources */,
 				0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */,
-				0FB5B3D718AF352E007EFE38 /* SplashScreen.png in Resources */,
-				0F2807AB18AAD70000DB42CC /* bot40.png in Resources */,
+				0F71116F18B10EE700560658 /* back_btn50.png in Resources */,
+				0FB5B3EA18AFEDB6007EFE38 /* up50.png in Resources */,
+				0FB5B3E918AFEDB6007EFE38 /* down50.png in Resources */,
+				0FB5B3F218B030A5007EFE38 /* sodokuDB.sqlite in Resources */,
 				0F25F71A18AD714000E83745 /* radiooff_btn50.png in Resources */,
 				0F2807BC18AC805C00DB42CC /* App.plist in Resources */,
 				0F2807B618ABEFCF00DB42CC /* canMove40.png in Resources */,
 				0F2548CF18AEB1120085C295 /* angrybirds-regular.ttf in Resources */,
 				0FA5F4B81897476E0073CF80 /* Images.xcassets in Resources */,
+				0F71117018B10EE700560658 /* bot40.png in Resources */,
 				0F2F608118AF303800172586 /* popup.png in Resources */,
 				0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */,
+				0F71117118B10EE700560658 /* SplashScreen.png in Resources */,
 				0F25F70D18AD408A00E83745 /* pause50.png in Resources */,
+				0F71116718B0327B00560658 /* help50.png in Resources */,
 				0F2807A718AACC5100DB42CC /* box40.png in Resources */,
 				0F28079F18AAC79500DB42CC /* block40.png in Resources */,
 				0F25F71918AD714000E83745 /* next_btn50.png in Resources */,
 				0F2548DC18AF116C0085C295 /* episodeScreen.png in Resources */,
-				0F2548CD18AEAFD90085C295 /* episode.png in Resources */,
 				0F25F71C18AD714000E83745 /* restart_btn50.png in Resources */,
 				0F2807BA18AC7EC100DB42CC /* JSokoban-Info.plist in Resources */,
 				0F25F71B18AD714000E83745 /* radioon_btn50.png in Resources */,
-				0F2548D818AEBF9C0085C295 /* sodokuDB.sqlite in Resources */,
 				0F25F71218AD6CED00E83745 /* menu.png in Resources */,
 				0F2807A318AACB5500DB42CC /* spot40.png in Resources */,
 				0F28079918AAC2EB00DB42CC /* screen.png in Resources */,

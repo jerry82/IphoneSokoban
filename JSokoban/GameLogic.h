@@ -38,6 +38,11 @@ extern NSString* const CANNOTMOVE_IMG;
 
 extern NSString* const SCREEN_IMG;
 
+extern NSString* const UP_IMG;
+extern NSString* const UP_NAME;
+extern NSString* const DOWN_IMG;
+extern NSString* const DOWN_NAME;
+
 //menu
 extern NSString* const RESTARTBTN_IMG;
 extern NSString* const RESTARTBTN_NAME;
@@ -48,8 +53,14 @@ extern NSString* const MENUBTN_NAME;
 extern NSString* const SOUNDONBTN_IMG;
 extern NSString* const SOUNDONBTN_NAME;
 
+extern NSString* const HELPBTN_IMG;
+extern NSString* const HELPBTN_NAME;
+
 extern NSString* const NEXTBTN_IMG;
 extern NSString* const NEXTBTN_NAME;
+
+extern NSString* const BACKBTN_IMG;
+extern NSString* const BACKBTN_NAME;
 
 extern NSString* const MENUBAR_IMG;
 extern NSString* const MENUBAR_NAME;

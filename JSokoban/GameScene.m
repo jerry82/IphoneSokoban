@@ -58,6 +58,7 @@
     SKSpriteNode* pauseBtn = [SKSpriteNode spriteNodeWithImageNamed:PAUSE_IMG];
     pauseBtn.position = CGPointMake(pauseBtn.size.width / 2, self.size.height - pauseBtn.size.height);
     pauseBtn.name = PAUSE_NAME;
+    pauseBtn.zPosition = 10;
     [self addChild:pauseBtn];
     
     //TODO: this is for debugging
@@ -68,6 +69,12 @@
     nextBtn.zPosition = 10;
     [self addChild:nextBtn];
     
+    SKSpriteNode* backBtn = [SKSpriteNode spriteNodeWithImageNamed:BACKBTN_IMG];
+    backBtn.position = CGPointMake(nextBtn.position.x - 5 - backBtn.size.width, nextBtn.position.y);
+    backBtn.name = BACKBTN_NAME;
+    backBtn.zPosition = 10;
+    [self addChild:backBtn];
+    
 
     SKLabelNode* levelText = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
     levelText.name = @"LEVEL";
@@ -75,6 +82,7 @@
     levelText.fontColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     levelText.position = CGPointMake(self.size.width / 2, self.size.height -
                                      pauseBtn.size.height);
+    levelText.zPosition = 10;
     [self addChild:levelText];
     
 }
@@ -134,6 +142,7 @@
             if ([line characterAtIndex:j] == ' ') continue;
             
             SKSpriteNode* blockSprite;
+            SKSpriteNode* blockSprite_2;
             
             if ([line characterAtIndex:j] == BLOCK_CHAR) {
                 blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BLOCK_IMG];
@@ -146,6 +155,20 @@
                 [blockSprite setZPosition:0];
                 cntSpot++;
             }
+            else if ([line characterAtIndex:j] == BOX_ON_SPOT) {
+                //1. create spot
+                blockSprite = [SKSpriteNode spriteNodeWithImageNamed:SPOT_IMG];
+                blockSprite.name = SPOT_NAME;
+                //below others
+                [blockSprite setZPosition:0];
+                cntSpot++;
+                
+                //2. create box
+                blockSprite_2 = [SKSpriteNode spriteNodeWithImageNamed:BOX_IMG];
+                blockSprite_2.name = [NSString stringWithFormat:@"box_%d", boxCnt++];
+                [blockSprite_2 setZPosition:1];
+            }
+            
             else if ([line characterAtIndex:j] == BOX_CHAR) {
                 blockSprite = [SKSpriteNode spriteNodeWithImageNamed:BOX_IMG];
                 blockSprite.name = [NSString stringWithFormat:@"box_%d", boxCnt++];
@@ -160,11 +183,18 @@
             if (blockSprite != nil) {
                 float x = j * Sprite_Edge + Sprite_Edge/2;
                 float y = Pad_Bottom_Screen + (mazeChars.count - i) * Sprite_Edge - Sprite_Edge / 2;
+                
                 //NSLog(@"%f %f", x, y);
                 blockSprite.position = CGPointMake(x, y);
                 blockSprite.scale = spriteScale;
-                
                 [self addChild:blockSprite];
+                
+                if (blockSprite_2 != nil) {
+                    blockSprite_2.position = CGPointMake(x, y);
+                    blockSprite_2.scale = spriteScale;
+                    [self addChild:blockSprite_2];
+                    blockSprite_2 = nil;
+                }
             }
         }
     }
@@ -344,7 +374,7 @@
             [self showMenu];
             return YES;
         }
-        else if ([tmpNode.name isEqual:MENUBG_NAME]) {
+        else if ([tmpNode.name isEqual:MENUBG_NAME] || [tmpNode.name isEqual:MENUBAR_NAME]) {
             [self hideMenu];
             return YES;
         }
@@ -370,6 +400,14 @@
     }
 }
 
+-(void) hideMenu {
+    SKNode* menu = [self childNodeWithName:MENU_NAME];
+    if (menu != nil) {
+        [menu removeAllChildren];
+        [menu removeFromParent];
+    }
+}
+
 - (void) showWinDialog {
     SKNode* winDialog = [self childNodeWithName:WINDIALOG_NAME];
     
@@ -382,14 +420,6 @@
     }
 }
 
--(void) hideMenu {
-    SKNode* menu = [self childNodeWithName:MENU_NAME];
-    if (menu != nil) {
-        [menu removeAllChildren];
-        [menu removeFromParent];
-    }
-}
-
 -(void) hideWinDialog {
     SKNode* dialog = [self childNodeWithName:WINDIALOG_NAME];
     if (dialog != nil) {
@@ -397,6 +427,8 @@
         [dialog removeFromParent];
     }
 }
+
+
 
 -(void) showDestinationIcon: (MatrixPosStruct) mpos canMove: (BOOL)canMove {
     

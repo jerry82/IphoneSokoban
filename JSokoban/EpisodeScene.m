@@ -10,7 +10,13 @@
 #import "GameLogic.h"
 #import "EpisodeItem.h"
 
-@implementation EpisodeScene
+@implementation EpisodeScene {
+    int PAGESIZE;
+    float ItemHeight;
+    int curPageNo;
+    int maxPageNo;
+    NSMutableArray* levelSprites;
+}
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -20,6 +26,10 @@
         //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
         //self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
         
+        PAGESIZE = 5;
+        ItemHeight = self.size.height / 7;
+        curPageNo = 0;
+        levelSprites = [[NSMutableArray alloc] init];
         
         [self createGUI];
     }
@@ -30,9 +40,7 @@
 
 //divide height to 6 equal size
 -(void) createGUI {
-    
-    float dh = self.size.height / 7;
-    
+
     //background
     SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:EPISODE_SCREEN_IMG];
     background.position = CGPointMake(background.size.width / 2, background.size.height / 2);
@@ -41,25 +49,48 @@
     SKLabelNode* title = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
     title.fontSize = 40;
     title.text = @"Select Adventure";
-    title.position = CGPointMake(self.size.width / 2, self.size.height - dh);
+    title.position = CGPointMake(self.size.width / 2, self.size.height - ItemHeight);
     [self addChild:title];
     
     
+    SKSpriteNode* downSprite = [SKSpriteNode spriteNodeWithImageNamed:DOWN_IMG];
+    downSprite.name = DOWN_NAME;
+    downSprite.position = CGPointMake(self.size.width / 2 + downSprite.size.width, downSprite.size.height / 2);
+    
+    SKSpriteNode* upSprite = [SKSpriteNode spriteNodeWithImageNamed:UP_IMG];
+    upSprite.name = UP_NAME;
+    upSprite.position = CGPointMake(self.size.width / 2 - upSprite.size.width, upSprite.size.height / 2);
+    
+    [self addChild:downSprite];
+    [self addChild:upSprite];
+    
+    
+    curPageNo = 0;
+    [self createEpisodes: curPageNo];
+   
+}
+
+- (void) createEpisodes: (int) pageNo {
+
     NSMutableArray* allEpisodes = [[GameLogic sharedGameLogic] getAllEpisodes];
+    
+    maxPageNo = (int)(allEpisodes.count / PAGESIZE);
+    if (allEpisodes.count % PAGESIZE == 0)
+        maxPageNo -= 1;
+    //NSLog(@"maxpage: %d", maxPageNo);
+    
     if (allEpisodes.count > 0) {
         
-        for (int i = 0; i < allEpisodes.count; i++) {
-            EpisodeItem* item = [allEpisodes objectAtIndex:i];
+        int j = pageNo * PAGESIZE;
+        while (j < pageNo * PAGESIZE + PAGESIZE) {
+            if (j >= allEpisodes.count)
+                break;
             
-            //create episode
-            /*
-            SKSpriteNode* ep = [SKSpriteNode spriteNodeWithImageNamed:EPISODE_IMG];
-            ep.position = CGPointMake(10 + ep.size.width/2, self.size.height / 2);
-            [self addChild:ep];
-            */
+            EpisodeItem* item = [allEpisodes objectAtIndex:j];
+            int i = j % PAGESIZE;
             
-            SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:0.2] size:CGSizeMake(self.size.width, dh)];
-            bar.position = CGPointMake(self.size.width / 2, self.size.height - (i + 2) * dh);
+            SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:0.2] size:CGSizeMake(self.size.width, ItemHeight)];
+            bar.position = CGPointMake(self.size.width / 2, self.size.height - (i + 2) * ItemHeight);
             bar.hidden = YES;
             //
             bar.name = [NSString stringWithFormat:@"%d_%d", item.PackId, item.LevelCompleted];
@@ -68,27 +99,34 @@
             
             UIColor* white = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
             
-            SKLabelNode* text = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
-            text.fontSize = 40;
-            text.fontColor = [UIColor colorWithRed:(float)213/255 green:(float)198/255 blue:(float)105/255 alpha:1];
-            text.text = [NSString stringWithFormat:@"%d", item.PackId];
-            text.position = CGPointMake(20, self.size.height - (i + 2) * dh);
-            [self addChild:text];
+            SKLabelNode* epNum = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
+            epNum.fontSize = 40;
+            epNum.fontColor = [UIColor colorWithRed:(float)213/255 green:(float)198/255 blue:(float)105/255 alpha:1];
+            epNum.text = [NSString stringWithFormat:@"%d", item.PackId];
+            epNum.position = CGPointMake(40, self.size.height - (i + 2) * ItemHeight);
+            [self addChild:epNum];
             
             SKLabelNode* completed = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
             completed.fontSize = 20;
             completed.fontColor = white;
             completed.text = [NSString stringWithFormat: @"Completed: %d/%d", item.LevelCompleted, item.NumOfLevels];
-            completed.position = CGPointMake(text.position.x + 120, text.position.y);
+            completed.position = CGPointMake(epNum.position.x + 120, epNum.position.y);
             [self addChild:completed];
             
             SKLabelNode* star = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
             star.fontSize = 15;
             star.fontColor = white;
             star.text = @"(* * *)";
-            star.position = CGPointMake(text.position.x + 70, text.position.y + 20);
+            star.position = CGPointMake(epNum.position.x + 70, epNum.position.y + 20);
             [self addChild:star];
             
+            
+            [levelSprites addObject:bar];
+            [levelSprites addObject:epNum];
+            [levelSprites addObject:completed];
+            [levelSprites addObject:star];
+            
+            j += 1;
         }
     }
 }
@@ -102,18 +140,47 @@
     NSLog(@"%@", node.name);
     
     if (node.name != nil) {
-        node.hidden = NO;
-        SKAction* action = [SKAction waitForDuration:0.2];
-        [node runAction:action completion:^{
-            LevelDetailItem* item = [[LevelDetailItem alloc] init];
-            NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
+        if ([node.name isEqual:DOWN_NAME]) {
+            //clear old level sprite
+            [self clearCurrentLevelSprites];
             
-            item.PackId = [[tokens objectAtIndex:0] intValue];
-            item.LevelNum = [[tokens objectAtIndex:1] intValue];
+            curPageNo += 1;
+            if (curPageNo > maxPageNo)
+                curPageNo = maxPageNo;
             
-            [self.MainViewController createNewScene:item];
-        }];
+            [self createEpisodes:curPageNo];
+        }
+        else if ([node.name isEqual:UP_NAME]) {
+            [self clearCurrentLevelSprites];
+            curPageNo -= 1;
+            if (curPageNo < 0) {
+                curPageNo = 0;
+            }
+            [self createEpisodes:curPageNo];
+        }
+        //check bar press
+        else {
+            node.hidden = NO;
+            SKAction* action = [SKAction waitForDuration:0.2];
+            [node runAction:action completion:^{
+                LevelDetailItem* item = [[LevelDetailItem alloc] init];
+                NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
+                
+                item.PackId = [[tokens objectAtIndex:0] intValue];
+                item.LevelNum = [[tokens objectAtIndex:1] intValue];
+                
+                [self.MainViewController createNewScene:item];
+            }];
+        }
     }
+}
+
+- (void) clearCurrentLevelSprites {
+    for (int i = 0; i < levelSprites.count; i++) {
+        SKSpriteNode* tmp = [levelSprites objectAtIndex:i];
+        [tmp removeFromParent];
+    }
+    [levelSprites removeAllObjects];
 }
 
 @end
