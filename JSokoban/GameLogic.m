@@ -101,7 +101,13 @@ NSString* const EPISODE_SCREEN_IMG = @"episodeScreen";
 
 NSString* const SPLASHSCREEN_IMG = @"SplashScreen";
 
+//font
 NSString* const APP_FONT_NAME = @"angrybirds-regular";
+
+//sound
+NSString* const INGAME_SOUND = @"ingame.mp3";
+NSString* const MOVE_SOUND = @"move.mp3";
+NSString* const RUN_SOUND = @"run.mp3";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';

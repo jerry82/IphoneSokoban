@@ -94,6 +94,12 @@ extern NSString* const SPLASHSCREEN_IMG;
 
 extern NSString* const APP_FONT_NAME;
 
+//sound
+extern NSString* const INGAME_SOUND;
+extern NSString* const MOVE_SOUND;
+extern NSString* const RUN_SOUND;
+
+
 extern const char LEFT;
 extern const char RIGHT;
 extern const char UP;

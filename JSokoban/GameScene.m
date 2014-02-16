@@ -10,6 +10,7 @@
 #import "GameLogic.h"
 #import "ViewController.h"
 #import "MenuNode.h"
+#import "SoundController.h"
 
 @implementation GameScene {
     int Sprite_Edge;
@@ -18,6 +19,7 @@
     BOOL botMoving;
     NSMutableArray* mazeChars;
     float spriteScale;
+    SoundController* soundController;
 }
 
 @synthesize LevelDetail;
@@ -37,7 +39,8 @@
         //self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
         //self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
-
+        soundController = [[SoundController alloc] initWithSound];
+        
         [self createMenu];
     }
     
@@ -201,6 +204,9 @@
     
     //set criteria for win game
     shareGameLogic.NoOfSpots = cntSpot;
+    
+    //play sound
+    [soundController playBackgroundMusic];
 }
 
 
@@ -269,6 +275,7 @@
     SKAction* moveSequence = [SKAction sequence:moveArray];
     botMoving = YES;
     
+    [soundController playRunSound];
     [myBot runAction:moveSequence completion:^{[self botStop: botOldLocation];}];
 }
 
@@ -367,7 +374,12 @@
             return YES;
         }
         else if ([tmpNode.name isEqual:SOUNDONBTN_NAME]) {
-            NSLog(@"Sound on");
+            if (soundController.SoundEnabled) {
+                [soundController stopBackgroundMusic];
+            }
+            else {
+                [soundController playBackgroundMusic];
+            }
             return YES;
         }
         else if ([tmpNode.name isEqual:PAUSE_NAME]) {
@@ -447,6 +459,7 @@
     if (sprite == nil) {
         sprite = [SKSpriteNode spriteNodeWithImageNamed:tmpIMG];
         sprite.name = CANNOTMOVE_NAME;
+        sprite.scale = spriteScale;
         sprite.position = [self getCGPoint:mpos];
         [self addChild:sprite];
         
@@ -528,6 +541,8 @@
             
             botMoving = YES;
             SKAction* botSeq = [SKAction sequence:@[flip, aMove]];
+            
+            [soundController playMoveSound];
             [myBot runAction:botSeq];
             [box runAction:aMove completion:^{[self updateMazeWithNewBoxLocation: box : boxLocation];}];
         }
