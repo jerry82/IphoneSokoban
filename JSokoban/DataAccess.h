@@ -18,7 +18,7 @@ extern NSString* DatabasePath;
 
 + (id) sharedInstance;
 
-- (LevelDetailItem*) getNextLevelDetailItem: (int) pack currentLevel: (int) level;
+- (LevelDetailItem*) getNextLevelDetailItem: (int) pack currentLevel: (int) level add: (int) num;
 
 - (NSMutableArray*) getAllEpisodes;
 

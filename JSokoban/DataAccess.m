@@ -46,21 +46,26 @@ NSString* DatabasePath;
 }
 
 
-- (LevelDetailItem*) getNextLevelDetailItem:(int)pack currentLevel:(int)curLevel {
+- (LevelDetailItem*) getNextLevelDetailItem:(int)pack currentLevel:(int)curLevel add: (int)num {
     
     LevelDetailItem* levelItem = [[LevelDetailItem alloc] init];
-    //int nextLevel = level + 1;
+    int nextLevel = curLevel + num;
     
     if (![db open]) {
         NSLog(@"db failed to open");
         return nil;
     }
     
-    //select the next level, level is not in sequence (+1)
+    /*
     FMResultSet *rs = [db executeQuery:@"SELECT content, packId, levelnum from level_detail where packId = ? and levelnum > ? order by levelnum limit 1",
                        [NSNumber numberWithInt:pack],
                        [NSNumber numberWithInt:curLevel]];
-                       
+    */
+    
+    FMResultSet *rs = [db executeQuery:@"SELECT content, packId, levelnum from level_detail where packId = ? and levelnum = ?",
+                       [NSNumber numberWithInt:pack],
+                       [NSNumber numberWithInt:nextLevel]];
+
     while ([rs next]) {
         levelItem.Content = [rs stringForColumn:@"content"];
         levelItem.LevelNum = [rs intForColumn:@"levelnum"];

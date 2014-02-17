@@ -130,13 +130,23 @@ const float MOVE_DURATION = 0.15;
 //properly get the level from sqlite db
 - (LevelDetailItem*) getNextLevelDetailItem: (LevelDetailItem*) curLevel {
     
+    return [self getLevelDetailItem:curLevel add:1];
+}
+
+- (LevelDetailItem*) getPrevLevelDetailItem: (LevelDetailItem*) curLevel {
+    
+    return [self getLevelDetailItem:curLevel add:-1];
+}
+
+- (LevelDetailItem*) getLevelDetailItem: (LevelDetailItem*) curLevel add: (int) num {
     if (curLevel == nil) {
         curLevel = [[LevelDetailItem alloc] init];
         curLevel.PackId = 1;
         curLevel.LevelNum = 0;
         NSLog(@"START");
     }
-    LevelDetailItem* level = [[DataAccess sharedInstance] getNextLevelDetailItem:curLevel.PackId currentLevel:curLevel.LevelNum];
+    
+    LevelDetailItem* level = [[DataAccess sharedInstance] getNextLevelDetailItem:curLevel.PackId currentLevel:curLevel.LevelNum add: num];
     NSArray* stringArr = [level.Content componentsSeparatedByString:@"0"];
     
     level.MazeChars = [[NSMutableArray alloc] init];

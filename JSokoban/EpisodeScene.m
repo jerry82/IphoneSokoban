@@ -169,7 +169,7 @@
                 item.PackId = [[tokens objectAtIndex:0] intValue];
                 item.LevelNum = [[tokens objectAtIndex:1] intValue];
                 
-                [self.MainViewController createNewScene:item];
+                [self.MainViewController createNewScene:item chooseNext:YES];
             }];
         }
     }

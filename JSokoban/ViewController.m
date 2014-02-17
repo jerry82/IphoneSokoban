@@ -48,14 +48,20 @@
     [skView presentScene:scene];
 }
 
-- (void) createNewScene: (LevelDetailItem*) curLevel {
+- (void) createNewScene: (LevelDetailItem*) curLevel chooseNext: (BOOL) next {
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     
-    LevelDetailItem* nextLevel = [gameLogic getNextLevelDetailItem:curLevel];
-    //pass the maze to skscene
+    LevelDetailItem* nextLevel;
+    if (next) {
+        nextLevel = [gameLogic getNextLevelDetailItem:curLevel];
+    }
+    else {
+        nextLevel = [gameLogic getPrevLevelDetailItem:curLevel];
+    }
     
+    //pass the maze to skscene
     
     if (nextLevel == nil) {
         NSLog(@"no more level");

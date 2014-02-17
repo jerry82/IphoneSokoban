@@ -112,6 +112,8 @@ extern const float MOVE_DURATION;
 
 - (LevelDetailItem*) getNextLevelDetailItem: (LevelDetailItem*) curLevel;
 
+- (LevelDetailItem*) getPrevLevelDetailItem: (LevelDetailItem*) curLevel;
+
 - (void) initMaze: (NSMutableArray*) mazeChars;
 
 - (NSString*) getShortestPath: (MatrixPosStruct) pos withBotPos: (MatrixPosStruct) botPos;

@@ -394,6 +394,10 @@
             [self nextLevel];
             return YES;
         }
+        else if ([tmpNode.name isEqual:BACKBTN_NAME]) {
+            [self previousLevel];
+            return YES;
+        }
     }
     
     return NO;
@@ -612,12 +616,16 @@
 
 - (void) restartLevel {
     self.LevelDetail.LevelNum--;
-    [self.viewController createNewScene: self.LevelDetail];
+    [self.viewController createNewScene: self.LevelDetail chooseNext:YES];
 }
 
 //TODO: to test
 - (void) nextLevel {
-    [self.viewController createNewScene:self.LevelDetail];
+    [self.viewController createNewScene:self.LevelDetail chooseNext:YES];
+}
+
+- (void) previousLevel {
+    [self.viewController createNewScene:self.LevelDetail chooseNext:NO];
 }
 
 //TODO: for debugging
