@@ -18,6 +18,8 @@
 
 @property LevelDetailItem* LevelDetail;
 
+@property (assign) int AlreadyCompleted;
+
 @property (nonatomic, weak) ViewController *viewController;
 
 -(void) createMaze: (NSMutableArray*) newMaze;

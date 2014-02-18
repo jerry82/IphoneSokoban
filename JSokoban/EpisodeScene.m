@@ -93,7 +93,7 @@
             bar.position = CGPointMake(self.size.width / 2, self.size.height - (i + 2) * ItemHeight);
             bar.hidden = YES;
             //
-            bar.name = [NSString stringWithFormat:@"%d_%d", item.PackId, item.LevelCompleted];
+            bar.name = [NSString stringWithFormat:@"%d_%d_%d", item.PackId, item.LevelCompleted, item.NumOfLevels];
             bar.zPosition = 10;
             [self addChild:bar];
             
@@ -168,8 +168,18 @@
                 
                 item.PackId = [[tokens objectAtIndex:0] intValue];
                 item.LevelNum = [[tokens objectAtIndex:1] intValue];
+            
+                int totalLevel = [[tokens objectAtIndex:2] intValue];
+                int alreadycompleted = item.LevelNum;
                 
-                [self.MainViewController createNewScene:item chooseNext:YES];
+                //if completed all level in episode
+                if (totalLevel == item.LevelNum) {
+                    item.LevelNum -= 1;
+                    printf("level num: %d", item.LevelNum);
+                }
+                
+                //chooseNext or Previous
+                [self.MainViewController createNewScene:item chooseNext:YES alreadycompleted:alreadycompleted];
             }];
         }
     }

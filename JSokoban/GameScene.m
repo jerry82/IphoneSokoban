@@ -15,12 +15,15 @@
 @implementation GameScene {
     int Sprite_Edge;
     int Pad_Bottom_Screen;
+    
     GameLogic* shareGameLogic;
     BOOL botMoving;
     NSMutableArray* mazeChars;
     float spriteScale;
     SoundController* soundController;
 }
+
+@synthesize AlreadyCompleted;
 
 @synthesize LevelDetail;
 
@@ -66,11 +69,13 @@
     
     //TODO: this is for debugging
     //next button
+
     SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:NEXTBTN_IMG];
     nextBtn.position = CGPointMake(self.size.width - nextBtn.size.width / 2, self.size.height - nextBtn.size.height);
     nextBtn.name = NEXTBTN_NAME;
     nextBtn.zPosition = 10;
     [self addChild:nextBtn];
+    
     
     SKSpriteNode* backBtn = [SKSpriteNode spriteNodeWithImageNamed:BACKBTN_IMG];
     backBtn.position = CGPointMake(nextBtn.position.x - 5 - backBtn.size.width, nextBtn.position.y);
@@ -98,6 +103,13 @@
     if (levelText != nil) {
         levelText.text = [NSString stringWithFormat:@"%d-%d", self.LevelDetail.PackId, self.LevelDetail.LevelNum];
     }
+    
+    printf("before nextbtn: current level: %d alreadycompleted: %d", LevelDetail.LevelNum, AlreadyCompleted);
+    //TODO: currently commented for debug, when deploy it will be used
+    /*
+    if (LevelDetail.LevelNum > AlreadyCompleted) {
+        [[self childNodeWithName:NEXTBTN_NAME] removeFromParent];
+    }*/
     
     botMoving = NO;
     
@@ -129,7 +141,7 @@
     NSLog(@"%f", spriteScale);
     
     //TODO: debug purpose
-    [self displayMazeChars];
+    //[self displayMazeChars];
     
     //init maze in gameLogic
     [shareGameLogic initMaze:mazeChars];
@@ -382,12 +394,17 @@
             }
             return YES;
         }
+        else if ([tmpNode.name isEqual:HELPBTN_NAME]) {
+            [self showInstructionDialog];
+            return YES;
+        }
         else if ([tmpNode.name isEqual:PAUSE_NAME]) {
             [self showMenu];
             return YES;
         }
         else if ([tmpNode.name isEqual:MENUBG_NAME] || [tmpNode.name isEqual:MENUBAR_NAME]) {
             [self hideMenu];
+            [self hideInstructionDialog];
             return YES;
         }
         else if ([tmpNode.name isEqual:NEXTBTN_NAME]) {
@@ -433,6 +450,29 @@
         winDialog.name = WINDIALOG_NAME;
         winDialog.zPosition = 10;
         [self addChild: winDialog];
+    }
+}
+
+- (void) showInstructionDialog {
+    
+    //hide menu
+    [self hideMenu];
+    SKNode* instructionDialog = [self childNodeWithName:INSTRUCTION_DIALOG_NAME];
+    
+    if (instructionDialog == nil) {
+        CGPoint pos = CGPointMake(self.size.width/2, self.size.height/2);
+        instructionDialog = [[MenuNode alloc] initInstructionDialogWithPos:pos andSize:self.size];
+        instructionDialog.name = INSTRUCTION_DIALOG_NAME;
+        instructionDialog.zPosition = 10;
+        [self addChild: instructionDialog];
+    }
+}
+
+- (void) hideInstructionDialog {
+    SKNode* dialog = [self childNodeWithName:INSTRUCTION_DIALOG_NAME];
+    if (dialog != nil) {
+        [dialog removeAllChildren];
+        [dialog removeFromParent];
     }
 }
 
@@ -608,24 +648,24 @@
 
 - (void) handleGameWin {
     NSLog(@"game is win");
-    
     //update completed level
     [[GameLogic sharedGameLogic] updateGameWin:self.LevelDetail];
+    [soundController playClapSound];
     [self showWinDialog];
 }
 
 - (void) restartLevel {
     self.LevelDetail.LevelNum--;
-    [self.viewController createNewScene: self.LevelDetail chooseNext:YES];
+    [self.viewController createNewScene: self.LevelDetail chooseNext:YES alreadycompleted:AlreadyCompleted];
 }
 
 //TODO: to test
 - (void) nextLevel {
-    [self.viewController createNewScene:self.LevelDetail chooseNext:YES];
+    [self.viewController createNewScene:self.LevelDetail chooseNext:YES alreadycompleted:AlreadyCompleted];
 }
 
 - (void) previousLevel {
-    [self.viewController createNewScene:self.LevelDetail chooseNext:NO];
+    [self.viewController createNewScene:self.LevelDetail chooseNext:NO alreadycompleted:AlreadyCompleted];
 }
 
 //TODO: for debugging

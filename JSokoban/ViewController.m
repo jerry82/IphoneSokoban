@@ -48,7 +48,7 @@
     [skView presentScene:scene];
 }
 
-- (void) createNewScene: (LevelDetailItem*) curLevel chooseNext: (BOOL) next {
+- (void) createNewScene: (LevelDetailItem*) curLevel chooseNext: (BOOL) next alreadycompleted:(int)level {
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
@@ -75,6 +75,8 @@
     // Create and configure the scene.
     GameScene * scene = [GameScene sceneWithSize:skView.bounds.size];
     scene.LevelDetail = nextLevel;
+    scene.AlreadyCompleted = level;
+    
     scene.scaleMode = SKSceneScaleModeAspectFit;
     scene.viewController = self;
 

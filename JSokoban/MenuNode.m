@@ -28,6 +28,15 @@
     return self;
 }
 
+- (id) initInstructionDialogWithPos: (CGPoint) pos andSize:(CGSize) screenSize {
+    if (self = [super init]) {
+        [self createBackground:screenSize];
+        [self createInstructionDialog: pos];
+        
+    }
+    return self;
+}
+
 - (void) createBackground: (CGSize) screenSize {
     SKSpriteNode* bg = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3] size:screenSize];
     bg.name = MENUBG_NAME;
@@ -35,6 +44,15 @@
     bg.zPosition = self.zPosition + 1;
     
     [self addChild:bg];
+}
+
+//instruction dialog
+- (void) createInstructionDialog: (CGPoint) pos {
+    SKSpriteNode* dialogSprite = [SKSpriteNode spriteNodeWithImageNamed: INSTRUCTION_DIALOG_IMG];
+    dialogSprite.name = WINDIALOG_NAME;
+    dialogSprite.position = pos;
+    dialogSprite.zPosition = 20;
+    [self addChild:dialogSprite];
 }
 
 //win dialog

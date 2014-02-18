@@ -12,7 +12,7 @@
 
 @interface ViewController : UIViewController
 
-- (void) createNewScene: (LevelDetailItem*) curLevel chooseNext: (BOOL)next;
+- (void) createNewScene: (LevelDetailItem*) curLevel chooseNext: (BOOL)next alreadycompleted: (int) level;
 
 - (void) createEpisodeScene;
 

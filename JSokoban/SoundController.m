@@ -47,6 +47,12 @@
      */
 }
 
+- (void) playClapSound {
+    if (!_soundEnabled) return;
+    _mySound = [self createSoundID: CLAP_SOUND];
+    AudioServicesPlaySystemSound(_mySound);
+}
+
 - (void) playBackgroundMusic {
     [_bgMusicPlayer play];
     _soundEnabled = YES;

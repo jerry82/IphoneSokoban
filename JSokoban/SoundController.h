@@ -21,6 +21,7 @@
 - (id) initWithSound;
 - (void) playRunSound;
 - (void) playMoveSound;
+- (void) playClapSound;
 - (void) playBackgroundMusic;
 - (void) stopBackgroundMusic;
 

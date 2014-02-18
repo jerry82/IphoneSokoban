@@ -26,10 +26,18 @@
     background.position = CGPointMake(background.size.width / 2, background.size.height / 2);
     background.name = @"bg";
     [self addChild:background];
+    
+    //SKAction* fadeIn = [SKAction fadeInWithDuration:2];
+    SKAction* wait = [SKAction waitForDuration:3];
+    //SKAction* seq = [SKAction sequence:@[fadeIn, wait]];
+    [background runAction:wait completion:^{
+        [self.MainViewController createEpisodeScene];
+    }];
 }
 
 
 //handle touch
+/*
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch* touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
@@ -40,7 +48,7 @@
     if (node.name != nil) {
         [self.MainViewController createEpisodeScene];
     }
-}
+}*/
 
 
 @end

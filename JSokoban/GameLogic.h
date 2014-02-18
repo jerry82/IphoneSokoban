@@ -71,6 +71,9 @@ extern NSString* const MENUBG_NAME;
 extern NSString* const WINDIALOG_IMG;
 extern NSString* const WINDIALOG_NAME;
 
+extern NSString* const INSTRUCTION_DIALOG_NAME;
+extern NSString* const INSTRUCTION_DIALOG_IMG;
+
 extern NSString* const PAUSE_IMG;
 extern NSString* const PAUSE_NAME;
 
@@ -98,6 +101,7 @@ extern NSString* const APP_FONT_NAME;
 extern NSString* const INGAME_SOUND;
 extern NSString* const MOVE_SOUND;
 extern NSString* const RUN_SOUND;
+extern NSString* const CLAP_SOUND;
 
 
 extern const char LEFT;

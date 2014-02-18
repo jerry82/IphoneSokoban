@@ -14,4 +14,6 @@
 
 - (id) initDialogWithPos: (CGPoint) pos andSize: (CGSize) screenSize;
 
+- (id) initInstructionDialogWithPos: (CGPoint) pos andSize: (CGSize) screenSize;
+
 @end

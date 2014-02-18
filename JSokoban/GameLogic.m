@@ -83,6 +83,9 @@ NSString* const MENUBG_NAME = @"menu_bg";
 NSString* const WINDIALOG_NAME = @"windialog";
 NSString* const WINDIALOG_IMG = @"popup";
 
+NSString* const INSTRUCTION_DIALOG_NAME = @"instruction_dialog";
+NSString* const INSTRUCTION_DIALOG_IMG = @"popup_instruction";
+
 NSString* const PAUSE_IMG = @"pause50";
 NSString* const PAUSE_NAME = @"pause";
 
@@ -108,6 +111,7 @@ NSString* const APP_FONT_NAME = @"angrybirds-regular";
 NSString* const INGAME_SOUND = @"ingame.mp3";
 NSString* const MOVE_SOUND = @"move.mp3";
 NSString* const RUN_SOUND = @"run.mp3";
+NSString* const CLAP_SOUND = @"clap.mp3";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';
