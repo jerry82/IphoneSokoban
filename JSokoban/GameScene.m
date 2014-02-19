@@ -441,13 +441,22 @@
     }
 }
 
-- (void) showWinDialog {
-    SKNode* winDialog = [self childNodeWithName:WINDIALOG_NAME];
+- (void) showWinDialog: (BOOL) win {
+    
+    NSString* tmp = @"";
+    if (win) {
+        tmp = ADVENTURE_WINDIALOG_NAME;
+    }
+    else {
+        tmp = WINDIALOG_NAME;
+    }
+    
+    SKNode* winDialog = [self childNodeWithName:tmp];
     
     if (winDialog == nil) {
         CGPoint pos = CGPointMake(self.size.width/2, self.size.height/2);
-        winDialog = [[MenuNode alloc] initDialogWithPos:pos andSize:self.size];
-        winDialog.name = WINDIALOG_NAME;
+        winDialog = [[MenuNode alloc] initDialogWithPos:pos andSize:self.size completeEpisode:win];
+        winDialog.name = tmp;
         winDialog.zPosition = 10;
         [self addChild: winDialog];
     }
@@ -648,10 +657,13 @@
 
 - (void) handleGameWin {
     NSLog(@"game is win");
-    //update completed level
+    //update completed level and unlock next episode if this is last level
+    
     [[GameLogic sharedGameLogic] updateGameWin:self.LevelDetail];
     [soundController playClapSound];
-    [self showWinDialog];
+    
+    BOOL lastLevel = [[GameLogic sharedGameLogic] isLastLevelOfEpisode:self.LevelDetail];
+    [self showWinDialog: lastLevel];
 }
 
 - (void) restartLevel {

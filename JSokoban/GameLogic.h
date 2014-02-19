@@ -71,6 +71,10 @@ extern NSString* const MENUBG_NAME;
 extern NSString* const WINDIALOG_IMG;
 extern NSString* const WINDIALOG_NAME;
 
+extern NSString* const ADVENTURE_WINDIALOG_IMG;
+extern NSString* const ADVENTURE_WINDIALOG_NAME;
+
+
 extern NSString* const INSTRUCTION_DIALOG_NAME;
 extern NSString* const INSTRUCTION_DIALOG_IMG;
 
@@ -93,7 +97,10 @@ extern NSString* const REFRESH;
 extern NSString* const EPISODE_IMG;
 extern NSString* const EPISODE_SCREEN_IMG;
 
+extern NSString* const LOCK_IMG;
+
 extern NSString* const SPLASHSCREEN_IMG;
+extern NSString* const SPLASHSCREEN_NAME;
 
 extern NSString* const APP_FONT_NAME;
 
@@ -103,6 +110,8 @@ extern NSString* const MOVE_SOUND;
 extern NSString* const RUN_SOUND;
 extern NSString* const CLAP_SOUND;
 
+extern NSString* const WINGAME_SCREEN_IMG;
+extern NSString* const WINGAME_SCREEN_NAME;
 
 extern const char LEFT;
 extern const char RIGHT;
@@ -125,6 +134,8 @@ extern const float MOVE_DURATION;
 - (BOOL) checkGameWin: (NSMutableArray*) mazeCharacters;
 
 - (void) updateGameWin: (LevelDetailItem*) curLevelItem;
+
+- (BOOL) isLastLevelOfEpisode: (LevelDetailItem*) curLevelItem;
 
 - (NSMutableArray*) getAllEpisodes;
 

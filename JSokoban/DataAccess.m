@@ -93,13 +93,15 @@ NSString* DatabasePath;
         return nil;
     }
     
-    FMResultSet *rs = [db executeQuery:@"SELECT id, description, current_level, custom.total AS total FROM pack AS p JOIN (SELECT packId, count(packId) AS total FROM level_detail GROUP BY packId) AS custom ON p.id = custom.packId"];
+    FMResultSet *rs = [db executeQuery:@"SELECT id, description, current_level, lock, custom.total AS total FROM pack AS p JOIN (SELECT packId, count(packId) AS total FROM level_detail GROUP BY packId) AS custom ON p.id = custom.packId"];
     
     while ([rs next]) {
         EpisodeItem* item = [[EpisodeItem alloc] init];
         item.PackId = [rs intForColumn:@"id"];
         item.description = [rs stringForColumn:@"description"];
         item.LevelCompleted = [rs intForColumn:@"current_level"] - 1;
+        item.Lock = [rs intForColumn:@"lock"];
+        
         if (item.LevelCompleted < 0) {
             item.LevelCompleted = 0;
         }
@@ -131,6 +133,51 @@ NSString* DatabasePath;
                         [NSNumber numberWithInt:curLevelItem.PackId],
                         [NSNumber numberWithInt:nextLevel]];
  
+    if ([db hadError]) {
+        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    [db close];
+}
+
+- (BOOL) isLastLevelOfEpisode: (LevelDetailItem*) curLevelItem {
+    
+    BOOL lastLevel = NO;
+
+    if (![db open]) {
+        NSLog(@"db failed to open");
+        return lastLevel;
+    }
+    
+    FMResultSet *rs = [db executeQuery: @"SELECT count(id) as total FROM level_detail where packId = ?",
+                       [NSNumber numberWithInt: curLevelItem.PackId]];
+    
+    int cnt = 0;
+    
+    while ([rs next]) {
+        cnt = [rs intForColumn:@"total"];
+        break;
+    }
+    
+    
+    if ([db hadError]) {
+        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    [db close];
+    
+    
+    return lastLevel = (cnt == curLevelItem.LevelNum);
+}
+
+- (void) unlockEpisode: (int) packId {
+    if (![db open]) {
+        NSLog(@"db failed to open");
+        return;
+    }
+    
+    [db executeUpdate:@"UPDATE pack set lock = 0 where id = ?",
+     [NSNumber numberWithInt:packId]];
+
+    
     if ([db hadError]) {
         NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
     }

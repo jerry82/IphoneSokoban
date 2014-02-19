@@ -12,8 +12,10 @@
 
 - (id) initMenuWithPos: (CGPoint) pos andSize: (CGSize) screenSize;
 
-- (id) initDialogWithPos: (CGPoint) pos andSize: (CGSize) screenSize;
+- (id) initDialogWithPos: (CGPoint) pos andSize:(CGSize) screenSize completeEpisode: (BOOL) completed;
 
 - (id) initInstructionDialogWithPos: (CGPoint) pos andSize: (CGSize) screenSize;
+
+
 
 @end

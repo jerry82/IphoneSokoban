@@ -82,6 +82,10 @@ NSString* const MENUBG_NAME = @"menu_bg";
 
 NSString* const WINDIALOG_NAME = @"windialog";
 NSString* const WINDIALOG_IMG = @"popup";
+NSString* const ADVENTURE_WINDIALOG_IMG = @"popup_adv_completed";
+NSString* const ADVENTURE_WINDIALOG_NAME = @"popup_adv_completed";
+
+
 
 NSString* const INSTRUCTION_DIALOG_NAME = @"instruction_dialog";
 NSString* const INSTRUCTION_DIALOG_IMG = @"popup_instruction";
@@ -102,7 +106,10 @@ NSString* const REFRESH = @"refresh";
 NSString* const EPISODE_IMG = @"episode";
 NSString* const EPISODE_SCREEN_IMG = @"episodeScreen";
 
+NSString* const LOCK_IMG = @"lock";
+
 NSString* const SPLASHSCREEN_IMG = @"SplashScreen";
+NSString* const SPLASHSCREEN_NAME = @"SplashScreen";
 
 //font
 NSString* const APP_FONT_NAME = @"angrybirds-regular";
@@ -112,6 +119,9 @@ NSString* const INGAME_SOUND = @"ingame.mp3";
 NSString* const MOVE_SOUND = @"move.mp3";
 NSString* const RUN_SOUND = @"run.mp3";
 NSString* const CLAP_SOUND = @"clap.mp3";
+
+NSString* const WINGAME_SCREEN_IMG = @"wingame_screen";
+NSString* const WINGAME_SCREEN_NAME = @"wingame_screen";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';
@@ -220,8 +230,17 @@ const float MOVE_DURATION = 0.15;
 }
 
 - (void) updateGameWin: (LevelDetailItem*) curLevelItem {
+    
+    BOOL isLastLevel = [[DataAccess sharedInstance] isLastLevelOfEpisode:curLevelItem];
     [[DataAccess sharedInstance] updateGameWin:curLevelItem];
     
+    if (isLastLevel)
+        //unlock
+        [[DataAccess sharedInstance] unlockEpisode:(curLevelItem.PackId + 1)];
+}
+
+- (BOOL) isLastLevelOfEpisode: (LevelDetailItem*) curLevelItem {
+    return [[DataAccess sharedInstance] isLastLevelOfEpisode:curLevelItem];
 }
 
 - (NSMutableArray*) getAllEpisodes {

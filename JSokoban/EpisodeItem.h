@@ -20,4 +20,6 @@
 
 @property NSString* Difficulty;
 
+@property int Lock;
+
 @end

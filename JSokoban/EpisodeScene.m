@@ -103,28 +103,36 @@
             epNum.fontSize = 40;
             epNum.fontColor = [UIColor colorWithRed:(float)213/255 green:(float)198/255 blue:(float)105/255 alpha:1];
             epNum.text = [NSString stringWithFormat:@"%d", item.PackId];
-            epNum.position = CGPointMake(40, self.size.height - (i + 2) * ItemHeight);
+            epNum.position = CGPointMake(40, self.size.height - (i + 2) * ItemHeight - 20);
             [self addChild:epNum];
             
             SKLabelNode* completed = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
             completed.fontSize = 20;
             completed.fontColor = white;
-            completed.text = [NSString stringWithFormat: @"Completed: %d/%d", item.LevelCompleted, item.NumOfLevels];
-            completed.position = CGPointMake(epNum.position.x + 120, epNum.position.y);
+            completed.text = [NSString stringWithFormat: @"(%d/%d)", item.LevelCompleted, item.NumOfLevels];
+            completed.position = CGPointMake(epNum.position.x + 140, epNum.position.y + 10);
             [self addChild:completed];
             
             SKLabelNode* star = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
             star.fontSize = 15;
             star.fontColor = white;
-            star.text = @"(* * *)";
-            star.position = CGPointMake(epNum.position.x + 70, epNum.position.y + 20);
+            star.text = @"Completed:";
+            star.position = CGPointMake(epNum.position.x + 70, epNum.position.y + 10);
             [self addChild:star];
             
+            
+            if (item.Lock == 1) {
+                SKSpriteNode* lock = [SKSpriteNode spriteNodeWithImageNamed:LOCK_IMG];
+                lock.position = CGPointMake(self.size.width - lock.size.width, self.size.height - (i + 2) * ItemHeight);
+                [self addChild:lock];
+                [levelSprites addObject:lock];
+            }
             
             [levelSprites addObject:bar];
             [levelSprites addObject:epNum];
             [levelSprites addObject:completed];
             [levelSprites addObject:star];
+            
             
             j += 1;
         }

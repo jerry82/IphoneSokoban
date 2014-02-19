@@ -19,11 +19,13 @@
     return self;
 }
 
-- (id) initDialogWithPos: (CGPoint) pos andSize:(CGSize) screenSize {
+- (id) initDialogWithPos: (CGPoint) pos andSize:(CGSize) screenSize completeEpisode: (BOOL) completed {
     if (self = [super init]) {
         [self createBackground:screenSize];
-        [self createDialog: pos];
-        
+        if (completed)
+            [self createWinEpisodeDialog:pos];
+        else
+            [self createWinDialog: pos];
     }
     return self;
 }
@@ -55,8 +57,23 @@
     [self addChild:dialogSprite];
 }
 
+//episode win dialog
+- (void) createWinEpisodeDialog: (CGPoint) pos {
+    SKSpriteNode* dialogSprite = [SKSpriteNode spriteNodeWithImageNamed: ADVENTURE_WINDIALOG_IMG];
+    dialogSprite.name = ADVENTURE_WINDIALOG_NAME;
+    dialogSprite.position = pos;
+    dialogSprite.zPosition = self.zPosition + 2;
+    [self addChild:dialogSprite];
+    
+    SKSpriteNode* menubtnSprite = [SKSpriteNode spriteNodeWithImageNamed: MENUBTN_IMG];
+    menubtnSprite.name = MENUBTN_NAME;
+    menubtnSprite.position = CGPointMake(pos.x, pos.y - menubtnSprite.size.width/3);
+    menubtnSprite.zPosition = self.zPosition + 3;
+    [self addChild:menubtnSprite];
+}
+
 //win dialog
-- (void) createDialog: (CGPoint) pos {
+- (void) createWinDialog: (CGPoint) pos {
     SKSpriteNode* dialogSprite = [SKSpriteNode spriteNodeWithImageNamed: WINDIALOG_IMG];
     dialogSprite.name = WINDIALOG_NAME;
     dialogSprite.position = pos;

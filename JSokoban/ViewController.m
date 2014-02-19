@@ -36,6 +36,16 @@
     [skView presentScene:scene];
 }
 
+- (void) showWinGameScene {
+    SKView* skView = (SKView*) self.view;
+    FirstScene* scene = [[FirstScene alloc] initWinGameScence:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFit;
+    scene.MainViewController = self;
+    
+    [skView presentScene:scene];
+}
+
+
 - (void) createEpisodeScene {
     
     SKView* skView = (SKView*) self.view;

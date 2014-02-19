@@ -13,4 +13,6 @@
 
 @property (weak) ViewController* MainViewController;
 
+-(id) initWinGameScence: (CGSize) size;
+
 @end

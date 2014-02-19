@@ -16,4 +16,6 @@
 
 - (void) createEpisodeScene;
 
+- (void) showWinGameScene;
+
 @end
