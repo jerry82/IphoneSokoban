@@ -230,17 +230,15 @@ const float MOVE_DURATION = 0.15;
 }
 
 - (void) updateGameWin: (LevelDetailItem*) curLevelItem {
-    
-    BOOL isLastLevel = [[DataAccess sharedInstance] isLastLevelOfEpisode:curLevelItem];
     [[DataAccess sharedInstance] updateGameWin:curLevelItem];
-    
-    if (isLastLevel)
-        //unlock
-        [[DataAccess sharedInstance] unlockEpisode:(curLevelItem.PackId + 1)];
 }
 
-- (BOOL) isLastLevelOfEpisode: (LevelDetailItem*) curLevelItem {
-    return [[DataAccess sharedInstance] isLastLevelOfEpisode:curLevelItem];
+- (void) unlockEpisode: (int) nextPackId {
+    [[DataAccess sharedInstance] unlockEpisode:nextPackId];
+}
+
+- (int) isLastLevel: (LevelDetailItem*) curLevelItem {
+    return [[DataAccess sharedInstance] isLastLevel:curLevelItem];
 }
 
 - (NSMutableArray*) getAllEpisodes {

@@ -168,6 +168,39 @@ NSString* DatabasePath;
     return lastLevel = (cnt == curLevelItem.LevelNum);
 }
 
+- (int) isLastLevel: (LevelDetailItem*) curLevelItem {
+    int result = 0;
+    
+    if ([self isLastLevelOfEpisode:curLevelItem]) {
+        
+        
+        
+        int nextPackId = curLevelItem.PackId + 1;
+        
+        if (![db open]) {
+            NSLog(@"db failed to open");
+            return result;
+        }
+
+        result = 2;
+        
+        FMResultSet* rs = [db executeQuery:@"SELECT id from pack where id = ?", [NSNumber numberWithInt:nextPackId]];
+        
+        while ([rs next]) {
+            result = 1;
+            break;
+        }
+        
+        if ([db hadError]) {
+            NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+        }
+        
+        [db close];
+    }
+    
+    return result;
+}
+
 - (void) unlockEpisode: (int) packId {
     if (![db open]) {
         NSLog(@"db failed to open");

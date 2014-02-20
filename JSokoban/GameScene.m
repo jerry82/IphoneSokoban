@@ -69,7 +69,6 @@
     
     //TODO: this is for debugging
     //next button
-
     SKSpriteNode* nextBtn = [SKSpriteNode spriteNodeWithImageNamed:NEXTBTN_IMG];
     nextBtn.position = CGPointMake(self.size.width - nextBtn.size.width / 2, self.size.height - nextBtn.size.height);
     nextBtn.name = NEXTBTN_NAME;
@@ -105,15 +104,15 @@
     }
     
     printf("before nextbtn: current level: %d alreadycompleted: %d", LevelDetail.LevelNum, AlreadyCompleted);
+    
     //TODO: currently commented for debug, when deploy it will be used
-    /*
+    //PRODUCTION
     if (LevelDetail.LevelNum > AlreadyCompleted) {
         [[self childNodeWithName:NEXTBTN_NAME] removeFromParent];
-    }*/
+    }
     
     botMoving = NO;
     
-    //mazeChars = [self.userData objectForKey:@"maze"];
     mazeChars = [NSMutableArray arrayWithArray:newMaze];
     
     //resize sprite base on the width of maze
@@ -657,13 +656,26 @@
 
 - (void) handleGameWin {
     NSLog(@"game is win");
-    //update completed level and unlock next episode if this is last level
     
+    //update completed level
     [[GameLogic sharedGameLogic] updateGameWin:self.LevelDetail];
     [soundController playClapSound];
     
-    BOOL lastLevel = [[GameLogic sharedGameLogic] isLastLevelOfEpisode:self.LevelDetail];
-    [self showWinDialog: lastLevel];
+    int isLastLevel = [[GameLogic sharedGameLogic] isLastLevel:self.LevelDetail];
+    printf("isLastLevel: %d", isLastLevel);
+    switch (isLastLevel) {
+        case 0:
+            [self showWinDialog:NO];
+            break;
+        case 1:
+            [[GameLogic sharedGameLogic] unlockEpisode:self.LevelDetail.PackId + 1];
+            [self showWinDialog:YES];
+            break;
+        case 2: {
+            [self.viewController showWinGameScene];
+            break;
+        }
+    }
 }
 
 - (void) restartLevel {

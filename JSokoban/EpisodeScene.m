@@ -93,7 +93,8 @@
             bar.position = CGPointMake(self.size.width / 2, self.size.height - (i + 2) * ItemHeight);
             bar.hidden = YES;
             //
-            bar.name = [NSString stringWithFormat:@"%d_%d_%d", item.PackId, item.LevelCompleted, item.NumOfLevels];
+            bar.name = [NSString stringWithFormat:@"%d_%d_%d_%d", item.PackId, item.LevelCompleted, item.NumOfLevels, item.Lock];
+            
             bar.zPosition = 10;
             [self addChild:bar];
             
@@ -168,24 +169,30 @@
         }
         //check bar press
         else {
+            
+            NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
+        
+            //return if lock
+            int lock = [[tokens objectAtIndex:3] intValue];
+            if (lock == 1)
+                return;
+            
+            LevelDetailItem* item = [[LevelDetailItem alloc] init];
+            item.PackId = [[tokens objectAtIndex:0] intValue];
+            item.LevelNum = [[tokens objectAtIndex:1] intValue];
+            
+            int totalLevel = [[tokens objectAtIndex:2] intValue];
+            
+            int alreadycompleted = item.LevelNum;
+            //if completed all level in episode
+            if (totalLevel == item.LevelNum) {
+                item.LevelNum -= 1;
+                printf("level num: %d", item.LevelNum);
+            }
+            
             node.hidden = NO;
             SKAction* action = [SKAction waitForDuration:0.2];
-            [node runAction:action completion:^{
-                LevelDetailItem* item = [[LevelDetailItem alloc] init];
-                NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
-                
-                item.PackId = [[tokens objectAtIndex:0] intValue];
-                item.LevelNum = [[tokens objectAtIndex:1] intValue];
-            
-                int totalLevel = [[tokens objectAtIndex:2] intValue];
-                int alreadycompleted = item.LevelNum;
-                
-                //if completed all level in episode
-                if (totalLevel == item.LevelNum) {
-                    item.LevelNum -= 1;
-                    printf("level num: %d", item.LevelNum);
-                }
-                
+            [node runAction:action completion:^{                
                 //chooseNext or Previous
                 [self.MainViewController createNewScene:item chooseNext:YES alreadycompleted:alreadycompleted];
             }];

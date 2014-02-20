@@ -24,7 +24,7 @@ extern NSString* DatabasePath;
 
 - (void) updateGameWin: (LevelDetailItem*) curLevelItem;
 
-- (BOOL) isLastLevelOfEpisode: (LevelDetailItem*) curLevelItem;
+- (int) isLastLevel: (LevelDetailItem*) curLevelItem;
 
 - (void) unlockEpisode: (int) packId;
 
