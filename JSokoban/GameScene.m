@@ -16,11 +16,13 @@
     int Sprite_Edge;
     int Pad_Bottom_Screen;
     
-    GameLogic* shareGameLogic;
+    GameLogic* sharedGameLogic;
     BOOL botMoving;
     NSMutableArray* mazeChars;
     float spriteScale;
     SoundController* soundController;
+    
+    BOOL gameWin;
 }
 
 @synthesize AlreadyCompleted;
@@ -37,7 +39,9 @@
         
         printf("%f %f", size.height, size.width);
         
-        shareGameLogic = [GameLogic sharedGameLogic];
+        gameWin = NO;
+        
+        //sharedGameLogic = [GameLogic sharedGameLogic];
 
         //self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
@@ -50,12 +54,14 @@
     return self;
 }
 
+- (void) setGameLogic: (GameLogic*) theGameLogic {
+    sharedGameLogic = theGameLogic;
+}
+
 
 //MARK: MENU here
 - (void) createMenu {
     
-    //add background
-    //TODO: to randomly select background
     SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:SCREEN_IMG];
     background.position = CGPointMake(background.size.width / 2, background.size.height / 2);
     [self addChild:background];
@@ -143,7 +149,7 @@
     //[self displayMazeChars];
     
     //init maze in gameLogic
-    [shareGameLogic initMaze:mazeChars];
+    [sharedGameLogic initMaze:mazeChars];
     
     int boxCnt = 1;
     int cntSpot = 0;
@@ -214,10 +220,11 @@
     }
     
     //set criteria for win game
-    shareGameLogic.NoOfSpots = cntSpot;
+    sharedGameLogic.NoOfSpots = cntSpot;
     
     //play sound
-    [soundController playBackgroundMusic];
+    if (sharedGameLogic.SOUND_ON)
+        [soundController playBackgroundMusic];
 }
 
 
@@ -348,7 +355,7 @@
             printf("bot location: %d,%d ---> %d,%d\n", botPos.Row, botPos.Col, touchPos.Row, touchPos.Col);
             
             //if the 'boxes' are not touched
-            NSString* path = [shareGameLogic getShortestPath:touchPos withBotPos:botPos];
+            NSString* path = [sharedGameLogic getShortestPath:touchPos withBotPos:botPos];
             if (path.length > 0 && ![path isEqualToString:PATH_OUTBOUND]) {
                 [self showDestinationIcon:touchPos canMove:YES];
                 [self moveBot:path];
@@ -385,12 +392,24 @@
             return YES;
         }
         else if ([tmpNode.name isEqual:SOUNDONBTN_NAME]) {
+            
+            if (sharedGameLogic.SOUND_ON) {
+                printf("sound on");
+                sharedGameLogic.SOUND_ON = NO;
+                [soundController stopBackgroundMusic];
+            }
+            else {
+                printf("sound off");
+                sharedGameLogic.SOUND_ON = YES;
+                [soundController playBackgroundMusic];
+            }
+            /*
             if (soundController.SoundEnabled) {
                 [soundController stopBackgroundMusic];
             }
             else {
                 [soundController playBackgroundMusic];
-            }
+            }*/
             return YES;
         }
         else if ([tmpNode.name isEqual:HELPBTN_NAME]) {
@@ -641,12 +660,12 @@
     [mazeChars insertObject:newstring2 atIndex:boxNewLocation.Row];
     
     //MARK: to diplayMazeChars for debugging
-    [self displayMazeChars];
+    //[self displayMazeChars];
     
-    BOOL win = [shareGameLogic checkGameWin:mazeChars];
+    BOOL win = [sharedGameLogic checkGameWin:mazeChars];
     //TODO: need to put mazeChars to getShortestPath function
     if (!win) {
-        [shareGameLogic initMaze:mazeChars];
+        [sharedGameLogic initMaze:mazeChars];
         botMoving = NO;
     }
     else {
@@ -657,18 +676,21 @@
 - (void) handleGameWin {
     NSLog(@"game is win");
     
+    gameWin = YES;
     //update completed level
-    [[GameLogic sharedGameLogic] updateGameWin:self.LevelDetail];
-    [soundController playClapSound];
+    [sharedGameLogic updateGameWin:self.LevelDetail];
     
-    int isLastLevel = [[GameLogic sharedGameLogic] isLastLevel:self.LevelDetail];
+    if (sharedGameLogic.SOUND_ON)
+        [soundController playClapSound];
+    
+    int isLastLevel = [sharedGameLogic isLastLevel:self.LevelDetail];
     printf("isLastLevel: %d", isLastLevel);
     switch (isLastLevel) {
         case 0:
             [self showWinDialog:NO];
             break;
         case 1:
-            [[GameLogic sharedGameLogic] unlockEpisode:self.LevelDetail.PackId + 1];
+            [sharedGameLogic unlockEpisode:self.LevelDetail.PackId + 1];
             [self showWinDialog:YES];
             break;
         case 2: {
@@ -679,12 +701,18 @@
 }
 
 - (void) restartLevel {
+    //restart touched after game is won
+    AlreadyCompleted = (gameWin) ? AlreadyCompleted + 1 : AlreadyCompleted;
+    
     self.LevelDetail.LevelNum--;
     [self.viewController createNewScene: self.LevelDetail chooseNext:YES alreadycompleted:AlreadyCompleted];
 }
 
 //TODO: to test
 - (void) nextLevel {
+    //next touched after game is won
+    AlreadyCompleted = (gameWin) ? AlreadyCompleted + 1 : AlreadyCompleted;
+    
     [self.viewController createNewScene:self.LevelDetail chooseNext:YES alreadycompleted:AlreadyCompleted];
 }
 

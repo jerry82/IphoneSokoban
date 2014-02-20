@@ -10,12 +10,8 @@
 
 @implementation SoundController
 
-@synthesize SoundEnabled = _soundEnabled;
-
 - (id) initWithSound {
     if (self = [super init]) {
-        
-        _soundEnabled = YES;
         
         NSError* error;
         NSString *path = [NSString stringWithFormat: @"%@/%@",
@@ -31,16 +27,12 @@
 }
 
 - (void) playRunSound {
-    if (!_soundEnabled) return;
-    
     _mySound = [self createSoundID: RUN_SOUND];
     AudioServicesPlaySystemSound(_mySound);
 }
 
 //TODO: move sound need to change, too loud
 - (void) playMoveSound {
-    if (!_soundEnabled) return;
-    
     /*
     _mySound = [self createSoundID: MOVE_SOUND];
     AudioServicesPlaySystemSound(_mySound);
@@ -48,19 +40,16 @@
 }
 
 - (void) playClapSound {
-    if (!_soundEnabled) return;
     _mySound = [self createSoundID: CLAP_SOUND];
     AudioServicesPlaySystemSound(_mySound);
 }
 
 - (void) playBackgroundMusic {
     [_bgMusicPlayer play];
-    _soundEnabled = YES;
 }
 
 - (void) stopBackgroundMusic {
     [_bgMusicPlayer stop];
-    _soundEnabled = NO;
 }
 
 //helper

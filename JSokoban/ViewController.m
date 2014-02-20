@@ -13,14 +13,16 @@
 #import "FirstScene.h"
 
 @implementation ViewController {
-    GameLogic* gameLogic;
+
 }
+
+@synthesize sharedGameLogic;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    gameLogic = [GameLogic sharedGameLogic];
+    sharedGameLogic = [GameLogic sharedGameLogic];
     
     [self createFirstScene];
     //[self createEpisodeScene];
@@ -65,10 +67,10 @@
     
     LevelDetailItem* nextLevel;
     if (next) {
-        nextLevel = [gameLogic getNextLevelDetailItem:curLevel];
+        nextLevel = [sharedGameLogic getNextLevelDetailItem:curLevel];
     }
     else {
-        nextLevel = [gameLogic getPrevLevelDetailItem:curLevel];
+        nextLevel = [sharedGameLogic getPrevLevelDetailItem:curLevel];
     }
     
     //pass the maze to skscene
@@ -84,16 +86,20 @@
     
     // Create and configure the scene.
     GameScene * scene = [GameScene sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFit;
+    
+    scene.viewController = self;
+    //keep game logic instance in ViewController
+    
+    //printf(sharedGameLogic.SOUND_ON ? "before: true" : "before: false");
+    [scene setGameLogic:sharedGameLogic];
+    
     scene.LevelDetail = nextLevel;
     scene.AlreadyCompleted = level;
-    
-    scene.scaleMode = SKSceneScaleModeAspectFit;
-    scene.viewController = self;
-
 
     [scene createMaze:nextLevel.MazeChars];
-    // Present the scene.
     
+    // Present the scene.
     [skView presentScene:scene];
 }
 

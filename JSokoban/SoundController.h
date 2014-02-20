@@ -16,7 +16,7 @@
     AVAudioPlayer* _bgMusicPlayer;
 }
 
-@property (assign) BOOL SoundEnabled;
+//@property (assign) BOOL SoundEnabled;
 
 - (id) initWithSound;
 - (void) playRunSound;

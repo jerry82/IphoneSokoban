@@ -22,6 +22,8 @@
 
 @property (nonatomic, weak) ViewController *viewController;
 
+- (void) setGameLogic: (GameLogic*) theGameLogic;
+
 -(void) createMaze: (NSMutableArray*) newMaze;
 
 @end

@@ -122,6 +122,8 @@ extern const float MOVE_DURATION;
 
 @property (nonatomic, assign) int NoOfSpots;
 
+@property (nonatomic, assign) BOOL SOUND_ON;
+
 
 - (LevelDetailItem*) getNextLevelDetailItem: (LevelDetailItem*) curLevel;
 

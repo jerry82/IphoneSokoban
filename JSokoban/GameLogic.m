@@ -132,10 +132,13 @@ const float MOVE_DURATION = 0.15;
 
 @synthesize NoOfSpots;
 
+@synthesize SOUND_ON;
+
 
 - (id) init {
     if (self = [super init])
         pathFinder = [[PathFinder alloc] init];
+    SOUND_ON = YES;
     
     return self;
 }

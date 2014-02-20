@@ -89,7 +89,8 @@
             EpisodeItem* item = [allEpisodes objectAtIndex:j];
             int i = j % PAGESIZE;
             
-            SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:0.2] size:CGSizeMake(self.size.width, ItemHeight)];
+            //SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:0.2] size:CGSizeMake(self.size.width, ItemHeight)];
+            SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] size:CGSizeMake(self.size.width, ItemHeight)];
             bar.position = CGPointMake(self.size.width / 2, self.size.height - (i + 2) * ItemHeight);
             bar.hidden = YES;
             //
