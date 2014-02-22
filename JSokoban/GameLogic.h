@@ -139,7 +139,7 @@ extern const float MOVE_DURATION;
 
 - (void) unlockEpisode: (int) nextPackId;
 
-//0 : no  1: last of episode  2: very last
+//0: no  1: last of episode  2: very last
 - (int) isLastLevel: (LevelDetailItem*) curLevelItem;
 
 - (NSMutableArray*) getAllEpisodes;

@@ -11,11 +11,8 @@
 @interface LevelDetailItem : NSObject
 
 @property NSString* Content;
-
 @property NSMutableArray* MazeChars;
-
 @property (assign) int LevelNum;
-
 @property (assign) int PackId;
 
 @end

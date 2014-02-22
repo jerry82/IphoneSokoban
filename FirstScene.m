@@ -50,9 +50,7 @@
     loadingText.position = CGPointMake(self.size.width / 2, 20);
     [self addChild:loadingText];
     
-    //SKAction* fadeIn = [SKAction fadeInWithDuration:2];
     SKAction* wait = [SKAction waitForDuration:4];
-    //SKAction* seq = [SKAction sequence:@[fadeIn, wait]];
     [background runAction:wait completion:^{
         [self.MainViewController createEpisodeScene];
     }];

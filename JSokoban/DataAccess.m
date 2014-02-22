@@ -10,7 +10,7 @@
 #import "FMDatabase.h"
 
 @implementation DataAccess {
-    FMDatabase* db;
+    FMDatabase* _db;
 }
 
 NSString* DatabasePath;
@@ -37,9 +37,9 @@ NSString* DatabasePath;
         if ([DatabasePath length] == 0)
             NSLog(@"DatabasePath is not set");
         else {
-            db = [FMDatabase databaseWithPath:DatabasePath];
+            _db = [FMDatabase databaseWithPath:DatabasePath];
             //TODO: debugging
-            db.logsErrors = YES;
+            _db.logsErrors = YES;
         }
     }
     return self;
@@ -51,7 +51,7 @@ NSString* DatabasePath;
     LevelDetailItem* levelItem = [[LevelDetailItem alloc] init];
     int nextLevel = curLevel + num;
     
-    if (![db open]) {
+    if (![_db open]) {
         NSLog(@"db failed to open");
         return nil;
     }
@@ -62,7 +62,7 @@ NSString* DatabasePath;
                        [NSNumber numberWithInt:curLevel]];
     */
     
-    FMResultSet *rs = [db executeQuery:@"SELECT content, packId, levelnum from level_detail where packId = ? and levelnum = ?",
+    FMResultSet *rs = [_db executeQuery:@"SELECT content, packId, levelnum from level_detail where packId = ? and levelnum = ?",
                        [NSNumber numberWithInt:pack],
                        [NSNumber numberWithInt:nextLevel]];
 
@@ -77,10 +77,10 @@ NSString* DatabasePath;
     
     [rs close];
     
-    if ([db hadError]) {
-        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    if ([_db hadError]) {
+        NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
     }
-    [db close];
+    [_db close];
     
     return levelItem;
 }
@@ -88,12 +88,12 @@ NSString* DatabasePath;
 - (NSMutableArray *) getAllEpisodes {
     NSMutableArray* arr = [[NSMutableArray alloc] init];
     
-    if (![db open]) {
+    if (![_db open]) {
         NSLog(@"db failed to open");
         return nil;
     }
     
-    FMResultSet *rs = [db executeQuery:@"SELECT id, description, current_level, lock, custom.total AS total FROM pack AS p JOIN (SELECT packId, count(packId) AS total FROM level_detail GROUP BY packId) AS custom ON p.id = custom.packId"];
+    FMResultSet *rs = [_db executeQuery:@"SELECT id, description, current_level, lock, custom.total AS total FROM pack AS p JOIN (SELECT packId, count(packId) AS total FROM level_detail GROUP BY packId) AS custom ON p.id = custom.packId"];
     
     while ([rs next]) {
         EpisodeItem* item = [[EpisodeItem alloc] init];
@@ -111,44 +111,44 @@ NSString* DatabasePath;
         
     }
     
-    if ([db hadError]) {
-        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    if ([_db hadError]) {
+        NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
     }
     [rs close];
-    [db close];
+    [_db close];
     
     return arr;
 }
 
 - (void) updateGameWin: (LevelDetailItem*) curLevelItem {
-    if (![db open]) {
+    if (![_db open]) {
         NSLog(@"db failed to open");
         return;
     }
     
     int nextLevel = curLevelItem.LevelNum + 1;
 
-    [db executeUpdate:@"UPDATE pack set current_level = ? where id = ? and current_level < ?",
+    [_db executeUpdate:@"UPDATE pack set current_level = ? where id = ? and current_level < ?",
                         [NSNumber numberWithInt:nextLevel],
                         [NSNumber numberWithInt:curLevelItem.PackId],
                         [NSNumber numberWithInt:nextLevel]];
  
-    if ([db hadError]) {
-        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    if ([_db hadError]) {
+        NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
     }
-    [db close];
+    [_db close];
 }
 
 - (BOOL) isLastLevelOfEpisode: (LevelDetailItem*) curLevelItem {
     
     BOOL lastLevel = NO;
 
-    if (![db open]) {
+    if (![_db open]) {
         NSLog(@"db failed to open");
         return lastLevel;
     }
     
-    FMResultSet *rs = [db executeQuery: @"SELECT count(id) as total FROM level_detail where packId = ?",
+    FMResultSet *rs = [_db executeQuery: @"SELECT count(id) as total FROM level_detail where packId = ?",
                        [NSNumber numberWithInt: curLevelItem.PackId]];
     
     int cnt = 0;
@@ -159,10 +159,10 @@ NSString* DatabasePath;
     }
     
     
-    if ([db hadError]) {
-        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    if ([_db hadError]) {
+        NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
     }
-    [db close];
+    [_db close];
     
     
     return lastLevel = (cnt == curLevelItem.LevelNum);
@@ -177,44 +177,44 @@ NSString* DatabasePath;
         
         int nextPackId = curLevelItem.PackId + 1;
         
-        if (![db open]) {
+        if (![_db open]) {
             NSLog(@"db failed to open");
             return result;
         }
 
         result = 2;
         
-        FMResultSet* rs = [db executeQuery:@"SELECT id from pack where id = ?", [NSNumber numberWithInt:nextPackId]];
+        FMResultSet* rs = [_db executeQuery:@"SELECT id from pack where id = ?", [NSNumber numberWithInt:nextPackId]];
         
         while ([rs next]) {
             result = 1;
             break;
         }
         
-        if ([db hadError]) {
-            NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+        if ([_db hadError]) {
+            NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
         }
         
-        [db close];
+        [_db close];
     }
     
     return result;
 }
 
 - (void) unlockEpisode: (int) packId {
-    if (![db open]) {
+    if (![_db open]) {
         NSLog(@"db failed to open");
         return;
     }
     
-    [db executeUpdate:@"UPDATE pack set lock = 0 where id = ?",
+    [_db executeUpdate:@"UPDATE pack set lock = 0 where id = ?",
      [NSNumber numberWithInt:packId]];
 
     
-    if ([db hadError]) {
-        NSLog(@"DB Error %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    if ([_db hadError]) {
+        NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
     }
-    [db close];
+    [_db close];
 }
 
 @end

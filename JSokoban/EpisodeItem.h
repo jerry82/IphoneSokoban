@@ -11,15 +11,10 @@
 @interface EpisodeItem : NSObject
 
 @property int PackId;
-
 @property NSString* Description;
-
 @property int NumOfLevels;
-
 @property int LevelCompleted;
-
 @property NSString* Difficulty;
-
 @property int Lock;
 
 @end

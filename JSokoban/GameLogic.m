@@ -11,8 +11,8 @@
 #import "DataAccess.h"
 
 @implementation GameLogic {
-    NSMutableArray* maze;
-    PathFinder* pathFinder;
+    NSMutableArray* _maze;
+    PathFinder* _pathFinder;
 }
 
 //singleton
@@ -36,7 +36,6 @@ const char SPOT_CHAR = '.';
 const char BOT_CHAR = '@';
 const char BOX_CHAR = '$';
 const char PATH_CHAR = ' ';
-//const char BOX_ON_SPOT = 'x';
 const char BOX_ON_SPOT = '*';
 
 NSString* const BLOCK_IMG = @"block40";
@@ -137,7 +136,7 @@ const float MOVE_DURATION = 0.15;
 
 - (id) init {
     if (self = [super init])
-        pathFinder = [[PathFinder alloc] init];
+        _pathFinder = [[PathFinder alloc] init];
     SOUND_ON = YES;
     
     return self;
@@ -179,7 +178,7 @@ const float MOVE_DURATION = 0.15;
 //update 'maze' object to the current level maze
 - (void) initMaze: (NSMutableArray*) mazeChars {
     
-    maze = [[NSMutableArray alloc] init];
+    _maze = [[NSMutableArray alloc] init];
     
     for (int i = 0; i < mazeChars.count; i++) {
         
@@ -199,7 +198,7 @@ const float MOVE_DURATION = 0.15;
             
             [rows addObject:[NSNumber numberWithInt:tmpNum]];
         }
-        [maze addObject:rows];
+        [_maze addObject:rows];
     }
     
     //TODO: debugging
@@ -210,7 +209,7 @@ const float MOVE_DURATION = 0.15;
 //based on the current state of the maze, calculate the shortest path to touch position
 - (NSString*) getShortestPath: (MatrixPosStruct) pos withBotPos: (MatrixPosStruct) botPos {
     //[self displayMaze];
-    NSString* path = [pathFinder getShortestPathString:maze touchPos:pos withBotPos:botPos];
+    NSString* path = [_pathFinder getShortestPathString:_maze touchPos:pos withBotPos:botPos];
     return path;
 }
 
@@ -250,6 +249,6 @@ const float MOVE_DURATION = 0.15;
 
 //helper
 - (void) displayMaze {
-    [pathFinder displayMaze: maze];
+    [_pathFinder displayMaze: _maze];
 }
 @end

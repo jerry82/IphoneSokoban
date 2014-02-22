@@ -11,11 +11,8 @@
 @implementation LevelDetailItem
 
 @synthesize LevelNum;
-
 @synthesize Content;
-
 @synthesize MazeChars;
-
 @synthesize PackId;
 
 @end

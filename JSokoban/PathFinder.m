@@ -10,13 +10,13 @@
 #import "GameLogic.h"
 
 @implementation PathFinder {
-    NSMutableDictionary* nodeDict;
-    NSMutableArray* myMaze;
-    int startNodeId;
-    int endNodeId;
+    NSMutableDictionary* _nodeDict;
+    NSMutableArray* _myMaze;
+    int _startNodeId;
+    int _endNodeId;
     
-    NSMutableArray* openList;
-    NSMutableArray* closeList;
+    NSMutableArray* _openList;
+    NSMutableArray* _closeList;
 }
 
 const int MOVE_COST = 5;
@@ -29,8 +29,8 @@ const int MOVE_COST = 5;
 }
 
 - (void) reFreshVariables {
-    openList = [[NSMutableArray alloc] init];
-    closeList = [[NSMutableArray alloc] init];
+    _openList = [[NSMutableArray alloc] init];
+    _closeList = [[NSMutableArray alloc] init];
 }
 
 /*
@@ -43,15 +43,15 @@ const int MOVE_COST = 5;
         return @"";
     
     //NSLog(@"%d : %d", pos.Row, pos.Col);
-    myMaze = [[NSMutableArray alloc] initWithArray:maze];
+    _myMaze = [[NSMutableArray alloc] initWithArray:maze];
     
     //out of bound
     if (pos.Row < 0 || pos.Col < 0 || pos.Row >= [self getMazeHeight] || pos.Col >= [self getMazeWidth])
         return PATH_OUTBOUND;
     
     
-    startNodeId = [self getNodeId:botPos.Row andCol:botPos.Col];
-    endNodeId = [self getNodeId:pos.Row andCol:pos.Col];
+    _startNodeId = [self getNodeId:botPos.Row andCol:botPos.Col];
+    _endNodeId = [self getNodeId:pos.Row andCol:pos.Col];
     [self reFreshVariables];
     [self buildNodeDict];
 
@@ -65,19 +65,19 @@ const int MOVE_COST = 5;
  *  run trace
  */
 - (NSString*) route {
-    int curId = startNodeId;
+    int curId = _startNodeId;
     
-    while (curId != endNodeId) {
-        [closeList addObject:[NSNumber numberWithInt:curId]];
+    while (curId != _endNodeId) {
+        [_closeList addObject:[NSNumber numberWithInt:curId]];
         
         NSMutableArray* neighbors = [self getNeighbors:curId];
         if (neighbors.count > 0)
-            [openList addObjectsFromArray:neighbors];
+            [_openList addObjectsFromArray:neighbors];
         
         //DEBUG
         //[self showOpenCloseList];
         
-        if (openList.count > 0)
+        if (_openList.count > 0)
             curId = [self popMinFValueNodeId_FromOpenList];
         else
             //no path
@@ -86,9 +86,9 @@ const int MOVE_COST = 5;
     
     NSMutableArray* pathNodes = [[NSMutableArray alloc] init];
     
-    int tmpId = endNodeId;
+    int tmpId = _endNodeId;
     
-    while (tmpId != startNodeId) {
+    while (tmpId != _startNodeId) {
         [pathNodes addObject:[NSNumber numberWithInteger:tmpId]];
         //printf("%d <-- ", tmpId);
         JNodeStruct tmpNode = [self getJNodeFromDict:tmpId];
@@ -116,22 +116,22 @@ const int MOVE_COST = 5;
 }
 
 - (NSString*) getMove: (int)from To:(int)to {
-    NSString* move = @"L";
+    NSString* move = [NSString stringWithFormat:@"%c", LEFT];
     
     MatrixPosStruct curPos = [self getPosOfNodeId:from];
     MatrixPosStruct toPos = [self getPosOfNodeId:to];
     
     if (curPos.Col == toPos.Col) {
         if (toPos.Row > curPos.Row)
-            move = @"D";
+            move = [NSString stringWithFormat:@"%c", DOWN];
         else
-            move = @"U";
+            move = [NSString stringWithFormat:@"%c", UP];
     }
     else if (curPos.Row == toPos.Row) {
         if (toPos.Col > curPos.Col)
-            move = @"R";
+            move = [NSString stringWithFormat:@"%c", RIGHT];
         else
-            move = @"L";
+            move = [NSString stringWithFormat:@"%c", LEFT];
     }
     
     return move;
@@ -175,7 +175,7 @@ const int MOVE_COST = 5;
                 continue;
             
             //IGNORE node already in close list
-            if ([closeList containsObject:[NSNumber numberWithInt:neighborNode.ID]])
+            if ([_closeList containsObject:[NSNumber numberWithInt:neighborNode.ID]])
                 continue;
             
             //not visited node
@@ -220,17 +220,17 @@ const int MOVE_COST = 5;
  */
 - (void) buildNodeDict {
     
-    nodeDict = [[NSMutableDictionary alloc] init];
+    _nodeDict = [[NSMutableDictionary alloc] init];
     
-    if (startNodeId < 1 || endNodeId < 1) {
+    if (_startNodeId < 1 || _endNodeId < 1) {
         NSLog(@"start/end Node invalid!");
         return;
     }
     
     int cnt = 1;
     
-    for (int i = 0; i < myMaze.count; i++) {
-        NSMutableArray* rows = [myMaze objectAtIndex:i];
+    for (int i = 0; i < _myMaze.count; i++) {
+        NSMutableArray* rows = [_myMaze objectAtIndex:i];
         for (int j = 0; j < rows.count; j++) {
             
             JNodeStruct node;
@@ -243,7 +243,7 @@ const int MOVE_COST = 5;
             node.ParentID = -1;
             node.IsWall = NO;
             
-            MatrixPosStruct tmpPos = [self getPosOfNodeId:endNodeId];
+            MatrixPosStruct tmpPos = [self getPosOfNodeId:_endNodeId];
             node.HValue = abs(tmpPos.Row - i) + abs(tmpPos.Col - j);
             
             if ([[rows objectAtIndex:j] integerValue] == -1) {
@@ -252,9 +252,7 @@ const int MOVE_COST = 5;
             }
             
             [self setJNodeToDict:node];
-            
-
-            
+                        
             cnt++;
         }
     }
@@ -288,10 +286,10 @@ const int MOVE_COST = 5;
 - (int) popMinFValueNodeId_FromOpenList {
     int returnId = -1;
     
-    if (openList.count > 0) {
+    if (_openList.count > 0) {
         int minValue = INT16_MAX;
-        for (int i = 0; i < openList.count; i++) {
-            int nodeId = (int)[[openList objectAtIndex:i] integerValue];
+        for (int i = 0; i < _openList.count; i++) {
+            int nodeId = (int)[[_openList objectAtIndex:i] integerValue];
             JNodeStruct jnode = [self getJNodeFromDict:nodeId];
             if (minValue > jnode.FValue) {
                 returnId = nodeId;
@@ -300,7 +298,7 @@ const int MOVE_COST = 5;
         }
         
         //remove the found id
-        [openList removeObject:[NSNumber numberWithInt:returnId]];
+        [_openList removeObject:[NSNumber numberWithInt:returnId]];
     }
     
     return returnId;
@@ -308,29 +306,29 @@ const int MOVE_COST = 5;
 
 - (void) showOpenCloseList {
     printf("OPENLIST:\n");
-    for (int i = 0; i < openList.count; i++) {
-        int tmpId = (int)[[openList objectAtIndex:i] integerValue];
+    for (int i = 0; i < _openList.count; i++) {
+        int tmpId = (int)[[_openList objectAtIndex:i] integerValue];
         int parentId = [self getJNodeFromDict:tmpId].ParentID;
         printf("%d|%d , ", tmpId, parentId);
     }
     printf("\n");
     printf("CLOSELIST:\n");
-    for (int i = 0; i < closeList.count; i++) {
-        printf("%d , ", (int)[[closeList objectAtIndex:i] integerValue]);
+    for (int i = 0; i < _closeList.count; i++) {
+        printf("%d , ", (int)[[_closeList objectAtIndex:i] integerValue]);
     }
     printf("\n");
 }
 
 -(int) getMazeHeight {
-    if (myMaze != nil)
-        return (int)myMaze.count;
+    if (_myMaze != nil)
+        return (int)_myMaze.count;
     else
         return -1;
 }
 
 -(int) getMazeWidth {
-    if (myMaze != nil) {
-        NSMutableArray* rows = [myMaze objectAtIndex:0];
+    if (_myMaze != nil) {
+        NSMutableArray* rows = [_myMaze objectAtIndex:0];
         return (int)rows.count;
     }
     return -1;
@@ -350,14 +348,14 @@ const int MOVE_COST = 5;
 }
 - (void) setJNodeToDict: (JNodeStruct) jnode {
     NSValue* nodeObj = [NSValue value:&jnode withObjCType:@encode(JNodeStruct)];
-    [nodeDict setObject:nodeObj forKey:[NSString stringWithFormat:@"%d", jnode.ID]];
+    [_nodeDict setObject:nodeObj forKey:[NSString stringWithFormat:@"%d", jnode.ID]];
 }
 
 - (JNodeStruct) getJNodeFromDict: (int)i {
     
     NSString* idString = [NSString stringWithFormat:@"%d", i];
     JNodeStruct jnode;
-    NSValue* nodeValue = [nodeDict objectForKey:idString];
+    NSValue* nodeValue = [_nodeDict objectForKey:idString];
     [nodeValue getValue:&jnode];
     
     return jnode;

@@ -13,16 +13,16 @@
 #import "SoundController.h"
 
 @implementation GameScene {
-    int Sprite_Edge;
-    int Pad_Bottom_Screen;
+    int _Sprite_Edge;
+    int _Pad_Bottom_Screen;
+    float _spriteScale;
     
-    GameLogic* sharedGameLogic;
-    BOOL botMoving;
-    NSMutableArray* mazeChars;
-    float spriteScale;
-    SoundController* soundController;
+    BOOL _botMoving;
+    BOOL _gameWin;
     
-    BOOL gameWin;
+    NSMutableArray* _mazeChars;
+    SoundController* _soundController;
+    GameLogic* _sharedGameLogic;
 }
 
 @synthesize AlreadyCompleted;
@@ -34,19 +34,12 @@
         /* Setup your scene here */
         
         //calculate Sprite's edge
-        Sprite_Edge = 40;
-        Pad_Bottom_Screen = 40;
-        
+        _Sprite_Edge = 40;
+        _Pad_Bottom_Screen = 40;
         printf("%f %f", size.height, size.width);
         
-        gameWin = NO;
-        
-        //sharedGameLogic = [GameLogic sharedGameLogic];
-
-        //self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-        //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
-        //self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
-        soundController = [[SoundController alloc] initWithSound];
+        _gameWin = NO;
+        _soundController = [[SoundController alloc] initWithSound];
         
         [self createMenu];
     }
@@ -55,7 +48,7 @@
 }
 
 - (void) setGameLogic: (GameLogic*) theGameLogic {
-    sharedGameLogic = theGameLogic;
+    _sharedGameLogic = theGameLogic;
 }
 
 
@@ -102,61 +95,59 @@
 
 -(void) createMaze: (NSMutableArray*) newMaze {
     
-    //printf("Current pack-level is: %d\n", self.LevelDetail.PackId, self.LevelDetail.LevelNum);
-    //create packID-level text
     SKLabelNode* levelText = (SKLabelNode*)[self childNodeWithName:@"LEVEL"];
     if (levelText != nil) {
         levelText.text = [NSString stringWithFormat:@"%d-%d", self.LevelDetail.PackId, self.LevelDetail.LevelNum];
     }
     
-    printf("before nextbtn: current level: %d alreadycompleted: %d", LevelDetail.LevelNum, AlreadyCompleted);
-    
+    //printf("before nextbtn: current level: %d alreadycompleted: %d", LevelDetail.LevelNum, AlreadyCompleted);
     //TODO: currently commented for debug, when deploy it will be used
     //PRODUCTION
     if (LevelDetail.LevelNum > AlreadyCompleted) {
         [[self childNodeWithName:NEXTBTN_NAME] removeFromParent];
     }
     
-    botMoving = NO;
+    _botMoving = NO;
     
-    mazeChars = [NSMutableArray arrayWithArray:newMaze];
+    _mazeChars = [NSMutableArray arrayWithArray:newMaze];
     
     //resize sprite base on the width of maze
     //TODO: convert newEdge to float value, detect screen width in runtime
     
     int width = 0;
-    for (NSMutableString* line in mazeChars) {
+    for (NSMutableString* line in _mazeChars) {
         if (width < line.length) {
             width = (int)line.length;
         }
     }
     
     //should fill short line
-    for (int j = 0; j < mazeChars.count; j++) {
-        NSMutableString* line = [mazeChars objectAtIndex:j];
+    for (int j = 0; j < _mazeChars.count; j++) {
+        NSMutableString* line = [_mazeChars objectAtIndex:j];
         NSString* newline = ([line stringByPaddingToLength:width withString:@" " startingAtIndex:0]);
-        [mazeChars setObject:newline atIndexedSubscript:j];
+        [_mazeChars setObject:newline atIndexedSubscript:j];
         
     }
     
-    int newEdge = 320 / width;
-    spriteScale = (float)newEdge / Sprite_Edge;
-    Sprite_Edge = newEdge;
+    //this is important to resize the block size of the sprite accordingly
+    int WIDTH = (int) [UIScreen mainScreen].bounds.size.width;
+    int newEdge = WIDTH / width;
+    _spriteScale = (float)newEdge / _Sprite_Edge;
+    _Sprite_Edge = newEdge;
     
-    NSLog(@"%f", spriteScale);
-    
+    //NSLog(@"%f", _spriteScale);
     //TODO: debug purpose
     //[self displayMazeChars];
     
     //init maze in gameLogic
-    [sharedGameLogic initMaze:mazeChars];
+    [_sharedGameLogic initMaze:_mazeChars];
     
     int boxCnt = 1;
     int cntSpot = 0;
     
     //draw maze on board
-    for (int i = (int)mazeChars.count - 1; i >= 0; i--) {
-        NSString* line = (NSString*)mazeChars[i];
+    for (int i = (int)_mazeChars.count - 1; i >= 0; i--) {
+        NSString* line = (NSString*)_mazeChars[i];
         for (int j = 0; j < line.length; j++) {
             
             if ([line characterAtIndex:j] == ' ') continue;
@@ -201,17 +192,17 @@
             }
             
             if (blockSprite != nil) {
-                float x = j * Sprite_Edge + Sprite_Edge/2;
-                float y = Pad_Bottom_Screen + (mazeChars.count - i) * Sprite_Edge - Sprite_Edge / 2;
+                float x = j * _Sprite_Edge + _Sprite_Edge/2;
+                float y = _Pad_Bottom_Screen + (_mazeChars.count - i) * _Sprite_Edge - _Sprite_Edge / 2;
                 
                 //NSLog(@"%f %f", x, y);
                 blockSprite.position = CGPointMake(x, y);
-                blockSprite.scale = spriteScale;
+                blockSprite.scale = _spriteScale;
                 [self addChild:blockSprite];
                 
                 if (blockSprite_2 != nil) {
                     blockSprite_2.position = CGPointMake(x, y);
-                    blockSprite_2.scale = spriteScale;
+                    blockSprite_2.scale = _spriteScale;
                     [self addChild:blockSprite_2];
                     blockSprite_2 = nil;
                 }
@@ -220,11 +211,11 @@
     }
     
     //set criteria for win game
-    sharedGameLogic.NoOfSpots = cntSpot;
+    _sharedGameLogic.NoOfSpots = cntSpot;
     
     //play sound
-    if (sharedGameLogic.SOUND_ON)
-        [soundController playBackgroundMusic];
+    if (_sharedGameLogic.SOUND_ON)
+        [_soundController playBackgroundMusic];
 }
 
 
@@ -255,29 +246,29 @@
         switch (tmpChar) {
             case 'L': {
                     flipAction = [SKAction runBlock:^{
-                        myBot.xScale = -1 * spriteScale;
+                        myBot.xScale = -1 * _spriteScale;
                     }];
                 
                 [moves addObject:flipAction];
 
-                aMove = [SKAction moveByX:-1 * Sprite_Edge y:0 duration:MOVE_DURATION];
+                aMove = [SKAction moveByX:-1 * _Sprite_Edge y:0 duration:MOVE_DURATION];
                 break;
             }
             case 'R': {
                 flipAction = [SKAction runBlock:^{
-                    myBot.xScale = 1 * spriteScale;
+                    myBot.xScale = 1 * _spriteScale;
                 }];
                 [moves addObject:flipAction];
 
-                aMove = [SKAction moveByX:Sprite_Edge y:0 duration:MOVE_DURATION];
+                aMove = [SKAction moveByX:_Sprite_Edge y:0 duration:MOVE_DURATION];
                 break;
             }
             case 'U': {
-                aMove = [SKAction moveByX:0 y:Sprite_Edge duration:MOVE_DURATION];
+                aMove = [SKAction moveByX:0 y:_Sprite_Edge duration:MOVE_DURATION];
                 break;
             }
             case 'D': {
-                aMove = [SKAction moveByX:0 y:-1 * Sprite_Edge duration:MOVE_DURATION];
+                aMove = [SKAction moveByX:0 y:-1 * _Sprite_Edge duration:MOVE_DURATION];
                 break;
             }
         }
@@ -291,9 +282,9 @@
     
     NSArray* moveArray = [[NSArray alloc] initWithArray:moves];
     SKAction* moveSequence = [SKAction sequence:moveArray];
-    botMoving = YES;
+    _botMoving = YES;
     
-    [soundController playRunSound];
+    [_soundController playRunSound];
     [myBot runAction:moveSequence completion:^{[self botStop: botOldLocation];}];
 }
 
@@ -301,8 +292,7 @@
     //MARK: for debugging
     //MatrixPosStruct botPos = [self getMatrixPos:[self getBotLocation]];
     //printf("stop location : %d,%d\n", botPos.Row, botPos.Col);
-    //NSLog(@"bot Stop");
-    botMoving = NO;
+    _botMoving = NO;
 }
 
 /*
@@ -320,7 +310,7 @@
             return;
         }
         
-        if (botMoving){
+        if (_botMoving){
             break;
         }
         
@@ -351,11 +341,10 @@
         if (isEmptyPlace) {
             MatrixPosStruct touchPos = [self getMatrixPos:location];
             MatrixPosStruct botPos = [self getMatrixPos:[self getBotLocation]];
-            
-            printf("bot location: %d,%d ---> %d,%d\n", botPos.Row, botPos.Col, touchPos.Row, touchPos.Col);
-            
+            //MARK: for debugging
+            //printf("bot location: %d,%d ---> %d,%d\n", botPos.Row, botPos.Col, touchPos.Row, touchPos.Col);
             //if the 'boxes' are not touched
-            NSString* path = [sharedGameLogic getShortestPath:touchPos withBotPos:botPos];
+            NSString* path = [_sharedGameLogic getShortestPath:touchPos withBotPos:botPos];
             if (path.length > 0 && ![path isEqualToString:PATH_OUTBOUND]) {
                 [self showDestinationIcon:touchPos canMove:YES];
                 [self moveBot:path];
@@ -393,23 +382,14 @@
         }
         else if ([tmpNode.name isEqual:SOUNDONBTN_NAME]) {
             
-            if (sharedGameLogic.SOUND_ON) {
-                printf("sound on");
-                sharedGameLogic.SOUND_ON = NO;
-                [soundController stopBackgroundMusic];
+            if (_sharedGameLogic.SOUND_ON) {
+                _sharedGameLogic.SOUND_ON = NO;
+                [_soundController stopBackgroundMusic];
             }
             else {
-                printf("sound off");
-                sharedGameLogic.SOUND_ON = YES;
-                [soundController playBackgroundMusic];
+                _sharedGameLogic.SOUND_ON = YES;
+                [_soundController playBackgroundMusic];
             }
-            /*
-            if (soundController.SoundEnabled) {
-                [soundController stopBackgroundMusic];
-            }
-            else {
-                [soundController playBackgroundMusic];
-            }*/
             return YES;
         }
         else if ([tmpNode.name isEqual:HELPBTN_NAME]) {
@@ -511,8 +491,6 @@
     }
 }
 
-
-
 -(void) showDestinationIcon: (MatrixPosStruct) mpos canMove: (BOOL)canMove {
     
     NSString* tmpIMG = [[NSString alloc] init];
@@ -530,7 +508,7 @@
     if (sprite == nil) {
         sprite = [SKSpriteNode spriteNodeWithImageNamed:tmpIMG];
         sprite.name = CANNOTMOVE_NAME;
-        sprite.scale = spriteScale;
+        sprite.scale = _spriteScale;
         sprite.position = [self getCGPoint:mpos];
         [self addChild:sprite];
         
@@ -557,25 +535,25 @@
             //both should: LEFT
             if (botLocation.Col - boxLocation.Col == 1) {
                 if (![self boxHitWall:boxLocation.Row :boxLocation.Col - 1]) {
-                    moveSymbol = @"L";
+                    moveSymbol = [NSString stringWithFormat:@"%c", LEFT];
                 }
             }
             //RIGHT
             else if (boxLocation.Col - botLocation.Col == 1) {
                 if (![self boxHitWall:boxLocation.Row :boxLocation.Col + 1]) {
-                    moveSymbol = @"R";
+                    moveSymbol = [NSString stringWithFormat:@"%c", LEFT];
                 }
             }
         }
         else if (botLocation.Col == boxLocation.Col) {
             if (botLocation.Row - boxLocation.Row == 1) {
                 if (![self boxHitWall:boxLocation.Row - 1 :boxLocation.Col]) {
-                    moveSymbol = @"U";
+                    moveSymbol = [NSString stringWithFormat:@"%c", UP];
                 }
             }
             else if (boxLocation.Row - botLocation.Row == 1) {
                 if (![self boxHitWall:boxLocation.Row + 1 :boxLocation.Col]) {
-                    moveSymbol = @"D";
+                    moveSymbol = [NSString stringWithFormat:@"%c", DOWN];
                 }
             }
         }
@@ -588,32 +566,32 @@
             char tmpChar = [moveSymbol characterAtIndex:0];
             switch (tmpChar) {
                 case 'L': {
-                    aMove = [SKAction moveByX:-1 * Sprite_Edge y:0 duration:MOVE_DURATION];
+                    aMove = [SKAction moveByX:-1 * _Sprite_Edge y:0 duration:MOVE_DURATION];
                     flip = [SKAction runBlock:^{
-                        myBot.xScale = -1 * spriteScale;
+                        myBot.xScale = -1 * _spriteScale;
                     }];
                     break;
                 }
                 case 'R': {
-                    aMove = [SKAction moveByX:Sprite_Edge y:0 duration:MOVE_DURATION];
+                    aMove = [SKAction moveByX:_Sprite_Edge y:0 duration:MOVE_DURATION];
                     flip = [SKAction runBlock:^{
-                        myBot.XScale = 1 * spriteScale;
+                        myBot.XScale = 1 * _spriteScale;
                     }];
                     break;
                 }
                 case 'U':
-                    aMove = [SKAction moveByX:0 y:Sprite_Edge duration:MOVE_DURATION];
+                    aMove = [SKAction moveByX:0 y:_Sprite_Edge duration:MOVE_DURATION];
                     break;
                 case 'D':
-                    aMove = [SKAction moveByX:0 y:-1 * Sprite_Edge duration:MOVE_DURATION];
+                    aMove = [SKAction moveByX:0 y:-1 * _Sprite_Edge duration:MOVE_DURATION];
                     break;
             }
             
             
-            botMoving = YES;
+            _botMoving = YES;
             SKAction* botSeq = [SKAction sequence:@[flip, aMove]];
             
-            [soundController playMoveSound];
+            [_soundController playMoveSound];
             [myBot runAction:botSeq];
             [box runAction:aMove completion:^{[self updateMazeWithNewBoxLocation: box : boxLocation];}];
         }
@@ -629,7 +607,7 @@
     char replaceChar;
     
     //update mazeChars
-    NSString* line = [mazeChars objectAtIndex:boxOldLocation.Row];
+    NSString* line = [_mazeChars objectAtIndex:boxOldLocation.Row];
     //if move out from the previous spot
     //update the old position with spot char
     if ([line characterAtIndex:boxOldLocation.Col] == BOX_ON_SPOT) {
@@ -640,11 +618,11 @@
         replaceChar = PATH_CHAR;
     NSString* newstring = [line stringByReplacingCharactersInRange:NSMakeRange(boxOldLocation.Col, 1)
                                                          withString:[NSString stringWithFormat:@"%c", replaceChar]];
-    [mazeChars removeObjectAtIndex:boxOldLocation.Row];
-    [mazeChars insertObject:newstring atIndex:boxOldLocation.Row];
+    [_mazeChars removeObjectAtIndex:boxOldLocation.Row];
+    [_mazeChars insertObject:newstring atIndex:boxOldLocation.Row];
     
     //set wall
-    NSString* line2 = [mazeChars objectAtIndex:boxNewLocation.Row];
+    NSString* line2 = [_mazeChars objectAtIndex:boxNewLocation.Row];
     
     //if the next position is SPOT, replaceChar would be boxOnSpot
     //else replaceChar should be box char
@@ -656,17 +634,17 @@
     
     NSString* newstring2 = [line2 stringByReplacingCharactersInRange:NSMakeRange(boxNewLocation.Col, 1)
                                                           withString:[NSString stringWithFormat:@"%c", replaceChar]];
-    [mazeChars removeObjectAtIndex:boxNewLocation.Row];
-    [mazeChars insertObject:newstring2 atIndex:boxNewLocation.Row];
+    [_mazeChars removeObjectAtIndex:boxNewLocation.Row];
+    [_mazeChars insertObject:newstring2 atIndex:boxNewLocation.Row];
     
     //MARK: to diplayMazeChars for debugging
     //[self displayMazeChars];
     
-    BOOL win = [sharedGameLogic checkGameWin:mazeChars];
+    BOOL win = [_sharedGameLogic checkGameWin:_mazeChars];
     //TODO: need to put mazeChars to getShortestPath function
     if (!win) {
-        [sharedGameLogic initMaze:mazeChars];
-        botMoving = NO;
+        [_sharedGameLogic initMaze:_mazeChars];
+        _botMoving = NO;
     }
     else {
         [self handleGameWin];
@@ -676,21 +654,21 @@
 - (void) handleGameWin {
     NSLog(@"game is win");
     
-    gameWin = YES;
+    _gameWin = YES;
     //update completed level
-    [sharedGameLogic updateGameWin:self.LevelDetail];
+    [_sharedGameLogic updateGameWin:self.LevelDetail];
     
-    if (sharedGameLogic.SOUND_ON)
-        [soundController playClapSound];
+    if (_sharedGameLogic.SOUND_ON)
+        [_soundController playClapSound];
     
-    int isLastLevel = [sharedGameLogic isLastLevel:self.LevelDetail];
+    int isLastLevel = [_sharedGameLogic isLastLevel:self.LevelDetail];
     printf("isLastLevel: %d", isLastLevel);
     switch (isLastLevel) {
         case 0:
             [self showWinDialog:NO];
             break;
         case 1:
-            [sharedGameLogic unlockEpisode:self.LevelDetail.PackId + 1];
+            [_sharedGameLogic unlockEpisode:self.LevelDetail.PackId + 1];
             [self showWinDialog:YES];
             break;
         case 2: {
@@ -702,7 +680,8 @@
 
 - (void) restartLevel {
     //restart touched after game is won
-    AlreadyCompleted = (gameWin) ? AlreadyCompleted + 1 : AlreadyCompleted;
+    //the completed game must be current largest which > alreadycompleted level
+    AlreadyCompleted = (_gameWin && self.LevelDetail.LevelNum > AlreadyCompleted) ? AlreadyCompleted + 1 : AlreadyCompleted;
     
     self.LevelDetail.LevelNum--;
     [self.viewController createNewScene: self.LevelDetail chooseNext:YES alreadycompleted:AlreadyCompleted];
@@ -711,7 +690,7 @@
 //TODO: to test
 - (void) nextLevel {
     //next touched after game is won
-    AlreadyCompleted = (gameWin) ? AlreadyCompleted + 1 : AlreadyCompleted;
+    AlreadyCompleted = (_gameWin && self.LevelDetail.LevelNum > AlreadyCompleted) ? AlreadyCompleted + 1 : AlreadyCompleted;
     
     [self.viewController createNewScene:self.LevelDetail chooseNext:YES alreadycompleted:AlreadyCompleted];
 }
@@ -722,8 +701,8 @@
 
 //TODO: for debugging
 - (void) displayMazeChars {
-    for (int i = 0; i < mazeChars.count; i++) {
-        NSString* line = [mazeChars objectAtIndex:i];
+    for (int i = 0; i < _mazeChars.count; i++) {
+        NSString* line = [_mazeChars objectAtIndex:i];
         NSLog(@"%@", line);
     }
 }
@@ -760,10 +739,10 @@
  */
 -(MatrixPosStruct) getMatrixPos: (CGPoint) point {
     MatrixPosStruct pos;
-    pos.Col = (int)(point.x / Sprite_Edge);
-    pos.Row = (int)((point.y - Pad_Bottom_Screen) / Sprite_Edge) + 1;
+    pos.Col = (int)(point.x / _Sprite_Edge);
+    pos.Row = (int)((point.y - _Pad_Bottom_Screen) / _Sprite_Edge) + 1;
     
-    pos.Row = (int)mazeChars.count - pos.Row;
+    pos.Row = (int)_mazeChars.count - pos.Row;
     return pos;
 }
 
@@ -771,11 +750,8 @@
  * translate matrix row,col to anchor CGPoint
  */
 - (CGPoint) getCGPoint: (MatrixPosStruct) pos {
-
-    float x = pos.Col * Sprite_Edge + Sprite_Edge/2;
-    float y = Pad_Bottom_Screen + (mazeChars.count - pos.Row) * Sprite_Edge - Sprite_Edge / 2;
-    
-    printf("up:%f, %f", x, y);
+    float x = pos.Col * _Sprite_Edge + _Sprite_Edge/2;
+    float y = _Pad_Bottom_Screen + (_mazeChars.count - pos.Row) * _Sprite_Edge - _Sprite_Edge / 2;
     return CGPointMake(x, y);
 }
 

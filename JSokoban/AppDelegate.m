@@ -10,7 +10,6 @@
 #import "DataAccess.h"
 
 @implementation AppDelegate {
-    //TODO: to move to setting file
     NSString* DATABASE_FILE;
 }
 

@@ -23,10 +23,7 @@
     [super viewDidLoad];
     
     sharedGameLogic = [GameLogic sharedGameLogic];
-    
     [self createFirstScene];
-    //[self createEpisodeScene];
-    //[self createNewScene:Nil];
 }
 
 - (void) createFirstScene {
@@ -90,12 +87,12 @@
     
     scene.viewController = self;
     //keep game logic instance in ViewController
-    
-    //printf(sharedGameLogic.SOUND_ON ? "before: true" : "before: false");
     [scene setGameLogic:sharedGameLogic];
     
     scene.LevelDetail = nextLevel;
     scene.AlreadyCompleted = level;
+    
+    //printf("current level:%d, completed: %d", nextLevel.LevelNum, level);
 
     [scene createMaze:nextLevel.MazeChars];
     
