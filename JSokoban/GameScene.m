@@ -543,7 +543,7 @@
             //RIGHT
             else if (boxLocation.Col - botLocation.Col == 1) {
                 if (![self boxHitWall:boxLocation.Row :boxLocation.Col + 1]) {
-                    moveSymbol = [NSString stringWithFormat:@"%c", LEFT];
+                    moveSymbol = [NSString stringWithFormat:@"%c", RIGHT];
                 }
             }
         }
