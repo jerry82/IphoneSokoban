@@ -284,7 +284,9 @@
     SKAction* moveSequence = [SKAction sequence:moveArray];
     _botMoving = YES;
     
-    [_soundController playRunSound];
+    if (_sharedGameLogic.SOUND_ON)
+        [_soundController playRunSound];
+    
     [myBot runAction:moveSequence completion:^{[self botStop: botOldLocation];}];
 }
 
@@ -591,7 +593,8 @@
             _botMoving = YES;
             SKAction* botSeq = [SKAction sequence:@[flip, aMove]];
             
-            [_soundController playMoveSound];
+            if (_sharedGameLogic.SOUND_ON)
+                [_soundController playMoveSound];
             [myBot runAction:botSeq];
             [box runAction:aMove completion:^{[self updateMazeWithNewBoxLocation: box : boxLocation];}];
         }
