@@ -101,8 +101,9 @@
     }
     
     //printf("before nextbtn: current level: %d alreadycompleted: %d", LevelDetail.LevelNum, AlreadyCompleted);
-    //TODO: currently commented for debug, when deploy it will be used
+    //MARK: currently commented for debug, when deploy it will be used
     //PRODUCTION
+    
     if (LevelDetail.LevelNum > AlreadyCompleted) {
         [[self childNodeWithName:NEXTBTN_NAME] removeFromParent];
     }

@@ -173,10 +173,13 @@
             
             NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
         
+            //MARK: take out for debugging
             //return if lock
             int lock = [[tokens objectAtIndex:3] intValue];
             if (lock == 1)
                 return;
+            
+            
             
             LevelDetailItem* item = [[LevelDetailItem alloc] init];
             item.PackId = [[tokens objectAtIndex:0] intValue];

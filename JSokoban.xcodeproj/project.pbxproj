@@ -13,6 +13,7 @@
 		0F0BEA7318A9C8F900C672FE /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA6E18A9C8F900C672FE /* FMResultSet.m */; };
 		0F0BEA7618A9C94700C672FE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0BEA7518A9C94700C672FE /* libsqlite3.dylib */; };
 		0F0BEA7918A9CB2400C672FE /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA7818A9CB2300C672FE /* DataAccess.m */; };
+		0F16C02418BA8470005A6F8D /* sodokuDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0F16C02318BA8470005A6F8D /* sodokuDB.sqlite */; };
 		0F2548C418AE8B380085C295 /* LevelDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548C318AE8B380085C295 /* LevelDetailItem.m */; };
 		0F2548C918AEAB5F0085C295 /* EpisodeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F2548C818AEAB5F0085C295 /* EpisodeScene.m */; };
 		0F2548CF18AEB1120085C295 /* angrybirds-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F2548CE18AEB1120085C295 /* angrybirds-regular.ttf */; };
@@ -51,7 +52,6 @@
 		0F7112F418B42EE300560658 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F7112F318B42EE300560658 /* lock.png */; };
 		0F71130618B53E9500560658 /* popup_adv_completed.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71130518B53E9500560658 /* popup_adv_completed.png */; };
 		0F71130C18B565D200560658 /* wingame_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71130B18B565D200560658 /* wingame_screen.png */; };
-		0F71130E18B6545200560658 /* sodokuDB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0F71130D18B6545200560658 /* sodokuDB.sqlite */; };
 		0F71131E18B659B700560658 /* icon@57.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71131B18B659B700560658 /* icon@57.png */; };
 		0F71131F18B659B700560658 /* icon@114.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71131C18B659B700560658 /* icon@114.png */; };
 		0F71132018B659B700560658 /* icon@120.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71131D18B659B700560658 /* icon@120.png */; };
@@ -75,7 +75,7 @@
 		0FA5F4C11897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
 		0FA5F4C91897476E0073CF80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4C71897476E0073CF80 /* InfoPlist.strings */; };
 		0FA5F4CB1897476E0073CF80 /* JSokobanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */; };
-		0FB5B3DA18AF35BE007EFE38 /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FB5B3D918AF35BE007EFE38 /* FirstScene.m */; };
+		0FFE058518C04401005BA9CA /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFE058418C04401005BA9CA /* FirstScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +100,7 @@
 		0F0BEA7518A9C94700C672FE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0F0BEA7718A9CB2300C672FE /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccess.h; sourceTree = "<group>"; };
 		0F0BEA7818A9CB2300C672FE /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccess.m; sourceTree = "<group>"; };
+		0F16C02318BA8470005A6F8D /* sodokuDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sodokuDB.sqlite; sourceTree = "<group>"; };
 		0F2548C218AE8B380085C295 /* LevelDetailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDetailItem.h; sourceTree = "<group>"; };
 		0F2548C318AE8B380085C295 /* LevelDetailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelDetailItem.m; sourceTree = "<group>"; };
 		0F2548C718AEAB5F0085C295 /* EpisodeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeScene.h; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 		0F7112F318B42EE300560658 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		0F71130518B53E9500560658 /* popup_adv_completed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popup_adv_completed.png; sourceTree = "<group>"; };
 		0F71130B18B565D200560658 /* wingame_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wingame_screen.png; sourceTree = "<group>"; };
-		0F71130D18B6545200560658 /* sodokuDB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = sodokuDB.sqlite; sourceTree = "<group>"; };
 		0F71131B18B659B700560658 /* icon@57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@57.png"; sourceTree = "<group>"; };
 		0F71131C18B659B700560658 /* icon@114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@114.png"; sourceTree = "<group>"; };
 		0F71131D18B659B700560658 /* icon@120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@120.png"; sourceTree = "<group>"; };
@@ -172,8 +172,8 @@
 		0FA5F4C61897476E0073CF80 /* JSokobanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSokobanTests-Info.plist"; sourceTree = "<group>"; };
 		0FA5F4C81897476E0073CF80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSokobanTests.m; sourceTree = "<group>"; };
-		0FB5B3D818AF35BE007EFE38 /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirstScene.h; path = ../FirstScene.h; sourceTree = "<group>"; };
-		0FB5B3D918AF35BE007EFE38 /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirstScene.m; path = ../FirstScene.m; sourceTree = "<group>"; };
+		0FFE058318C04401005BA9CA /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstScene.h; sourceTree = "<group>"; };
+		0FFE058418C04401005BA9CA /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,9 +306,9 @@
 		0FA5F4A01897476E0073CF80 /* JSokoban */ = {
 			isa = PBXGroup;
 			children = (
-				0F71130D18B6545200560658 /* sodokuDB.sqlite */,
-				0FB5B3D818AF35BE007EFE38 /* FirstScene.h */,
-				0FB5B3D918AF35BE007EFE38 /* FirstScene.m */,
+				0FFE058318C04401005BA9CA /* FirstScene.h */,
+				0FFE058418C04401005BA9CA /* FirstScene.m */,
+				0F16C02318BA8470005A6F8D /* sodokuDB.sqlite */,
 				0F2548C118AE8B1F0085C295 /* Entity */,
 				0F0BEA7418A9C90900C672FE /* FMDB */,
 				0F0BEA5B18A43AFB00C672FE /* multimedia */,
@@ -455,7 +455,6 @@
 				0F7112EA18B2F80200560658 /* popup_instruction.png in Resources */,
 				0F71116F18B10EE700560658 /* back_btn50.png in Resources */,
 				0F7112F418B42EE300560658 /* lock.png in Resources */,
-				0F71130E18B6545200560658 /* sodokuDB.sqlite in Resources */,
 				0F7112E618B2F2E300560658 /* up50.png in Resources */,
 				0F25F71A18AD714000E83745 /* radiooff_btn50.png in Resources */,
 				0F2807BC18AC805C00DB42CC /* App.plist in Resources */,
@@ -477,6 +476,7 @@
 				0F71132818B65E0000560658 /* SplashScreen.png in Resources */,
 				0F71116718B0327B00560658 /* help50.png in Resources */,
 				0F2807A718AACC5100DB42CC /* box40.png in Resources */,
+				0F16C02418BA8470005A6F8D /* sodokuDB.sqlite in Resources */,
 				0F28079F18AAC79500DB42CC /* block40.png in Resources */,
 				0F25F71918AD714000E83745 /* next_btn50.png in Resources */,
 				0F25F71C18AD714000E83745 /* restart_btn50.png in Resources */,
@@ -506,11 +506,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FB5B3DA18AF35BE007EFE38 /* FirstScene.m in Sources */,
 				0F2548D218AEB5030085C295 /* EpisodeItem.m in Sources */,
 				0FA5F4B41897476E0073CF80 /* GameScene.m in Sources */,
 				0F2548C918AEAB5F0085C295 /* EpisodeScene.m in Sources */,
 				0FA5F4B11897476E0073CF80 /* ViewController.m in Sources */,
+				0FFE058518C04401005BA9CA /* FirstScene.m in Sources */,
 				0F71118818B14C6200560658 /* SoundController.m in Sources */,
 				0F2548C418AE8B380085C295 /* LevelDetailItem.m in Sources */,
 				0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */,
