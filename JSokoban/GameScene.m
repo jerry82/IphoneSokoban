@@ -18,7 +18,10 @@
     float _spriteScale;
     
     BOOL _botMoving;
+    BOOL _resetBotMove;
     BOOL _gameWin;
+    
+    NSCondition* _myCondition;
     
     NSMutableArray* _mazeChars;
     SoundController* _soundController;
@@ -109,6 +112,8 @@
     }
     
     _botMoving = NO;
+    _resetBotMove = NO;
+    _myCondition = [[NSCondition alloc] init];
     
     _mazeChars = [NSMutableArray arrayWithArray:newMaze];
     
@@ -225,6 +230,67 @@
  *  path array contains sequence of movement: L: Left, R: Right, U: Up, D: Down
  *  iterate through the input path string to create a movement of a sprite
  */
+-(void) moveBotTest: (NSString*) path atIndex: (int) idx{
+    
+    if (_resetBotMove == YES) return;
+
+    //search bot
+    SKNode* myBot = [self childNodeWithName:BOT_NAME];
+    if (myBot == nil || [path length] == 0) {
+        return;
+    }
+    
+    SKAction* aMove = [[SKAction alloc] init];
+    
+    char tmpChar = [path characterAtIndex:idx];
+    
+    //TODO: to check the sprite position again
+    //if already left, don't flip left
+    switch (tmpChar) {
+        case 'L': {
+            aMove = [SKAction moveByX:-1 * _Sprite_Edge y:0 duration:MOVE_DURATION];
+            break;
+        }
+        case 'R': {
+            aMove = [SKAction moveByX:_Sprite_Edge y:0 duration:MOVE_DURATION];
+            break;
+        }
+        case 'U': {
+            aMove = [SKAction moveByX:0 y:_Sprite_Edge duration:MOVE_DURATION];
+            break;
+        }
+        case 'D': {
+            aMove = [SKAction moveByX:0 y:-1 * _Sprite_Edge duration:MOVE_DURATION];
+            break;
+        }
+    }
+
+    _botMoving = YES;
+    
+    [myBot runAction:aMove completion:^{[self nextMove: path nextIdx:(idx + 1)];}];
+}
+
+-(void) nextMove: (NSString*) path nextIdx: (int)idx {
+    if (idx >= path.length) {
+        _botMoving = NO;
+        return;
+    }
+
+    //change path
+    if (_resetBotMove == YES) {
+        SKNode* myBot = [self childNodeWithName:BOT_NAME];
+        if (myBot != nil) {
+            
+            _botMoving = NO;
+            _resetBotMove = NO;
+            [myBot removeAllActions];
+            return;
+        }
+    }
+    
+    [self moveBotTest:path atIndex:idx];
+}
+
 -(void) moveBot: (NSString*) path{
     
     //search bot
@@ -313,8 +379,9 @@
             return;
         }
         
-        if (_botMoving){
-            break;
+        if (_botMoving) {
+            _resetBotMove = YES;
+            return;
         }
         
         //SKNode* touchNode = [self nodeAtPoint:location];
@@ -350,12 +417,12 @@
             NSString* path = [_sharedGameLogic getShortestPath:touchPos withBotPos:botPos];
             if (path.length > 0 && ![path isEqualToString:PATH_OUTBOUND]) {
                 [self showDestinationIcon:touchPos canMove:YES];
+                //[self moveBot:path atIndex:0];
                 [self moveBot:path];
             }
             else if (![path isEqualToString:PATH_OUTBOUND])
                 [self showDestinationIcon:touchPos canMove:NO];
         }
-
         //handle 1 touch
         break;
     }
