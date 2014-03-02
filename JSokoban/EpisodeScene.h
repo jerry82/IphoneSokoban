@@ -9,6 +9,8 @@
 #import <SpriteKit/SpriteKit.h>
 #import "ViewController.h"
 
+static NSString* const LevelNodeName = @"moveable-level";
+
 @interface EpisodeScene : SKScene
 
 @property (weak) ViewController* MainViewController;

@@ -75,6 +75,7 @@
 		0FA5F4C11897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
 		0FA5F4C91897476E0073CF80 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FA5F4C71897476E0073CF80 /* InfoPlist.strings */; };
 		0FA5F4CB1897476E0073CF80 /* JSokobanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */; };
+		0FC4481518C3AE7800615BFA /* EpisodeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC4481418C3AE7800615BFA /* EpisodeNode.m */; };
 		0FFE058518C04401005BA9CA /* FirstScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFE058418C04401005BA9CA /* FirstScene.m */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +173,8 @@
 		0FA5F4C61897476E0073CF80 /* JSokobanTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JSokobanTests-Info.plist"; sourceTree = "<group>"; };
 		0FA5F4C81897476E0073CF80 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FA5F4CA1897476E0073CF80 /* JSokobanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSokobanTests.m; sourceTree = "<group>"; };
+		0FC4481318C3AE7800615BFA /* EpisodeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodeNode.h; sourceTree = "<group>"; };
+		0FC4481418C3AE7800615BFA /* EpisodeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodeNode.m; sourceTree = "<group>"; };
 		0FFE058318C04401005BA9CA /* FirstScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstScene.h; sourceTree = "<group>"; };
 		0FFE058418C04401005BA9CA /* FirstScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -334,6 +337,8 @@
 				0F2548C818AEAB5F0085C295 /* EpisodeScene.m */,
 				0F71118618B14C6200560658 /* SoundController.h */,
 				0F71118718B14C6200560658 /* SoundController.m */,
+				0FC4481318C3AE7800615BFA /* EpisodeNode.h */,
+				0FC4481418C3AE7800615BFA /* EpisodeNode.m */,
 			);
 			path = JSokoban;
 			sourceTree = "<group>";
@@ -513,6 +518,7 @@
 				0FFE058518C04401005BA9CA /* FirstScene.m in Sources */,
 				0F71118818B14C6200560658 /* SoundController.m in Sources */,
 				0F2548C418AE8B380085C295 /* LevelDetailItem.m in Sources */,
+				0FC4481518C3AE7800615BFA /* EpisodeNode.m in Sources */,
 				0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */,
 				0F0BEA7918A9CB2400C672FE /* DataAccess.m in Sources */,
 				0F0BEA6F18A9C8F900C672FE /* FMDatabase.m in Sources */,

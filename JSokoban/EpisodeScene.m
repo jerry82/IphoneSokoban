@@ -9,6 +9,7 @@
 #import "EpisodeScene.h"
 #import "GameLogic.h"
 #import "EpisodeItem.h"
+#import "EpisodeNode.h"
 
 @implementation EpisodeScene {
     int PAGESIZE;
@@ -17,6 +18,7 @@
     int maxPageNo;
     NSMutableArray* levelSprites;
 }
+
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -88,53 +90,9 @@
             
             EpisodeItem* item = [allEpisodes objectAtIndex:j];
             int i = j % PAGESIZE;
-            
-            //SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:0.2] size:CGSizeMake(self.size.width, ItemHeight)];
-            SKSpriteNode* bar = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.1] size:CGSizeMake(self.size.width, ItemHeight)];
-            bar.position = CGPointMake(self.size.width / 2, self.size.height - (i + 2) * ItemHeight);
-            bar.hidden = YES;
-            //
-            bar.name = [NSString stringWithFormat:@"%d_%d_%d_%d", item.PackId, item.LevelCompleted, item.NumOfLevels, item.Lock];
-            
-            bar.zPosition = 10;
-            [self addChild:bar];
-            
-            UIColor* white = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-            
-            SKLabelNode* epNum = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
-            epNum.fontSize = 40;
-            epNum.fontColor = [UIColor colorWithRed:(float)213/255 green:(float)198/255 blue:(float)105/255 alpha:1];
-            epNum.text = [NSString stringWithFormat:@"%d", item.PackId];
-            epNum.position = CGPointMake(40, self.size.height - (i + 2) * ItemHeight - 20);
-            [self addChild:epNum];
-            
-            SKLabelNode* completed = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
-            completed.fontSize = 20;
-            completed.fontColor = white;
-            completed.text = [NSString stringWithFormat: @"(%d/%d)", item.LevelCompleted, item.NumOfLevels];
-            completed.position = CGPointMake(epNum.position.x + 140, epNum.position.y + 10);
-            [self addChild:completed];
-            
-            SKLabelNode* star = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
-            star.fontSize = 15;
-            star.fontColor = white;
-            star.text = @"Completed:";
-            star.position = CGPointMake(epNum.position.x + 70, epNum.position.y + 10);
-            [self addChild:star];
-            
-            
-            if (item.Lock == 1) {
-                SKSpriteNode* lock = [SKSpriteNode spriteNodeWithImageNamed:LOCK_IMG];
-                lock.position = CGPointMake(self.size.width - lock.size.width, self.size.height - (i + 2) * ItemHeight);
-                [self addChild:lock];
-                [levelSprites addObject:lock];
-            }
-            
-            [levelSprites addObject:bar];
-            [levelSprites addObject:epNum];
-            [levelSprites addObject:completed];
-            [levelSprites addObject:star];
-            
+            EpisodeNode* epNode = [[EpisodeNode alloc] initWithPos:self.size itemHeight:ItemHeight nth:i withItem:item];
+            [self addChild:epNode];
+            [levelSprites addObject:epNode];
             
             j += 1;
         }
@@ -173,12 +131,13 @@
             
             NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
         
-            //MARK: take out for debugging
+            //MARK: take out to access all locked levels
             //return if lock
+            /*
             int lock = [[tokens objectAtIndex:3] intValue];
             if (lock == 1)
                 return;
-            
+            */
             
             
             LevelDetailItem* item = [[LevelDetailItem alloc] init];
