@@ -48,6 +48,10 @@
 - (void) createEpisodeScene {
     
     SKView* skView = (SKView*) self.view;
+    //remove all gesture recognizer from previous scene
+    for (UIGestureRecognizer* gesture in self.view.gestureRecognizers) {
+        [skView removeGestureRecognizer:gesture];
+    }
     
     // Create and configure the scene.
     EpisodeScene* scene = [EpisodeScene sceneWithSize:skView.bounds.size];
@@ -61,6 +65,10 @@
     
     // Configure the view.
     SKView * skView = (SKView *)self.view;
+    //remove all gesture recognizer from previous scene
+    for (UIGestureRecognizer* gesture in self.view.gestureRecognizers) {
+        [skView removeGestureRecognizer:gesture];
+    }
     
     LevelDetailItem* nextLevel;
     if (next) {

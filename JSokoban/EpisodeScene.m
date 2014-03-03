@@ -12,11 +12,12 @@
 #import "EpisodeNode.h"
 
 @implementation EpisodeScene {
-    int PAGESIZE;
-    float ItemHeight;
-    int curPageNo;
-    int maxPageNo;
+    float _itemHeight;
     NSMutableArray* levelSprites;
+    NSMutableArray* yInitialPositions;
+    float _scrollScreenDuration;
+    CGPoint _titleFloorMargin;
+    CGPoint _titleCeilMargin;
 }
 
 
@@ -28,17 +29,16 @@
         //self.backgroundColor = [SKColor colorWithRed:(float)242/255 green:(float)236/255 blue:(float)212/255 alpha:1];
         //self.backgroundColor = [SKColor colorWithRed:(float)185/255 green:(float)233/255 blue:(float)255/255 alpha:1];
         
-        PAGESIZE = 5;
-        ItemHeight = self.size.height / 7;
-        curPageNo = 0;
+        _itemHeight = self.size.height / 7;
         levelSprites = [[NSMutableArray alloc] init];
+        _scrollScreenDuration = 0.5;
+
         
         [self createGUI];
     }
     
     return self;
 }
-
 
 //divide height to 6 equal size
 -(void) createGUI {
@@ -51,94 +51,131 @@
     SKLabelNode* title = [[SKLabelNode alloc] initWithFontNamed:APP_FONT_NAME];
     title.fontSize = 40;
     title.text = @"Select Adventure";
-    title.position = CGPointMake(self.size.width / 2, self.size.height - ItemHeight);
+    title.position = CGPointMake(self.size.width / 2, self.size.height - _itemHeight);
+    title.name = @"title";
     [self addChild:title];
     
+    [self createEpisodes];
     
-    SKSpriteNode* downSprite = [SKSpriteNode spriteNodeWithImageNamed:DOWN_IMG];
-    downSprite.name = DOWN_NAME;
-    downSprite.position = CGPointMake(self.size.width / 2 + downSprite.size.width, downSprite.size.height / 2);
-    
-    SKSpriteNode* upSprite = [SKSpriteNode spriteNodeWithImageNamed:UP_IMG];
-    upSprite.name = UP_NAME;
-    upSprite.position = CGPointMake(self.size.width / 2 - upSprite.size.width, upSprite.size.height / 2);
-    
-    [self addChild:downSprite];
-    [self addChild:upSprite];
-    
-    
-    curPageNo = 0;
-    [self createEpisodes: curPageNo];
-   
+    _titleFloorMargin = CGPointMake(self.size.width / 2, self.size.height - _itemHeight);
+    _titleCeilMargin = CGPointMake(self.size.width / 2, _itemHeight * (1 + levelSprites.count));
 }
 
-- (void) createEpisodes: (int) pageNo {
+- (void) createEpisodes {
 
     NSMutableArray* allEpisodes = [[GameLogic sharedGameLogic] getAllEpisodes];
     
-    maxPageNo = (int)(allEpisodes.count / PAGESIZE);
-    if (allEpisodes.count % PAGESIZE == 0)
-        maxPageNo -= 1;
-    //NSLog(@"maxpage: %d", maxPageNo);
-    
     if (allEpisodes.count > 0) {
-        
-        int j = pageNo * PAGESIZE;
-        while (j < pageNo * PAGESIZE + PAGESIZE) {
-            if (j >= allEpisodes.count)
-                break;
-            
-            EpisodeItem* item = [allEpisodes objectAtIndex:j];
-            int i = j % PAGESIZE;
-            EpisodeNode* epNode = [[EpisodeNode alloc] initWithPos:self.size itemHeight:ItemHeight nth:i withItem:item];
+        for (int i = 0; i < allEpisodes.count; i++) {
+            EpisodeItem* item = [allEpisodes objectAtIndex:i];
+            EpisodeNode* epNode = [[EpisodeNode alloc] initWithPos:self.size itemHeight:_itemHeight nth:i withItem:item];
             [self addChild:epNode];
+            epNode.name = LevelNodeName;
             [levelSprites addObject:epNode];
-            
-            j += 1;
+            [yInitialPositions addObject:[NSNumber numberWithFloat:epNode.position.y]];
         }
     }
 }
 
-//handle touch
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch* touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
-    SKNode* node = [self nodeAtPoint:location];
+- (void) didMoveToView:(SKView *)view {
     
-    NSLog(@"%@", node.name);
+    UIPanGestureRecognizer* panGes = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [[self view] addGestureRecognizer:panGes];
     
-    if (node.name != nil) {
-        if ([node.name isEqual:DOWN_NAME]) {
-            //clear old level sprite
-            [self clearCurrentLevelSprites];
-            
-            curPageNo += 1;
-            if (curPageNo > maxPageNo)
-                curPageNo = maxPageNo;
-            
-            [self createEpisodes:curPageNo];
-        }
-        else if ([node.name isEqual:UP_NAME]) {
-            [self clearCurrentLevelSprites];
-            curPageNo -= 1;
-            if (curPageNo < 0) {
-                curPageNo = 0;
-            }
-            [self createEpisodes:curPageNo];
-        }
-        //check bar press
-        else {
-            
-            NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
+    UITapGestureRecognizer* tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [[self view] addGestureRecognizer:tapGes];
+}
+
+- (void) handlePan: (UIPanGestureRecognizer*) panGes {
+    
+    if (panGes.state == UIGestureRecognizerStateEnded) {
+
+        CGPoint velocity = [panGes velocityInView:panGes.view];
+        //CGPoint translation = [panGes translationInView:panGes.view];
+        CGPoint translation = CGPointMake(velocity.x * 0.2, velocity.y * 0.2);
         
+        int direction = (velocity.y > 0) ? -1 : 1;
+        
+        SKNode* titleNode = [self getTitleNode];
+        
+        float delta;
+        
+        if (titleNode.position.y - translation.y < _titleFloorMargin.y) {
+            delta = _titleFloorMargin.y - titleNode.position.y;
+            [self scrollScreen:direction moveByY:delta];
+        }
+        else if (titleNode.position.y - translation.y > _titleCeilMargin.y) {
+            delta = _titleCeilMargin.y - titleNode.position.y;
+            [self scrollScreen:direction moveByY:delta];
+        }
+        else {
+            //delta = direction * 3 * _itemHeight;
+            delta = -1 * translation.y;
+            [self scrollScreen:direction moveByY:delta];
+        }
+    }
+}
+
+- (void) scrollScreen: (int) direction moveByY: (float)y {
+    SKAction* move = [SKAction moveByX:0 y: y duration:_scrollScreenDuration];
+    [move setTimingMode:SKActionTimingEaseOut];
+    
+    for (int i = 0; i < levelSprites.count; i++) {
+        SKNode* node = (SKNode*) [levelSprites objectAtIndex:i];
+        [node runAction:move completion:^{[self moveBack];}];
+    }
+    SKNode* titleNode = [self getTitleNode];
+    [titleNode runAction:move completion:^{[self moveBack];}];
+}
+
+- (void) moveBack {
+    CGPoint fix = CGPointMake(self.size.width / 2, self.size.height - _itemHeight);
+    SKNode* titleNode = [self getTitleNode];
+    
+    float moveBackDuration = 0.2;
+    
+    if (titleNode.position.y < fix.y) {
+        SKAction* moveBack = [SKAction moveToY:fix.y duration:moveBackDuration];
+        [titleNode runAction:moveBack];
+
+        for (int i = 0; i < levelSprites.count; i++) {
+            float y = [[yInitialPositions objectAtIndex:i] floatValue];
+            
+            SKNode* node = (SKNode*)[levelSprites objectAtIndex:i];
+            moveBack = [SKAction moveToY:y duration:moveBackDuration];
+            [node runAction:moveBack];
+        }
+    }
+}
+
+- (SKNode*) getTitleNode {
+    SKNode* node = [self childNodeWithName:@"title"];
+    return node;
+}
+
+- (void) handleTap: (UITapGestureRecognizer*) tapGes {
+    
+    if (tapGes.state == UIGestureRecognizerStateEnded) {
+        printf("tap\n");
+        CGPoint location = [tapGes locationInView:tapGes.view];
+        
+        //this is important
+        location = [self convertPointFromView:location];
+        
+        SKNode* node = [self nodeAtPoint:location];
+        
+        NSLog(@"%@", node.name);
+        if (node.name != nil) {
+            //check bar press
+            NSArray* tokens = [node.name componentsSeparatedByString:@"_"];
+            
             //MARK: take out to access all locked levels
             //return if lock
             /*
-            int lock = [[tokens objectAtIndex:3] intValue];
-            if (lock == 1)
-                return;
-            */
-            
+             int lock = [[tokens objectAtIndex:3] intValue];
+             if (lock == 1)
+             return;
+             */
             
             LevelDetailItem* item = [[LevelDetailItem alloc] init];
             item.PackId = [[tokens objectAtIndex:0] intValue];
@@ -155,17 +192,19 @@
             
             node.hidden = NO;
             SKAction* action = [SKAction waitForDuration:0.2];
-            [node runAction:action completion:^{                
+            [node runAction:action completion:^{
                 //chooseNext or Previous
                 [self.MainViewController createNewScene:item chooseNext:YES alreadycompleted:alreadycompleted];
             }];
         }
+        
     }
 }
 
 - (void) clearCurrentLevelSprites {
     for (int i = 0; i < levelSprites.count; i++) {
         SKSpriteNode* tmp = [levelSprites objectAtIndex:i];
+        [tmp removeAllChildren];
         [tmp removeFromParent];
     }
     [levelSprites removeAllObjects];
