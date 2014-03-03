@@ -88,7 +88,22 @@
 
 - (void) handlePan: (UIPanGestureRecognizer*) panGes {
     
-    if (panGes.state == UIGestureRecognizerStateEnded) {
+    if (panGes.state == UIGestureRecognizerStateChanged) {
+        CGPoint translation = [panGes translationInView:panGes.view];
+        
+        translation = CGPointMake(translation.x, -translation.y);
+        
+        SKNode* titleNode = [self getTitleNode];
+        titleNode.position = CGPointMake(titleNode.position.x, titleNode.position.y + translation.y);
+        for (int i = 0; i < levelSprites.count; i++) {
+            SKNode* node = (SKNode*) [levelSprites objectAtIndex:i];
+            node.position = CGPointMake(node.position.x, node.position.y + translation.y);
+        }
+        
+        
+        [panGes setTranslation:CGPointMake(0, 0) inView:panGes.view];
+    }
+    else if (panGes.state == UIGestureRecognizerStateEnded) {
 
         CGPoint velocity = [panGes velocityInView:panGes.view];
         //CGPoint translation = [panGes translationInView:panGes.view];
