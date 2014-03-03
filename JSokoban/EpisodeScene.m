@@ -31,7 +31,7 @@
         
         _itemHeight = self.size.height / 7;
         levelSprites = [[NSMutableArray alloc] init];
-        _scrollScreenDuration = 0.5;
+        _scrollScreenDuration = 0.3;
 
         
         [self createGUI];
@@ -101,11 +101,11 @@
         float delta;
         
         if (titleNode.position.y - translation.y < _titleFloorMargin.y) {
-            delta = _titleFloorMargin.y - titleNode.position.y;
+            delta = _titleFloorMargin.y - titleNode.position.y - 10;
             [self scrollScreen:direction moveByY:delta];
         }
         else if (titleNode.position.y - translation.y > _titleCeilMargin.y) {
-            delta = _titleCeilMargin.y - titleNode.position.y;
+            delta = _titleCeilMargin.y - titleNode.position.y + 10;
             [self scrollScreen:direction moveByY:delta];
         }
         else {
@@ -132,7 +132,7 @@
     CGPoint fix = CGPointMake(self.size.width / 2, self.size.height - _itemHeight);
     SKNode* titleNode = [self getTitleNode];
     
-    float moveBackDuration = 0.2;
+    float moveBackDuration = 0.05;
     
     if (titleNode.position.y < fix.y) {
         SKAction* moveBack = [SKAction moveToY:fix.y duration:moveBackDuration];
