@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F02E00318D28C3B00F22645 /* GameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F02E00218D28C3B00F22645 /* GameCenter.m */; };
 		0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4F18A43A4C00C672FE /* GameLogic.m */; };
 		0F0BEA5E18A53A4500C672FE /* PathFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5D18A53A4500C672FE /* PathFinder.m */; };
 		0F0BEA6F18A9C8F900C672FE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA6618A9C8F900C672FE /* FMDatabase.m */; };
@@ -90,6 +91,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F02E00118D28C3B00F22645 /* GameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenter.h; sourceTree = "<group>"; };
+		0F02E00218D28C3B00F22645 /* GameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenter.m; sourceTree = "<group>"; };
 		0F0BEA4E18A43A4C00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
 		0F0BEA4F18A43A4C00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
 		0F0BEA5C18A53A4500C672FE /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 				0F71118718B14C6200560658 /* SoundController.m */,
 				0FC4481318C3AE7800615BFA /* EpisodeNode.h */,
 				0FC4481418C3AE7800615BFA /* EpisodeNode.m */,
+				0F02E00118D28C3B00F22645 /* GameCenter.h */,
+				0F02E00218D28C3B00F22645 /* GameCenter.m */,
 			);
 			path = JSokoban;
 			sourceTree = "<group>";
@@ -521,6 +526,7 @@
 				0FC4481518C3AE7800615BFA /* EpisodeNode.m in Sources */,
 				0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */,
 				0F0BEA7918A9CB2400C672FE /* DataAccess.m in Sources */,
+				0F02E00318D28C3B00F22645 /* GameCenter.m in Sources */,
 				0F0BEA6F18A9C8F900C672FE /* FMDatabase.m in Sources */,
 				0FA5F4AB1897476E0073CF80 /* AppDelegate.m in Sources */,
 				0F0BEA5E18A53A4500C672FE /* PathFinder.m in Sources */,
@@ -656,7 +662,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JSokoban/JSokoban-Prefix.pch";
 				INFOPLIST_FILE = "JSokoban/JSokoban-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -672,7 +678,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JSokoban/JSokoban-Prefix.pch";
 				INFOPLIST_FILE = "JSokoban/JSokoban-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -10,6 +10,8 @@
 #import "GameLogic.h"
 #import "EpisodeItem.h"
 #import "EpisodeNode.h"
+#import <GameKit/GameKit.h>
+#import "GameCenter.h"
 
 @implementation EpisodeScene {
     float _itemHeight;
@@ -170,6 +172,9 @@
 
 - (void) handleTap: (UITapGestureRecognizer*) tapGes {
     
+    [[GameCenter sharedInstance] showLeaderBoard];
+    return;
+    
     if (tapGes.state == UIGestureRecognizerStateEnded) {
         printf("tap\n");
         CGPoint location = [tapGes locationInView:tapGes.view];
@@ -215,6 +220,8 @@
         
     }
 }
+
+
 
 - (void) clearCurrentLevelSprites {
     for (int i = 0; i < levelSprites.count; i++) {

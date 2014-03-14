@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DataAccess.h"
+#import "GameCenter.h"
 
 @implementation AppDelegate {
     NSString* DATABASE_FILE;
@@ -26,6 +27,11 @@
     [self createCopiedDBIfNeeded];
     [self initDB];
     
+    //login to game center
+    [[GameCenter sharedInstance] authenticateLocalUser];
+    
+    [[GameCenter sharedInstance] showLeaderBoard];
+            
     return YES;
 }
 							
