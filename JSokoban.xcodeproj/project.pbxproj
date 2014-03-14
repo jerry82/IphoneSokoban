@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F02E00318D28C3B00F22645 /* GameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F02E00218D28C3B00F22645 /* GameCenter.m */; };
+		0F02E00718D341FA00F22645 /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F02E00618D341FA00F22645 /* SplashScreen.png */; };
+		0F02E00918D3481E00F22645 /* leaderboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F02E00818D3481E00F22645 /* leaderboard.png */; };
 		0F0BEA5018A43A4C00C672FE /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA4F18A43A4C00C672FE /* GameLogic.m */; };
 		0F0BEA5E18A53A4500C672FE /* PathFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA5D18A53A4500C672FE /* PathFinder.m */; };
 		0F0BEA6F18A9C8F900C672FE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BEA6618A9C8F900C672FE /* FMDatabase.m */; };
@@ -59,7 +61,6 @@
 		0F71132418B65A5F00560658 /* icon@29.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71132118B65A5F00560658 /* icon@29.png */; };
 		0F71132518B65A5F00560658 /* icon@58.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71132218B65A5F00560658 /* icon@58.png */; };
 		0F71132618B65A5F00560658 /* icon@80.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71132318B65A5F00560658 /* icon@80.png */; };
-		0F71132818B65E0000560658 /* SplashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F71132718B65E0000560658 /* SplashScreen.png */; };
 		0FA5F4991897476E0073CF80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F4981897476E0073CF80 /* Foundation.framework */; };
 		0FA5F49B1897476E0073CF80 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */; };
 		0FA5F49D1897476E0073CF80 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FA5F49C1897476E0073CF80 /* UIKit.framework */; };
@@ -93,6 +94,8 @@
 /* Begin PBXFileReference section */
 		0F02E00118D28C3B00F22645 /* GameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenter.h; sourceTree = "<group>"; };
 		0F02E00218D28C3B00F22645 /* GameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenter.m; sourceTree = "<group>"; };
+		0F02E00618D341FA00F22645 /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SplashScreen.png; path = "../../game resource/for jsokoban/SplashScreen.png"; sourceTree = "<group>"; };
+		0F02E00818D3481E00F22645 /* leaderboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leaderboard.png; path = "../../game resource/for jsokoban/leaderboard.png"; sourceTree = "<group>"; };
 		0F0BEA4E18A43A4C00C672FE /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
 		0F0BEA4F18A43A4C00C672FE /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
 		0F0BEA5C18A53A4500C672FE /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
@@ -153,7 +156,6 @@
 		0F71132118B65A5F00560658 /* icon@29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@29.png"; sourceTree = "<group>"; };
 		0F71132218B65A5F00560658 /* icon@58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@58.png"; sourceTree = "<group>"; };
 		0F71132318B65A5F00560658 /* icon@80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@80.png"; sourceTree = "<group>"; };
-		0F71132718B65E0000560658 /* SplashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SplashScreen.png; sourceTree = "<group>"; };
 		0FA5F4951897476E0073CF80 /* JSokoban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSokoban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA5F4981897476E0073CF80 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FA5F49A1897476E0073CF80 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -213,7 +215,8 @@
 		0F0BEA5B18A43AFB00C672FE /* multimedia */ = {
 			isa = PBXGroup;
 			children = (
-				0F71132718B65E0000560658 /* SplashScreen.png */,
+				0F02E00818D3481E00F22645 /* leaderboard.png */,
+				0F02E00618D341FA00F22645 /* SplashScreen.png */,
 				0F71132118B65A5F00560658 /* icon@29.png */,
 				0F71132218B65A5F00560658 /* icon@58.png */,
 				0F71132318B65A5F00560658 /* icon@80.png */,
@@ -462,6 +465,7 @@
 				0F7112E518B2F2E300560658 /* down50.png in Resources */,
 				0FA5F4A51897476E0073CF80 /* InfoPlist.strings in Resources */,
 				0F2807B718ABEFCF00DB42CC /* cannotMove40.png in Resources */,
+				0F02E00918D3481E00F22645 /* leaderboard.png in Resources */,
 				0F7112EA18B2F80200560658 /* popup_instruction.png in Resources */,
 				0F71116F18B10EE700560658 /* back_btn50.png in Resources */,
 				0F7112F418B42EE300560658 /* lock.png in Resources */,
@@ -483,8 +487,8 @@
 				0F71117F18B14B3800560658 /* ingame.mp3 in Resources */,
 				0FA5F4AE1897476E0073CF80 /* Main.storyboard in Resources */,
 				0F25F70D18AD408A00E83745 /* pause50.png in Resources */,
-				0F71132818B65E0000560658 /* SplashScreen.png in Resources */,
 				0F71116718B0327B00560658 /* help50.png in Resources */,
+				0F02E00718D341FA00F22645 /* SplashScreen.png in Resources */,
 				0F2807A718AACC5100DB42CC /* box40.png in Resources */,
 				0F16C02418BA8470005A6F8D /* sodokuDB.sqlite in Resources */,
 				0F28079F18AAC79500DB42CC /* block40.png in Resources */,

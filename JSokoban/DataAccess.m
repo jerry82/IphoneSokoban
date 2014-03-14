@@ -217,4 +217,28 @@ NSString* DatabasePath;
     [_db close];
 }
 
+- (int) getTotalScore {
+    int score = -1;
+    
+    if (![_db open]) {
+        NSLog(@"db failed to open");
+        return score;
+    }
+    
+    FMResultSet *rs = [_db executeQuery: @"SELECT (SUM(current_level) - COUNT(id)) AS score FROM pack;"];
+    
+    while ([rs next]) {
+        score = [rs intForColumn:@"score"];
+        break;
+    }
+    
+    
+    if ([_db hadError]) {
+        NSLog(@"DB Error %d: %@", [_db lastErrorCode], [_db lastErrorMessage]);
+    }
+    [_db close];
+    
+    return score;
+}
+
 @end

@@ -172,9 +172,6 @@
 
 - (void) handleTap: (UITapGestureRecognizer*) tapGes {
     
-    [[GameCenter sharedInstance] showLeaderBoard];
-    return;
-    
     if (tapGes.state == UIGestureRecognizerStateEnded) {
         printf("tap\n");
         CGPoint location = [tapGes locationInView:tapGes.view];
@@ -191,11 +188,11 @@
             
             //MARK: take out to access all locked levels
             //return if lock
-            /*
+            
              int lock = [[tokens objectAtIndex:3] intValue];
              if (lock == 1)
              return;
-             */
+            //end
             
             LevelDetailItem* item = [[LevelDetailItem alloc] init];
             item.PackId = [[tokens objectAtIndex:0] intValue];

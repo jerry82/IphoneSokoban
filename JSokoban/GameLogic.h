@@ -62,6 +62,9 @@ extern NSString* const NEXTBTN_NAME;
 extern NSString* const BACKBTN_IMG;
 extern NSString* const BACKBTN_NAME;
 
+extern NSString* const RANKBTN_IMG;
+extern NSString* const RANKBTN_NAME;
+
 extern NSString* const MENUBAR_IMG;
 extern NSString* const MENUBAR_NAME;
 
@@ -112,6 +115,10 @@ extern NSString* const CLAP_SOUND;
 
 extern NSString* const WINGAME_SCREEN_IMG;
 extern NSString* const WINGAME_SCREEN_NAME;
+extern NSString* const RATEME_NAME;
+extern NSString* const PLAYNAME;
+
+extern NSString* const LEADERBOARD;
 
 extern const char LEFT;
 extern const char RIGHT;
@@ -143,6 +150,8 @@ extern const float MOVE_DURATION;
 - (int) isLastLevel: (LevelDetailItem*) curLevelItem;
 
 - (NSMutableArray*) getAllEpisodes;
+
+- (void) rateMyApplication;
 
 @end
 

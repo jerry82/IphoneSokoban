@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "MenuNode.h"
 #import "SoundController.h"
+#import "GameCenter.h"
 
 @implementation GameScene {
     int _Sprite_Edge;
@@ -68,6 +69,12 @@
     pauseBtn.name = PAUSE_NAME;
     pauseBtn.zPosition = 10;
     [self addChild:pauseBtn];
+    
+    SKSpriteNode* rankBtn = [SKSpriteNode spriteNodeWithImageNamed:RANKBTN_IMG];
+    rankBtn.position = CGPointMake(rankBtn.size.width * 3 / 2, self.size.height - rankBtn.size.height);
+    rankBtn.name = RANKBTN_NAME;
+    rankBtn.zPosition = 10;
+    [self addChild:rankBtn];
     
     //TODO: this is for debugging
     //next button
@@ -483,6 +490,10 @@
             [self previousLevel];
             return YES;
         }
+        else if ([tmpNode.name isEqual:RANKBTN_NAME]) {
+            [[GameCenter sharedInstance] showLeaderBoard];
+            return YES;
+        }
     }
     
     return NO;
@@ -747,6 +758,8 @@
             break;
         }
     }
+    
+    [[GameCenter sharedInstance] submitScore];
 }
 
 - (void) restartLevel {

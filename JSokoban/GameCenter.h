@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
+#import "DataAccess.h"
 
 @interface GameCenter : NSObject <GKGameCenterControllerDelegate> {
     BOOL _gameCenterAvailable;
@@ -20,11 +21,9 @@
 
 -(void) authenticateLocalUser;
 
--(void) submitScore : (int) noOflevels;
+-(void) submitScore;
 
 -(UIViewController*) getRootViewController;
-
--(void)presentViewController:(UIViewController*)vc ;
 
 -(void) showLeaderBoard;
 

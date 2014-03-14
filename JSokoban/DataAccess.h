@@ -28,4 +28,6 @@ extern NSString* DatabasePath;
 
 - (void) unlockEpisode: (int) packId;
 
+- (int) getTotalScore;
+
 @end

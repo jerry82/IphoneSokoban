@@ -64,6 +64,9 @@ NSString* const NEXTBTN_NAME = @"next_btn";
 NSString* const BACKBTN_IMG = @"back_btn50";
 NSString* const BACKBTN_NAME = @"back_btn";
 
+NSString* const RANKBTN_IMG = @"leaderboard";
+NSString* const RANKBTN_NAME = @"leaderboard";
+
 NSString* const MENUBTN_IMG = @"menu_btn50";
 NSString* const MENUBTN_NAME = @"menu_btn";
 
@@ -121,6 +124,11 @@ NSString* const CLAP_SOUND = @"clap.mp3";
 
 NSString* const WINGAME_SCREEN_IMG = @"wingame_screen";
 NSString* const WINGAME_SCREEN_NAME = @"wingame_screen";
+NSString* const RATEME_NAME = @"rateme";
+NSString* const PLAYNAME = @"play";
+
+NSString* const LEADERBOARD = @"ChizMoverLeaderBoard";
+NSString* const MYAPP_LINK = @"itms-apps://itunes.apple.com/app/id825700196";
 
 const char LEFT = 'L';
 const char RIGHT = 'R';
@@ -245,6 +253,15 @@ const float MOVE_DURATION = 0.15;
 
 - (NSMutableArray*) getAllEpisodes {
     return [[DataAccess sharedInstance] getAllEpisodes];
+}
+
+- (void) rateMyApplication {
+    @try {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MYAPP_LINK]];
+    }
+    @catch (NSException* ex) {
+        NSLog(@"Exception rating app: %@", ex);
+    }
 }
 
 //helper

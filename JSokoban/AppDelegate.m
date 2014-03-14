@@ -29,9 +29,7 @@
     
     //login to game center
     [[GameCenter sharedInstance] authenticateLocalUser];
-    
-    [[GameCenter sharedInstance] showLeaderBoard];
-            
+                
     return YES;
 }
 							
